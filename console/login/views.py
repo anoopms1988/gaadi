@@ -39,3 +39,5 @@ class LoginView(View):
     def logout(self,request):
         logout(request)
         return HttpResponseRedirect('/console/login/')
+
+
