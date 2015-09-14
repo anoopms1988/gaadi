@@ -1,6 +1,48 @@
 {% extends "consolelayout/layout.html" %}
 
 {% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <h4 class="page-header">Car management</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Add new car
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                    <form method='post' action=''>
+                  	{% csrf_token %} 
+	                    <div class="form-group">
+							<label for="company">Company </label>
+							{{form.name}}	
+						</div>
+						<div class="form-group">
+							<label for="cartype">Cartype </label>
+							<select class="form-control" name="cartype" id="cartype">
+							<option value=" ">Select</option>
+							{% for cartype in cartypes %}
+							<option value="{{cartype.id}}">{{cartype.type}}</option>
+							{% endfor %}
+	                        </select>	
+						</div>
+						<div class="form-group">
+							<label>Car name</label>
+							<input id="carname" class="form-control" type="text" placeholder="Enter car name" name="carname">
+						</div>
+						<input class="btn btn-primary" type="submit" value="Submit" name="addcar_submit">
+						<button class="btn btn-danger" type="reset">Reset</button>
+						</form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block script %}
