@@ -26,3 +26,20 @@ class CarType(models.Model):
     type = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
+
+
+class Car(models.Model):
+
+    class Meta:
+        db_table = 'cars'
+
+    def __str__(self):
+        pass
+    
+    name = models.CharField(max_length=100)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
+    company = models.ForeignKey(Company)
+    type = models.ForeignKey(CarType)
+    description=models.CharField(max_length=100, blank=True)

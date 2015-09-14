@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import View
-from .forms import LoginForm
+from .forms import LoginForm,CarForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
+from .models import Company,CarType
 
 
 class LoginView(View):
@@ -34,7 +35,10 @@ class LoginView(View):
             return render(request, 'login.html', {'form': form})
 
     def dashboard(self,request):
-        return render(request,'dashboard.html',{})
+        all_companies=Company.objects.all()
+        all_cartypes =CarType.objects.all()
+        form =CarForm()
+        return render(request,'dashboard.html',{'form':form,'companies':all_companies,'cartypes':all_cartypes})
 
     def logout(self,request):
         logout(request)
