@@ -10,8 +10,13 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Add new car
+                Add new car            
             </div>
+                 {% if messages %}
+                    {% for message in messages %}
+                        <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                    {% endfor %}
+                 {% endif %}
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-12">
