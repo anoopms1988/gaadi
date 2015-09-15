@@ -38,7 +38,7 @@ class Car(models.Model):
     updated_at = models.DateTimeField(auto_now=True, null=True)
     company = models.ForeignKey(Company)
     cartype = models.ForeignKey(CarType)
-    description = models.CharField(max_length=100, blank=True)
+    description = models.CharField(max_length=100)
 
     def __str__(self):
     	return str(self.name)

@@ -53,16 +53,16 @@ class CarView(View):
             company = request.POST.get('company')
             cartype = request.POST.get('cartype')
             name = request.POST.get('name')
+            description=request.POST.get('description')
             if company and cartype and name:
                 car = Car()
                 car.company = Company.objects.get(id=company)
                 car.cartype = CarType.objects.get(id=cartype)
                 car.name = name
+                car.description=description
                 car.save()
                 messages.success(request,'Car details added.')
                 return HttpResponseRedirect('/console/dashboard/')
-            else:
-                pass
 
             return render(request, 'dashboard.html', {'form': form})
         else:
