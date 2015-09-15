@@ -20,10 +20,7 @@ class CarType(models.Model):
     class Meta:
         db_table = 'cartypes'
 
-    def __str__(self):
-        pass
-
-    type = models.CharField(max_length=100)
+    cartype = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 
@@ -33,13 +30,15 @@ class Car(models.Model):
     class Meta:
         db_table = 'cars'
 
-    def __str__(self):
-        pass
-    
-    name = models.CharField(max_length=100)
+    CHOICES = (('1', 'Honda'),)
+
+    name = models.CharField(max_length=100,blank=False)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
     company = models.ForeignKey(Company)
-    type = models.ForeignKey(CarType)
-    description=models.CharField(max_length=100, blank=True)
+    cartype = models.ForeignKey(CarType)
+    description = models.CharField(max_length=100, blank=True)
+
+    def __str__(self):
+    	return str(self.name)
