@@ -35,7 +35,7 @@ class Car(models.Model):
 
     def __str__(self):
         pass
-    
+
     name = models.CharField(max_length=100)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
