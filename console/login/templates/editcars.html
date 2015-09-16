@@ -1,7 +1,7 @@
   <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <form method='post' action='/console/editcar'>
+                            <form method='post' action='/console/editcar' id='edit_car'>
                                 {% csrf_token %}
                                 <input type="hidden" name='car_id' value='{{car_id}}'>
                                 <div class="form-group">
@@ -31,16 +31,16 @@
 <script type="text/javascript">
 $(document).ready(function () {
         
-         $("#assistance_details_form").validate({
+         $("#edit_car").validate({
             rules: {
                 company: "required",
                 cartype: "required",
                 name :"required",
             },
             messages: {
-                company: "Enter  your company.",
-                cartype: "Enter your cartype.",
-                name: "Enter your name"
+                company: "<div class='text-danger'>Enter  your company.</div>",
+                cartype: "<div class='text-danger'>Enter your cartype.</div>",
+                name: "<div class='text-danger'>Enter your name</div>"
             }
         });
 
