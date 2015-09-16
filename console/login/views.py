@@ -94,4 +94,4 @@ class CarView(View):
         car = Car.objects.get(id=car_id)
         car.is_active = 0
         car.save()
-        return HttpResponseRedirect('/console/cars/')
+        return HttpResponse('success')

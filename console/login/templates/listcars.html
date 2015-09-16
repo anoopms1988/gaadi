@@ -95,7 +95,7 @@
                     url:'/console/deletecar',
                     data: {id:carId,csrfmiddlewaretoken:'{{ csrf_token }}'},
                     success: function (response) {
-                       if(response.status=="success"){
+                       if(response=="success"){
                             location.reload();
                        }
                     }
