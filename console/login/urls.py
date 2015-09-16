@@ -14,5 +14,6 @@ urlpatterns = [
         views.CarView().delete_cars), name='deletecars'),
     url(r'^specificcar', login_required(
         views.CarView().specific_car), name='specificcar'),
+    url(r'^editcar', login_required(views.CarView().edit_car), name='editcar'),
     url(r'^', LoginView.as_view()),
 ]

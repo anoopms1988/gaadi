@@ -4,6 +4,11 @@
     <div class="row">
         <div class="col-lg-12">
             <h4 class="page-header">Car management</h4>
+             {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
     <div class="row">
@@ -59,10 +64,7 @@
                                                             <div class="modal-body" id="modal-body">
                                                           
                                                             </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                <button type="button" class="btn btn-primary">Save changes</button>
-                                                            </div>
+                                                            
                                                         </div>
                                                         <!-- /.modal-content -->
                                                     </div>
@@ -128,14 +130,10 @@
                 var carId = splitElements[2];
                 $.ajax({
                     type: "POST",
-                    url:'/console/editcar',
+                    url:'/console/specificcar',
                     data: {id:carId,csrfmiddlewaretoken:'{{ csrf_token }}'},
                     success: function (response) {
-                       if(response=="success"){
-                            location.reload();
-                       }else{
-
-                       }
+                      $("#modal-body").html(response);
                     }
                 });
         });

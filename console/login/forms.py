@@ -19,7 +19,7 @@ class CarForm(forms.ModelForm):
                                 required=True, widget=forms.Select(attrs={'class': 'form-control'}))
     name = forms.CharField(error_messages={'required': 'Car name is required'}, required=True, max_length=100,
                            widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter car name'}))
-    description = forms.CharField(required=False, widget=forms.Textarea(
+    description = forms.CharField(required=False,widget=forms.Textarea(
         attrs={'class': 'form-control', 'placeholder': 'Enter car description'}))
 
     class Meta:
