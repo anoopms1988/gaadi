@@ -10,7 +10,6 @@ from django.conf import settings
 
 
 class LoginView(View):
-
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated():
             return HttpResponseRedirect('/console/dashboard/')
@@ -49,7 +48,6 @@ class LoginView(View):
 
 
 class CarView(View):
-
     'Class for dealing with car details manipulation'
 
     def get(self, request, *args, **kwargs):
@@ -121,3 +119,10 @@ class CarView(View):
                 return HttpResponseRedirect('/console/cars')
         else:
             return HttpResponseRedirect('/console/cars')
+
+
+class VariantView(View):
+    'Class for dealing with car details manipulation'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'variant.html', {})
