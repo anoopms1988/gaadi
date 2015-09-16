@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from .models import Company, CarType, Car
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.conf import settings
 
 
 class LoginView(View):
@@ -72,9 +73,8 @@ class CarView(View):
 
     def list_cars(self, request):
         cars_list = Car.objects.all()
-        paginator = Paginator(cars_list, 2)
+        paginator = Paginator(cars_list,settings.PAGINATION_LIMIT)
         page = request.GET.get('page')
-
         try:
             cars = paginator.page(page)
         except PageNotAnInteger:
