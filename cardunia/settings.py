@@ -114,3 +114,5 @@ STATICFILES_DIRS = (
 
 #constants
 PAGINATION_LIMIT =2
+
+LOGIN_URL='/console/login/'

@@ -12,7 +12,10 @@ from django.conf import settings
 class LoginView(View):
 
     def get(self, request, *args, **kwargs):
-        return render(request, 'login.html', {'form': LoginForm})
+        if request.user.is_authenticated():
+            return HttpResponseRedirect('/console/dashboard/')
+        else:
+            return render(request, 'login.html', {'form': LoginForm})
 
     def post(self, request, *args, **kwargs):
         form = LoginForm(request.POST)
@@ -95,3 +98,6 @@ class CarView(View):
         car.is_active = 0
         car.save()
         return HttpResponse('success')
+
+    def specific_car(self, request):
+        pass

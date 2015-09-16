@@ -39,7 +39,7 @@
                                                     <td>{{ car.company.name }}</td>
                                                     <td>{{ car.cartype.cartype }}</td>
                                                     <td>
-                                                        <button class="btn btn-primary btn-circle" type="button"><i
+                                                        <button class="editcar btn btn-primary btn-circle" type="button" id="edit_car_{{car.id}}" data-target="#myModal" data-toggle="modal"><i
                                                                 class="fa fa-list"></i>
                                                         </button>
                                                         <button class="deletecar btn btn-warning btn-circle"
@@ -49,6 +49,25 @@
 
                                                     </td>
                                                 </tr>
+                                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                <h4 class="modal-title" id="myModalLabel">Edit car</h4>
+                                                            </div>
+                                                            <div class="modal-body" id="modal-body">
+                                                          
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                                            </div>
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                    </div>
+                                <!-- /.modal-dialog -->
+                                            </div>
                                             {% endfor %}
                                             </tbody>
                                         </table>
@@ -102,6 +121,25 @@
                 });
             }
         });
+
+        $('.editcar').click(function () {
+                var id = $(this).attr('id');
+                var splitElements = id.split("_");
+                var carId = splitElements[2];
+                $.ajax({
+                    type: "POST",
+                    url:'/console/editcar',
+                    data: {id:carId,csrfmiddlewaretoken:'{{ csrf_token }}'},
+                    success: function (response) {
+                       if(response=="success"){
+                            location.reload();
+                       }else{
+
+                       }
+                    }
+                });
+        });
+
     });
 
 </script>
