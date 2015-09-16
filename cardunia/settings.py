@@ -57,7 +57,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-             os.path.join(BASE_DIR, "templates"),
+            os.path.join(BASE_DIR, "templates"),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -66,6 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'console.login.context_processors.global_settings'
             ],
         },
     },
@@ -78,7 +79,7 @@ WSGI_APPLICATION = 'cardunia.wsgi.application'
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 DATABASES = {
-       'default': {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'cardunia',
         'USER': 'postgres',
@@ -86,8 +87,6 @@ DATABASES = {
         'HOST': 'localhost'
     }
 }
-
-
 
 
 # Internationalization
@@ -112,3 +111,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+
+#constants
+PAGINATION_LIMIT =2
+
+LOGIN_URL='/console/login/'

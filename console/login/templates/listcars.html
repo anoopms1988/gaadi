@@ -4,6 +4,11 @@
     <div class="row">
         <div class="col-lg-12">
             <h4 class="page-header">Car management</h4>
+             {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
     <div class="row">
@@ -39,16 +44,32 @@
                                                     <td>{{ car.company.name }}</td>
                                                     <td>{{ car.cartype.cartype }}</td>
                                                     <td>
-                                                        <button class="btn btn-primary btn-circle" type="button"><i
+                                                        <button class="editcar btn btn-primary btn-circle" type="button" id="edit_car_{{car.id}}" data-target="#myModal" data-toggle="modal"><i
                                                                 class="fa fa-list"></i>
                                                         </button>
                                                         <button class="deletecar btn btn-warning btn-circle"
-                                                                id="delete_car_" type="button"><i
+                                                                id="delete_car_{{car.id}}" type="button"><i
                                                                 class="fa fa-times"></i>
                                                         </button>
 
                                                     </td>
                                                 </tr>
+                                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                <h4 class="modal-title" id="myModalLabel">Edit car</h4>
+                                                            </div>
+                                                            <div class="modal-body" id="modal-body">
+                                                          
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                    </div>
+                                <!-- /.modal-dialog -->
+                                            </div>
                                             {% endfor %}
                                             </tbody>
                                         </table>
@@ -82,4 +103,42 @@
     </div>
 {% endblock %}
 {% block script %}
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('.deletecar').click(function () {
+            if (confirm("Are you want to delete the car")) {
+                var id = $(this).attr('id');
+                var splitElements = id.split("_");
+                var carId = splitElements[2];
+                $.ajax({
+                    type: "POST",
+                    url:'/console/deletecar',
+                    data: {id:carId,csrfmiddlewaretoken:'{{ csrf_token }}'},
+                    success: function (response) {
+                       if(response=="success"){
+                            location.reload();
+                       }
+                    }
+                });
+            }
+        });
+
+        $('.editcar').click(function () {
+                var id = $(this).attr('id');
+                var splitElements = id.split("_");
+                var carId = splitElements[2];
+                $.ajax({
+                    type: "POST",
+                    url:'/console/specificcar',
+                    data: {id:carId,csrfmiddlewaretoken:'{{ csrf_token }}'},
+                    success: function (response) {
+                      $("#modal-body").html(response);
+                    }
+                });
+        });
+
+    });
+
+</script>
 {% endblock %}
