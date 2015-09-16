@@ -10,6 +10,7 @@ from django.conf import settings
 
 
 class LoginView(View):
+
     def get(self, request, *args, **kwargs):
         return render(request, 'login.html', {'form': LoginForm})
 
@@ -45,6 +46,7 @@ class LoginView(View):
 
 
 class CarView(View):
+
     'Class for dealing with car details manipulation'
 
     def get(self, request, *args, **kwargs):
@@ -72,8 +74,8 @@ class CarView(View):
             return render(request, 'dashboard.html', {'form': form})
 
     def list_cars(self, request):
-        cars_list = Car.objects.all()
-        paginator = Paginator(cars_list,settings.PAGINATION_LIMIT)
+        cars_list = Car.objects.exclude(is_active=False)
+        paginator = Paginator(cars_list, settings.PAGINATION_LIMIT)
         page = request.GET.get('page')
         try:
             cars = paginator.page(page)
@@ -81,7 +83,15 @@ class CarView(View):
             # If page is not an integer, deliver first page.
             cars = paginator.page(1)
         except EmptyPage:
-            # If page is out of range (e.g. 9999), deliver last page of results.
+            # If page is out of range (e.g. 9999), deliver last page of
+            # results.
             cars = paginator.page(paginator.num_pages)
 
         return render(request, 'listcars.html', {'cars': cars})
+
+    def delete_cars(self, request):
+        car_id = request.POST.get('id')
+        car = Car.objects.get(id=car_id)
+        car.is_active = 0
+        car.save()
+        return HttpResponseRedirect('/console/cars/')
