@@ -5,10 +5,10 @@ from .forms import LoginForm, CarForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from .models import Company, CarType, Car
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 class LoginView(View):
-
     def get(self, request, *args, **kwargs):
         return render(request, 'login.html', {'form': LoginForm})
 
@@ -44,8 +44,10 @@ class LoginView(View):
 
 
 class CarView(View):
-
     'Class for dealing with car details manipulation'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'dashboard.html', {'form': CarForm})
 
     def post(self, request, *args, **kwargs):
         form = CarForm(request.POST)
@@ -53,17 +55,33 @@ class CarView(View):
             company = request.POST.get('company')
             cartype = request.POST.get('cartype')
             name = request.POST.get('name')
-            description=request.POST.get('description')
+            description = request.POST.get('description')
             if company and cartype and name:
                 car = Car()
                 car.company = Company.objects.get(id=company)
                 car.cartype = CarType.objects.get(id=cartype)
                 car.name = name
-                car.description=description
+                car.description = description
                 car.save()
-                messages.success(request,'Car details added.')
+                messages.success(request, 'Car details added.')
                 return HttpResponseRedirect('/console/dashboard/')
 
             return render(request, 'dashboard.html', {'form': form})
         else:
             return render(request, 'dashboard.html', {'form': form})
+
+    def list_cars(self, request):
+        cars_list = Car.objects.all()
+        paginator = Paginator(cars_list, 2)
+        page = request.GET.get('page')
+
+        try:
+            cars = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            cars = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            cars = paginator.page(paginator.num_pages)
+
+        return render(request, 'listcars.html', {'cars': cars})

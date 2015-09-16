@@ -30,7 +30,6 @@ class Car(models.Model):
     class Meta:
         db_table = 'cars'
 
-    CHOICES = (('1', 'Honda'),)
 
     name = models.CharField(max_length=100,blank=False)
     is_active = models.BooleanField(default=True)
