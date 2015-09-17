@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'cardunia',
         'USER': 'postgres',
-        'PASSWORD': 'inapp',
+        'PASSWORD': 'postgres',
         'HOST': 'localhost'
     }
 }
