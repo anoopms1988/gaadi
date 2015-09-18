@@ -1,5 +1,5 @@
 from django import forms
-from .models import Car, Company, CarType
+from .models import Car, Company, CarType, Variant, Fuel
 
 
 class LoginForm(forms.Form):
@@ -15,8 +15,6 @@ class CarForm(forms.ModelForm):
         model = Car
         fields = ['name', 'company', 'cartype', 'description']
 
-    required_css_class = "required"
-    error_css_class = 'error'
     company = forms.ChoiceField(error_messages={'required': 'Company name is required'},
                                 choices=[('', 'Select')] + [(o.id, o.name)
                                                             for o in Company.objects.all()],
@@ -29,3 +27,26 @@ class CarForm(forms.ModelForm):
                            widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter car name'}))
     description = forms.CharField(required=False, widget=forms.Textarea(
         attrs={'class': 'form-control', 'placeholder': 'Enter car description'}))
+
+
+class VariantForm(forms.ModelForm):
+    class Meta:
+        model = Variant
+        fields = ['car', 'fuel', 'name']
+
+    company = forms.ChoiceField(error_messages={'required': 'Company name is required'},
+                                choices=[('', 'Select')] + [(o.id, o.name)
+                                                            for o in Company.objects.all()],
+                                required=True, widget=forms.Select(attrs={'class': 'form-control ', 'id': 'company'}))
+
+    car = forms.ChoiceField(error_messages={'required': 'Car name is required'},
+                            choices=[('', 'Select')] + [(o.id, o.name)
+                                                        for o in Car.objects.all()],
+                            required=True, widget=forms.Select(attrs={'class': 'form-control ', 'id': 'car'}))
+    fuel = forms.ChoiceField(error_messages={'required': 'fuel type is required'},
+                             choices=[('', 'Select')] + [(o.id, o.name)
+                                                         for o in Fuel.objects.all()],
+                             required=True, widget=forms.Select(attrs={'class': 'form-control'}))
+    name = forms.CharField(error_messages={'required': 'Variant name is required'}, required=True, max_length=100,
+                           widget=forms.TextInput(
+                               attrs={'class': 'form-control', 'placeholder': 'Enter variant name'}))

@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import View
-from .forms import LoginForm, CarForm
-from django.http import HttpResponseRedirect, HttpResponse
+from .forms import LoginForm, CarForm, VariantForm
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib import messages
-from .models import Company, CarType, Car
+from .models import Company, CarType, Car, Variant, Fuel
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
+from django.core import serializers
 
 
 class LoginView(View):
@@ -125,4 +126,28 @@ class VariantView(View):
     'Class for dealing with car details manipulation'
 
     def get(self, request, *args, **kwargs):
-        return render(request, 'variant.html', {})
+        return render(request, 'variant.html', {'form': VariantForm})
+
+    def post(self, request, *args, **kwargs):
+        form = VariantForm(request.POST)
+        if form.is_valid:
+            name = request.POST.get('name')
+            car_id = request.POST.get('car')
+            fuel_id = request.POST.get('fuel')
+            if name and car_id and fuel_id:
+                variant = Variant()
+                variant.name = name
+                variant.car = Car.objects.get(id=car_id)
+                variant.fuel = Fuel.objects.get(id=fuel_id)
+                variant.save()
+
+            return render(request, 'variant.html', {'form': form})
+        else:
+            return render(request, 'variant.html', {'form': form})
+
+    def specific_cars(self, request):
+        company_id = request.POST.get('id')
+        company = Company.objects.get(id=company_id)
+        car_list = Car.objects.filter(company=company)
+        data = serializers.serialize('json', car_list)
+        return HttpResponse(data)
