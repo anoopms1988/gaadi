@@ -61,12 +61,10 @@
                 data: {id: companyId,csrfmiddlewaretoken:'{{ csrf_token }}'},
                 dataType:'json',
                 success: function (response) {
-
+                    $('#car').empty();
+                    $('#car').append($('<option>').text('Select').attr('value', ''));
                     $.each(response, function (key, value) {
-                        if(key=='fields'){
-                            $('#car').append($('<option>').text(value.name).attr('value', value.company));
-                        }
-
+                            $('#car').append($('<option>').text(value.fields.name).attr('value', value.pk));
                     });
                 }
             });

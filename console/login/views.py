@@ -139,7 +139,10 @@ class VariantView(View):
                 variant.name = name
                 variant.car = Car.objects.get(id=car_id)
                 variant.fuel = Fuel.objects.get(id=fuel_id)
+                variant.is_active = True
                 variant.save()
+                messages.success(request, 'Variant details added.')
+                return HttpResponseRedirect('/console/addvariant/')
 
             return render(request, 'variant.html', {'form': form})
         else:
