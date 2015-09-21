@@ -32,7 +32,7 @@ class CarForm(forms.ModelForm):
 class VariantForm(forms.ModelForm):
     class Meta:
         model = Variant
-        fields = ['car', 'fuel', 'name']
+        fields = ['company', 'car', 'fuel', 'name']
 
     company = forms.ChoiceField(error_messages={'required': 'Company name is required'},
                                 choices=[('', 'Select')] + [(o.id, o.name)

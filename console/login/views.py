@@ -154,3 +154,29 @@ class VariantView(View):
         car_list = Car.objects.filter(company=company)
         data = serializers.serialize('json', car_list)
         return HttpResponse(data)
+
+    def list_variants(self, request):
+        variants_list = Variant.objects.exclude(is_active=False)
+        paginator = Paginator(variants_list, settings.PAGINATION_LIMIT)
+        page = request.GET.get('page')
+        try:
+            variants = paginator.page(page)
+        except PageNotAnInteger:
+            variants = paginator.page(1)
+        except EmptyPage:
+            variants = paginator.page(paginator.num_pages)
+
+        return render(request, 'listvariants.html', {'variants':variants})
+
+    def delete_variant(self, request):
+        variant_id = request.POST.get('id')
+        variant = Variant.objects.get(id=variant_id)
+        variant.is_active = 0
+        variant.save()
+        return HttpResponse('success')
+
+    def specific_variant(self, request):
+        variant_id = request.POST.get('id')
+        variant = Variant.objects.get(id=variant_id)
+        form = VariantForm(instance=variant)
+        return render(request, 'editvariant.html', {'form': form, 'variant_id': variant_id})
