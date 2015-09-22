@@ -166,7 +166,7 @@ class VariantView(View):
         except EmptyPage:
             variants = paginator.page(paginator.num_pages)
 
-        return render(request, 'listvariants.html', {'variants':variants})
+        return render(request, 'listvariants.html', {'variants': variants})
 
     def delete_variant(self, request):
         variant_id = request.POST.get('id')
@@ -178,5 +178,25 @@ class VariantView(View):
     def specific_variant(self, request):
         variant_id = request.POST.get('id')
         variant = Variant.objects.get(id=variant_id)
-        form = VariantForm(instance=variant)
+        company_id = variant.car.company.id
+        form = VariantForm(initial={'company': company_id}, instance=variant)
         return render(request, 'editvariant.html', {'form': form, 'variant_id': variant_id})
+
+    def edit_variant(self, request):
+        form = VariantForm(request.POST)
+        if form.is_valid:
+            name = request.POST.get('name')
+            car_id = request.POST.get('car')
+            fuel_id = request.POST.get('fuel')
+            variant_id = request.POST.get('variant_id')
+            if name and car_id and fuel_id:
+                variant = Variant(id=variant_id)
+                variant.car = Car.objects.get(id=car_id)
+                variant.fuel = Fuel.objects.get(id=fuel_id)
+                variant.name = name
+                variant.save()
+                messages.success(request, 'Car details edited.')
+                return HttpResponseRedirect('/console/listvariants')
+
+        else:
+            return HttpResponseRedirect('/console/listvariants')

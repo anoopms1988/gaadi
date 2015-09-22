@@ -21,5 +21,6 @@ urlpatterns = [
     url(r'^deletevariant', login_required(views.VariantView().delete_variant), name='deletevariant'),
     url(r'^specificvariant', login_required(
         views.VariantView().specific_variant), name='specificvariant'),
+    url(r'^editvariant', login_required(views.VariantView().edit_variant), name='editvariant'),
     url(r'^', LoginView.as_view()),
 ]

@@ -8,10 +8,13 @@
                 <div class="form-group">
                     <label for="company">Name </label>
 
-                    {{ form.name  }}{{ form.name.errors.as_text }}
+                    {{ form.name }}{{ form.name.errors.as_text }}
 
                 </div>
-
+                <div class="form-group">
+                    <label for="car">Company </label>
+                    {{ form.company }}{{ form.company.errors.as_text }}
+                </div>
                 <div class="form-group">
                     <label for="car">Car </label>
                     {{ form.car }}{{ form.car.errors.as_text }}
@@ -21,10 +24,10 @@
                     {{ form.fuel }}{{ form.fuel.errors.as_text }}
                 </div>
 
-{#                <div class="form-group">#}
-{#                    <label>Description</label>#}
-{#                    {{ form.description }}{{ form.description.errors.as_text }}#}
-{#                </div>#}
+                {#                <div class="form-group">#}
+                {#                    <label>Description</label>#}
+                {#                    {{ form.description }}{{ form.description.errors.as_text }}#}
+                {#                </div>#}
                 <input class="btn btn-primary" type="submit" value="Submit" name="addcar_submit">
                 <button id='reset-button' class="btn btn-danger" type="reset">Reset</button>
             </form>
@@ -33,21 +36,36 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-
-        $("#edit_car_form").validate({
+          $('#company').change(function () {
+            var companyId = $(this).val();
+            $.ajax({
+                type: "POST",
+                url: '/console/listcars',
+                data: {id: companyId,csrfmiddlewaretoken:'{{ csrf_token }}'},
+                dataType:'json',
+                success: function (response) {
+                    $('#car').empty();
+                    $('#car').append($('<option>').text('Select').attr('value', ''));
+                    $.each(response, function (key, value) {
+                            $('#car').append($('<option>').text(value.fields.name).attr('value', value.pk));
+                    });
+                }
+            });
+        });
+        $("#edit_variant_form").validate({
             rules: {
                 company: "required",
-                cartype: "required",
+                car: "required",
                 name: "required",
+                fuel: "required",
             },
             messages: {
                 company: "<div class='text-danger'>Enter  your company.</div>",
-                cartype: "<div class='text-danger'>Enter your cartype.</div>",
-                name: "<div class='text-danger'>Enter your name</div>"
+                car: "<div class='text-danger'>Enter your car.</div>",
+                name: "<div class='text-danger'>Enter your name</div>",
+                fuel: "<div class='text-danger'>Enter your fuel type</div>",
             }
         });
-
-
 
 
     });

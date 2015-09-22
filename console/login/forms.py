@@ -39,6 +39,7 @@ class VariantForm(forms.ModelForm):
                                                             for o in Company.objects.all()],
                                 required=True, widget=forms.Select(attrs={'class': 'form-control ', 'id': 'company'}))
 
+
     car = forms.ChoiceField(error_messages={'required': 'Car name is required'},
                             choices=[('', 'Select')] + [(o.id, o.name)
                                                         for o in Car.objects.all()],
