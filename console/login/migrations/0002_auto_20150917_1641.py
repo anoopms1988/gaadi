@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('login', '0007_auto_20150914_1110'),
+        ('login', '0001_initial'),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='car',
-            old_name='type',
-            new_name='cartype',
+            model_name='fuel',
+            old_name='fuel',
+            new_name='name',
         ),
     ]

@@ -7,13 +7,12 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('login', '0008_auto_20150915_0640'),
+        ('login', '0005_auto_20150919_1639'),
     ]
 
     operations = [
-        migrations.RenameField(
-            model_name='cartype',
-            old_name='type',
-            new_name='cartype',
+        migrations.RemoveField(
+            model_name='variant',
+            name='fuel',
         ),
     ]

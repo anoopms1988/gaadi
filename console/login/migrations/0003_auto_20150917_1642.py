@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('login', '0005_auto_20150914_1030'),
+        ('login', '0002_auto_20150917_1641'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='car',
-            name='company',
-            field=models.ForeignKey(to='login.Company', choices=[(b'1', b'Honda')]),
+            model_name='fuel',
+            name='name',
+            field=models.CharField(max_length=100, blank=True),
         ),
     ]

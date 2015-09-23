@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('login', '0004_car'),
+        ('login', '0006_remove_variant_fuel'),
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='car',
-            name='description',
-            field=models.CharField(max_length=100, blank=True),
+        migrations.AddField(
+            model_name='variant',
+            name='fuel',
+            field=models.ForeignKey(to='login.Fuel', default=1),
         ),
     ]

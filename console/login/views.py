@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import View
-from .forms import LoginForm, CarForm
-from django.http import HttpResponseRedirect, HttpResponse
+from .forms import LoginForm, CarForm, VariantForm
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib import messages
-from .models import Company, CarType, Car
+from .models import Company, CarType, Car, Variant, Fuel
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
+from django.core import serializers
 
 
 class LoginView(View):
@@ -125,4 +126,77 @@ class VariantView(View):
     'Class for dealing with car details manipulation'
 
     def get(self, request, *args, **kwargs):
-        return render(request, 'variant.html', {})
+        return render(request, 'variant.html', {'form': VariantForm})
+
+    def post(self, request, *args, **kwargs):
+        form = VariantForm(request.POST)
+        if form.is_valid:
+            name = request.POST.get('name')
+            car_id = request.POST.get('car')
+            fuel_id = request.POST.get('fuel')
+            if name and car_id and fuel_id:
+                variant = Variant()
+                variant.name = name
+                variant.car = Car.objects.get(id=car_id)
+                variant.fuel = Fuel.objects.get(id=fuel_id)
+                variant.is_active = True
+                variant.save()
+                messages.success(request, 'Variant details added.')
+                return HttpResponseRedirect('/console/addvariant/')
+
+            return render(request, 'variant.html', {'form': form})
+        else:
+            return render(request, 'variant.html', {'form': form})
+
+    def specific_cars(self, request):
+        company_id = request.POST.get('id')
+        company = Company.objects.get(id=company_id)
+        car_list = Car.objects.filter(company=company)
+        data = serializers.serialize('json', car_list)
+        return HttpResponse(data)
+
+    def list_variants(self, request):
+        variants_list = Variant.objects.exclude(is_active=False)
+        paginator = Paginator(variants_list, settings.PAGINATION_LIMIT)
+        page = request.GET.get('page')
+        try:
+            variants = paginator.page(page)
+        except PageNotAnInteger:
+            variants = paginator.page(1)
+        except EmptyPage:
+            variants = paginator.page(paginator.num_pages)
+
+        return render(request, 'listvariants.html', {'variants': variants})
+
+    def delete_variant(self, request):
+        variant_id = request.POST.get('id')
+        variant = Variant.objects.get(id=variant_id)
+        variant.is_active = 0
+        variant.save()
+        return HttpResponse('success')
+
+    def specific_variant(self, request):
+        variant_id = request.POST.get('id')
+        variant = Variant.objects.get(id=variant_id)
+        company_id = variant.car.company.id
+        form = VariantForm(initial={'company': company_id}, instance=variant)
+        return render(request, 'editvariant.html', {'form': form, 'variant_id': variant_id})
+
+    def edit_variant(self, request):
+        form = VariantForm(request.POST)
+        if form.is_valid:
+            name = request.POST.get('name')
+            car_id = request.POST.get('car')
+            fuel_id = request.POST.get('fuel')
+            variant_id = request.POST.get('variant_id')
+            if name and car_id and fuel_id:
+                variant = Variant(id=variant_id)
+                variant.car = Car.objects.get(id=car_id)
+                variant.fuel = Fuel.objects.get(id=fuel_id)
+                variant.name = name
+                variant.save()
+                messages.success(request, 'Car details edited.')
+                return HttpResponseRedirect('/console/listvariants')
+
+        else:
+            return HttpResponseRedirect('/console/listvariants')
