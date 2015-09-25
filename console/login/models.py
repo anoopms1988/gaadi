@@ -6,7 +6,7 @@ class Company(models.Model):
         db_table = 'companies'
 
     name = models.CharField(max_length=100)
-    logo = models.CharField(max_length=100)
+    logo = models.FileField(upload_to='./companylogos/')
     description =models.CharField(max_length=100, null=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
