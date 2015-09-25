@@ -1,0 +1,142 @@
+{% extends "consolelayout/layout.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h4 class="page-header">Companies management</h4>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    List all companies
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Company details
+
+                                    <button data-target="#add_company" data-toggle="modal"
+                                            class="btn btn-primary pull-right ">
+                                        Add company
+                                    </button>
+
+                                </div>
+                                <!-- /.panel-heading -->
+                                <div class="panel-body">
+                                    <div class="dataTable_wrapper">
+                                        <table id="dataTables-example"
+                                               class="table table-striped table-bordered table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th>Company</th>
+                                                <th>Description</th>
+                                                <th>Logo</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% load staticfiles %}
+                                            {% for company in all_companies %}
+                                                <tr class="odd gradeX">
+                                                    <td>{{ company.name }} </td>
+                                                    <td>{{ company.description }} </td>
+                                                    <td><img src="{% static  'companylogos/audi.png' %}"></td>
+                                                    <td>
+                                                        <button class="editcompany btn btn-primary btn-circle"
+                                                                type="button"
+                                                                id="edit_company_" data-target="#myModal"
+                                                                data-toggle="modal"><i
+                                                                class="fa fa-list"></i>
+                                                        </button>
+                                                        <button class="deletecompany btn btn-warning btn-circle"
+                                                                id="delete_company_" type="button"><i
+                                                                class="fa fa-times"></i>
+                                                        </button>
+
+                                                    </td>
+                                                </tr>
+                                                <div class="modal fade" id="add_company" tabindex="-1" role="dialog"
+                                                     aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-hidden="true">&times;</button>
+                                                                <h4 class="modal-title" id="myModalLabel">Add
+                                                                    Company</h4>
+                                                            </div>
+                                                            <div class="modal-body" id="modal-body">
+                                                                <form method='post' action=''
+                                                                      id='add_company_form' enctype="multipart/form-data">
+                                                                    {% csrf_token %}
+                                                                    <div>Company name</div>
+                                                                    <div>{{ form.name }}</div>
+                                                                    <div>Description</div>
+                                                                    <div>{{ form.description }}</div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
+                                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+                                                     aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-hidden="true">&times;</button>
+                                                                <h4 class="modal-title" id="myModalLabel">Edit car</h4>
+                                                            </div>
+                                                            <div class="modal-body" id="modal-body">
+
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+
+                                </div>
+                                <!-- /.panel-body -->
+                                <!--/ Pagination -->
+                                {#                                <div class="pagination">#}
+                                {#                                    <span class="step-links">#}
+                                {#                                        {% if variants.has_previous %}#}
+                                {#                                            <a href="?page={{ variants.previous_page_number }}">previous</a>#}
+                                {#                                        {% endif %}#}
+                                {##}
+                                {#                                        <span class="current">#}
+                                {#                                            Page {{ variants.number }} of {{ variants.paginator.num_pages }}.#}
+                                {#                                        </span>#}
+                                {##}
+                                {#                                        {% if variants.has_next %}#}
+                                {#                                            <a href="?page={{ variants.next_page_number }}">next</a>#}
+                                {#                                        {% endif %}#}
+                                {#                                    </span>#}
+                                {#                                </div>#}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block script %}
+{% endblock %}

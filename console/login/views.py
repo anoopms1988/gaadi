@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import View
-from .forms import LoginForm, CarForm, VariantForm
+from .forms import LoginForm, CarForm, VariantForm,CompanyForm
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib import messages
 from .models import Company, CarType, Car, Variant, Fuel
@@ -200,3 +200,11 @@ class VariantView(View):
 
         else:
             return HttpResponseRedirect('/console/listvariants')
+
+
+class CompanyView(View):
+    'View for dealing with company manipulation'
+
+    def get(self, request, *args, **kwargs):
+        all_companies = Company.objects.exclude(is_active=False)
+        return render(request, 'companies.html', {'all_companies': all_companies,'form':CompanyForm})
