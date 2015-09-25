@@ -1,13 +1,5 @@
 /*!
-<<<<<<< HEAD
-<<<<<<< HEAD
  * Bootstrap v3.3.4 (http://getbootstrap.com)
-=======
- * Bootstrap v3.3.2 (http://getbootstrap.com)
->>>>>>> origin/master
-=======
- * Bootstrap v3.3.2 (http://getbootstrap.com)
->>>>>>> origin/master
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
@@ -966,8 +958,6 @@ th {
 .glyphicon-bitcoin:before {
   content: "\e227";
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
 .glyphicon-btc:before {
   content: "\e227";
 }
@@ -986,22 +976,6 @@ th {
 .glyphicon-rub:before {
   content: "\20bd";
 }
-=======
-.glyphicon-yen:before {
-  content: "\00a5";
-}
-.glyphicon-ruble:before {
-  content: "\20bd";
-}
->>>>>>> origin/master
-=======
-.glyphicon-yen:before {
-  content: "\00a5";
-}
-.glyphicon-ruble:before {
-  content: "\20bd";
-}
->>>>>>> origin/master
 .glyphicon-scale:before {
   content: "\e230";
 }
@@ -1199,15 +1173,9 @@ hr {
   overflow: visible;
   clip: auto;
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
 [role="button"] {
   cursor: pointer;
 }
-=======
->>>>>>> origin/master
-=======
->>>>>>> origin/master
 h1,
 h2,
 h3,
@@ -2611,8 +2579,6 @@ output {
 .form-control[disabled],
 .form-control[readonly],
 fieldset[disabled] .form-control {
-<<<<<<< HEAD
-<<<<<<< HEAD
   background-color: #eee;
   opacity: 1;
 }
@@ -2620,17 +2586,6 @@ fieldset[disabled] .form-control {
 fieldset[disabled] .form-control {
   cursor: not-allowed;
 }
-=======
-=======
->>>>>>> origin/master
-  cursor: not-allowed;
-  background-color: #eee;
-  opacity: 1;
-}
-<<<<<<< HEAD
->>>>>>> origin/master
-=======
->>>>>>> origin/master
 textarea.form-control {
   height: auto;
 }
@@ -2697,13 +2652,7 @@ input[type="search"] {
 }
 .radio-inline,
 .checkbox-inline {
-<<<<<<< HEAD
-<<<<<<< HEAD
   position: relative;
-=======
->>>>>>> origin/master
-=======
->>>>>>> origin/master
   display: inline-block;
   padding-left: 20px;
   margin-bottom: 0;
@@ -2737,13 +2686,7 @@ fieldset[disabled] .checkbox label {
   cursor: not-allowed;
 }
 .form-control-static {
-<<<<<<< HEAD
-<<<<<<< HEAD
   min-height: 34px;
-=======
->>>>>>> origin/master
-=======
->>>>>>> origin/master
   padding-top: 7px;
   padding-bottom: 7px;
   margin-bottom: 0;
@@ -2785,13 +2728,7 @@ select[multiple].form-group-sm .form-control {
 }
 .form-group-sm .form-control-static {
   height: 30px;
-<<<<<<< HEAD
-<<<<<<< HEAD
   min-height: 32px;
-=======
->>>>>>> origin/master
-=======
->>>>>>> origin/master
   padding: 5px 10px;
   font-size: 12px;
   line-height: 1.5;
@@ -2828,13 +2765,7 @@ select[multiple].form-group-lg .form-control {
 }
 .form-group-lg .form-control-static {
   height: 46px;
-<<<<<<< HEAD
-<<<<<<< HEAD
   min-height: 38px;
-=======
->>>>>>> origin/master
-=======
->>>>>>> origin/master
   padding: 10px 16px;
   font-size: 18px;
   line-height: 1.3333333;
@@ -3456,23 +3387,9 @@ input[type="button"].btn-block {
 }
 .collapse {
   display: none;
-<<<<<<< HEAD
-<<<<<<< HEAD
 }
 .collapse.in {
   display: block;
-=======
-=======
->>>>>>> origin/master
-  visibility: hidden;
-}
-.collapse.in {
-  display: block;
-  visibility: visible;
-<<<<<<< HEAD
->>>>>>> origin/master
-=======
->>>>>>> origin/master
 }
 tr.collapse.in {
   display: table-row;
@@ -3500,15 +3417,7 @@ tbody.collapse.in {
   height: 0;
   margin-left: 2px;
   vertical-align: middle;
-<<<<<<< HEAD
-<<<<<<< HEAD
   border-top: 4px dashed;
-=======
-  border-top: 4px solid;
->>>>>>> origin/master
-=======
-  border-top: 4px solid;
->>>>>>> origin/master
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
 }
@@ -4148,23 +4057,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .tab-content > .tab-pane {
   display: none;
-<<<<<<< HEAD
-<<<<<<< HEAD
 }
 .tab-content > .active {
   display: block;
-=======
-=======
->>>>>>> origin/master
-  visibility: hidden;
-}
-.tab-content > .active {
-  display: block;
-  visibility: visible;
-<<<<<<< HEAD
->>>>>>> origin/master
-=======
->>>>>>> origin/master
 }
 .nav-tabs .dropdown-menu {
   margin-top: -1px;
@@ -4211,14 +4106,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     height: auto !important;
     padding-bottom: 0;
     overflow: visible !important;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    visibility: visible !important;
->>>>>>> origin/master
-=======
-    visibility: visible !important;
->>>>>>> origin/master
   }
   .navbar-collapse.in {
     overflow-y: visible;
@@ -4943,16 +4830,8 @@ a.label:focus {
   position: relative;
   top: -1px;
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
 .btn-xs .badge,
 .btn-group-xs > .btn .badge {
-=======
-.btn-xs .badge {
->>>>>>> origin/master
-=======
-.btn-xs .badge {
->>>>>>> origin/master
   top: 0;
   padding: 1px 5px;
 }
@@ -5784,23 +5663,10 @@ a.list-group-item-danger.active:focus {
   height: 100%;
   border: 0;
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
 .embed-responsive-16by9 {
   padding-bottom: 56.25%;
 }
 .embed-responsive-4by3 {
-=======
-=======
->>>>>>> origin/master
-.embed-responsive.embed-responsive-16by9 {
-  padding-bottom: 56.25%;
-}
-.embed-responsive.embed-responsive-4by3 {
-<<<<<<< HEAD
->>>>>>> origin/master
-=======
->>>>>>> origin/master
   padding-bottom: 75%;
 }
 .well {
@@ -5859,15 +5725,7 @@ button.close {
   right: 0;
   bottom: 0;
   left: 0;
-<<<<<<< HEAD
-<<<<<<< HEAD
   z-index: 1050;
-=======
-  z-index: 1040;
->>>>>>> origin/master
-=======
-  z-index: 1040;
->>>>>>> origin/master
   display: none;
   overflow: hidden;
   -webkit-overflow-scrolling: touch;
@@ -5910,25 +5768,12 @@ button.close {
           box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
 }
 .modal-backdrop {
-<<<<<<< HEAD
-<<<<<<< HEAD
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   z-index: 1040;
-=======
-=======
->>>>>>> origin/master
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-<<<<<<< HEAD
->>>>>>> origin/master
-=======
->>>>>>> origin/master
   background-color: #000;
 }
 .modal-backdrop.fade {
@@ -6003,14 +5848,6 @@ button.close {
   font-size: 12px;
   font-weight: normal;
   line-height: 1.4;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-  visibility: visible;
->>>>>>> origin/master
-=======
-  visibility: visible;
->>>>>>> origin/master
   filter: alpha(opacity=0);
   opacity: 0;
 }
@@ -6530,14 +6367,6 @@ button.close {
 }
 .hidden {
   display: none !important;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-  visibility: hidden !important;
->>>>>>> origin/master
-=======
-  visibility: hidden !important;
->>>>>>> origin/master
 }
 .affix {
   position: fixed;
