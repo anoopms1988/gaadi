@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=100)),
                 ('is_active', models.BooleanField(default=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
-                ('updated_at', models.DateTimeField(null=True, auto_now=True)),
+                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
                 ('description', models.CharField(max_length=100)),
             ],
             options={
@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('cartype', models.CharField(max_length=100)),
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
-                ('updated_at', models.DateTimeField(null=True, auto_now=True)),
+                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
             ],
             options={
                 'db_table': 'cartypes',
@@ -42,18 +42,38 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=100)),
                 ('logo', models.CharField(max_length=100)),
+                ('description', models.CharField(max_length=100, null=True)),
+                ('is_active', models.BooleanField(default=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
-                ('updated_at', models.DateTimeField(null=True, auto_now=True)),
+                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
             ],
             options={
                 'db_table': 'companies',
             },
         ),
         migrations.CreateModel(
+            name='Engine',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('torque', models.CharField(max_length=100)),
+                ('displacement', models.CharField(max_length=100)),
+                ('power', models.CharField(max_length=100)),
+                ('cylinders', models.PositiveIntegerField()),
+                ('valvespercylinder', models.PositiveIntegerField()),
+                ('valvemechanism', models.CharField(max_length=100)),
+                ('cyclinderconfiguration', models.CharField(max_length=100)),
+                ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
+                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
+            ],
+            options={
+                'db_table': 'engines',
+            },
+        ),
+        migrations.CreateModel(
             name='Fuel',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('fuel', models.CharField(max_length=100)),
+                ('name', models.CharField(max_length=100)),
             ],
             options={
                 'db_table': 'fueltype',
@@ -66,12 +86,18 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=100)),
                 ('is_active', models.BooleanField(default=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
-                ('updated_at', models.DateTimeField(null=True, auto_now=True)),
+                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
                 ('car', models.ForeignKey(to='login.Car')),
+                ('fuel', models.ForeignKey(default=1, to='login.Fuel')),
             ],
             options={
                 'db_table': 'variants',
             },
+        ),
+        migrations.AddField(
+            model_name='engine',
+            name='variant',
+            field=models.ForeignKey(to='login.Variant'),
         ),
         migrations.AddField(
             model_name='car',

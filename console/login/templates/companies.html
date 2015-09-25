@@ -48,7 +48,7 @@
                                                 <tr class="odd gradeX">
                                                     <td>{{ company.name }} </td>
                                                     <td>{{ company.description }} </td>
-                                                    <td><img src="{% static  'companylogos/audi.png' %}"></td>
+                                                    <td><img src="{{MEDIA_URL}}companylogos/download.png"></td>
                                                     <td>
                                                         <button class="editcompany btn btn-primary btn-circle"
                                                                 type="button"
@@ -74,13 +74,16 @@
                                                                     Company</h4>
                                                             </div>
                                                             <div class="modal-body" id="modal-body">
-                                                                <form method='post' action=''
+                                                                <form method='post' action='/console/addcompany'
                                                                       id='add_company_form' enctype="multipart/form-data">
                                                                     {% csrf_token %}
                                                                     <div>Company name</div>
                                                                     <div>{{ form.name }}</div>
                                                                     <div>Description</div>
                                                                     <div>{{ form.description }}</div>
+                                                                    <div>Logo</div>
+                                                                    <div>{{ form.logo }}</div>
+                                                                    <input type="submit" name='company_submit' value='submit' class="btn btn-primary  ">
                                                                 </form>
                                                             </div>
                                                         </div>

@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .views import LoginView, CarView, VariantView,CompanyView
 from . import views
 
+
 urlpatterns = [
     url(r'^login', LoginView.as_view()),
     url(r'^dashboard', login_required(views.LoginView().dashboard), name='dashboard'),
@@ -23,5 +24,6 @@ urlpatterns = [
         views.VariantView().specific_variant), name='specificvariant'),
     url(r'^editvariant', login_required(views.VariantView().edit_variant), name='editvariant'),
     url(r'^listcompanies', login_required(CompanyView.as_view()), name='listcompanies'),
+    url(r'^addcompany', login_required(views.CompanyView().add_company), name='addcompany'),
     url(r'^', LoginView.as_view()),
 ]
