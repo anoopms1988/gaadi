@@ -11,7 +11,6 @@ from django.core import serializers
 
 
 class LoginView(View):
-
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated():
             return HttpResponseRedirect('/console/dashboard/')
@@ -50,7 +49,6 @@ class LoginView(View):
 
 
 class CarView(View):
-
     'Class for dealing with car details manipulation'
 
     def get(self, request, *args, **kwargs):
@@ -125,7 +123,6 @@ class CarView(View):
 
 
 class VariantView(View):
-
     'Class for dealing with car details manipulation'
 
     def get(self, request, *args, **kwargs):
@@ -206,7 +203,6 @@ class VariantView(View):
 
 
 class CompanyView(View):
-
     'View for dealing with company manipulation'
 
     def get(self, request, *args, **kwargs):
@@ -214,21 +210,22 @@ class CompanyView(View):
         return render(request, 'companies.html', {'all_companies': all_companies, 'form': CompanyForm})
 
     def add_company(self, request):
+
         form = CompanyForm(request.POST, request.FILES)
+        cleaned_data = form.clean()
         if form.is_valid:
             name = request.POST.get('name')
             logo = request.FILES['logo']
-            
-            if name and logo :
+
+            if name:
                 company = Company()
                 company.name = name
-                company.logo = logo
-              
+                #company.logo = logo
                 company.is_active = True
                 company.save()
-                messages.success(request, 'Companyadded.')
-                return HttpResponseRedirect('/console/list companies/')
+                messages.success(request, 'Company added.')
+                return HttpResponseRedirect('/console/listcompanies/')
 
-            return render(request, 'variant.html', {'form': form})
+            return render(request, 'companies.html', {'form': form})
         else:
-            return render(request, 'variant.html', {'form': form})
+            return render(request, 'companies.html', {'form': form})
