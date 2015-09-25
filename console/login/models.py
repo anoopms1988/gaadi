@@ -1,19 +1,28 @@
 from django.db import models
+from django.template.defaultfilters import slugify
 
 
 class Company(models.Model):
+
     class Meta:
         db_table = 'companies'
 
     name = models.CharField(max_length=100)
-    logo = models.FileField(upload_to='./companylogos/')
-    description =models.CharField(max_length=100, null=True)
+
+    def video_filename(instance, filename):
+        fname, dot, extension = filename.rpartition('.')
+        slug = slugify(instance.name)
+        return '%s.%s' % (slug, extension)
+
+    logo = models.FileField(upload_to=video_filename)
+    description = models.CharField(max_length=100, null=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 
 
 class CarType(models.Model):
+
     class Meta:
         db_table = 'cartypes'
 
@@ -23,6 +32,7 @@ class CarType(models.Model):
 
 
 class Car(models.Model):
+
     class Meta:
         db_table = 'cars'
 
@@ -36,6 +46,7 @@ class Car(models.Model):
 
 
 class Fuel(models.Model):
+
     class Meta:
         db_table = 'fueltype'
 
@@ -43,6 +54,7 @@ class Fuel(models.Model):
 
 
 class Variant(models.Model):
+
     class Meta:
         db_table = 'variants'
 
@@ -55,6 +67,7 @@ class Variant(models.Model):
 
 
 class Engine(models.Model):
+
     class Meta:
         db_table = 'engines'
 
