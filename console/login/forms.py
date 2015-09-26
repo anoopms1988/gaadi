@@ -13,7 +13,7 @@ class LoginForm(forms.Form):
 class CarForm(forms.ModelForm):
     class Meta:
         model = Car
-        fields = ['name', 'company', 'cartype', 'description']
+        fields = [ 'name', 'description']
 
     company = forms.ChoiceField(error_messages={'required': 'Company name is required'},
                                 choices=[('', 'Select')] + [(o.id, o.name)
@@ -32,7 +32,7 @@ class CarForm(forms.ModelForm):
 class VariantForm(forms.ModelForm):
     class Meta:
         model = Variant
-        fields = ['company', 'car', 'fuel', 'name']
+        fields = ['name']
 
     company = forms.ChoiceField(error_messages={'required': 'Company name is required'},
                                 choices=[('', 'Select')] + [(o.id, o.name)
@@ -63,4 +63,4 @@ class CompanyForm(forms.ModelForm):
     description = forms.CharField(required=False, widget=forms.Textarea(
         attrs={'class': 'form-control', 'placeholder': 'Enter company description'}))
 
-    logo =forms.FileField()
+    logo = forms.FileField()

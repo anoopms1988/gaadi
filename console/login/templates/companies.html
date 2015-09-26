@@ -48,7 +48,8 @@
                                                 <tr class="odd gradeX">
                                                     <td>{{ company.name }} </td>
                                                     <td>{{ company.description }} </td>
-                                                    <td><img src="{{ MEDIA_URL }}{{ company.logo }}"></td>
+                                                    <td><img src="{{ MEDIA_URL }}{{ company.logo }}" height="25"
+                                                             width="25"></td>
                                                     <td>
                                                         <button class="editcompany btn btn-primary btn-circle"
                                                                 type="button"
@@ -144,4 +145,16 @@
 
 {% endblock %}
 {% block script %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#add_company_form").validate({
+                rules: {
+                    name: "required",
+                },
+                messages: {
+                    name: "<div class='text-danger'>Enter company name</div>",
+                }
+            });
+        });
+    </script>
 {% endblock %}
