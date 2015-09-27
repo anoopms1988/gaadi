@@ -58,8 +58,8 @@ class CarView(View):
         form = CarForm(request.POST)
         if form.is_valid():
             car = form.save(commit=False)
-            car.company = Company.objects.get(pk=form.cleaned_data['company'])
-            car.cartype = CarType.objects.get(pk=form.cleaned_data['cartype'])
+            car.company = form.cleaned_data['company']
+            car.cartype = form.cleaned_data['cartype']
             car.save()
             messages.success(request, 'Car details added.')
             return HttpResponseRedirect('/console/dashboard/')
@@ -100,8 +100,8 @@ class CarView(View):
         form = CarForm(request.POST, instance=car)
         if form.is_valid():
             car = form.save(commit=False)
-            car.company = Company.objects.get(pk=form.cleaned_data['company'])
-            car.cartype = CarType.objects.get(pk=form.cleaned_data['cartype'])
+            car.company = form.cleaned_data['company']
+            car.cartype = form.cleaned_data['cartype']
             car.save()
             messages.success(request, 'Car details edited.')
             return HttpResponseRedirect('/console/cars')
@@ -119,8 +119,8 @@ class VariantView(View):
         form = VariantForm(request.POST)
         if form.is_valid():
             variant = form.save(commit=False)
-            variant.car = Car.objects.get(id=form.cleaned_data['car'])
-            variant.fuel = Fuel.objects.get(id=form.cleaned_data['fuel'])
+            variant.car = form.cleaned_data['car']
+            variant.fuel = form.cleaned_data['fuel']
             variant.save()
             messages.success(request, 'Variant details added.')
             return HttpResponseRedirect('/console/addvariant/')
@@ -169,8 +169,8 @@ class VariantView(View):
         form = VariantForm(request.POST, instance=variant)
         if form.is_valid():
             variant = form.save(commit=False)
-            variant.car = Car.objects.get(id=form.cleaned_data['car'])
-            variant.fuel = Fuel.objects.get(id=form.cleaned_data['fuel'])
+            variant.car = form.cleaned_data['car']
+            variant.fuel = form.cleaned_data['fuel']
             variant.save()
             messages.success(request, 'Car details edited.')
             return HttpResponseRedirect('/console/listvariants')
