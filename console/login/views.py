@@ -192,3 +192,16 @@ class CompanyView(View):
             return HttpResponseRedirect('/console/listcompanies/')
         else:
             return HttpResponseRedirect('/console/listcompanies/')
+
+    def delete_company(self, request):
+        company_id = request.POST.get('id')
+        company = Company.objects.get(id=company_id)
+        company.is_active = 0
+        company.save()
+        return HttpResponse('success')
+
+    def specific_company(self, request):
+        company_id = request.POST.get('id')
+        company = Company.objects.get(id=company_id)
+        form = CompanyForm(instance=company)
+        return render(request, 'editcompany.html', {'form': form,'company_id':company_id })

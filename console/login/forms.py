@@ -59,5 +59,4 @@ class CompanyForm(forms.ModelForm):
                            widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Companyname'}))
     description = forms.CharField(required=False, widget=forms.Textarea(
         attrs={'class': 'form-control', 'placeholder': 'Enter company description'}))
-
-    logo = forms.FileField()
+    logo = forms.FileField(widget=forms.FileInput)
