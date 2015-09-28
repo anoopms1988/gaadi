@@ -48,72 +48,77 @@
                                                 <tr class="odd gradeX">
                                                     <td>{{ company.name }} </td>
                                                     <td>{{ company.description }} </td>
-                                                    <td><img src="{{MEDIA_URL}}companylogos/download.png"></td>
+                                                    <td><img src="{{ MEDIA_URL }}{{ company.logo }}" height="25"
+                                                             width="25"
+                                                             onError="this.onerror=null;this.src='{{ MEDIA_URL }}companies/noimage.jpg';">
+                                                    </td>
                                                     <td>
                                                         <button class="editcompany btn btn-primary btn-circle"
                                                                 type="button"
-                                                                id="edit_company_" data-target="#myModal"
+                                                                id="edit_company_{{ company.id }}" data-target="#myModal"
                                                                 data-toggle="modal"><i
                                                                 class="fa fa-list"></i>
                                                         </button>
                                                         <button class="deletecompany btn btn-warning btn-circle"
-                                                                id="delete_company_" type="button"><i
+                                                                id="delete_company_{{ company.id }}" type="button"><i
                                                                 class="fa fa-times"></i>
                                                         </button>
 
                                                     </td>
                                                 </tr>
-                                                <div class="modal fade" id="add_company" tabindex="-1" role="dialog"
-                                                     aria-labelledby="myModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal"
-                                                                        aria-hidden="true">&times;</button>
-                                                                <h4 class="modal-title" id="myModalLabel">Add
-                                                                    Company</h4>
-                                                            </div>
-                                                            <div class="modal-body" id="modal-body">
-                                                                <form method='post' action='/console/addcompany'
-                                                                      id='add_company_form' enctype="multipart/form-data">
-                                                                    {% csrf_token %}
-                                                                    <div>Company name</div>
-                                                                    <div>{{ form.name }}</div>
-                                                                    <div>Description</div>
-                                                                    <div>{{ form.description }}</div>
-                                                                    <div>Logo</div>
-                                                                    <div>{{ form.logo }}</div>
-                                                                    <input type="submit" name='company_submit' value='submit' class="btn btn-primary  ">
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- /.modal-dialog -->
-                                                </div>
-                                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-                                                     aria-labelledby="myModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal"
-                                                                        aria-hidden="true">&times;</button>
-                                                                <h4 class="modal-title" id="myModalLabel">Edit car</h4>
-                                                            </div>
-                                                            <div class="modal-body" id="modal-body">
 
-                                                            </div>
-
-                                                        </div>
-                                                        <!-- /.modal-content -->
-                                                    </div>
-                                                    <!-- /.modal-dialog -->
-                                                </div>
                                             {% endfor %}
                                             </tbody>
                                         </table>
 
                                     </div>
 
+                                </div>
+                                <div class="modal fade" id="add_company" tabindex="-1" role="dialog"
+                                     aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-hidden="true">&times;</button>
+                                                <h4 class="modal-title" id="myModalLabel">Add
+                                                    Company</h4>
+                                            </div>
+                                            <div class="modal-body" id="modal-body">
+                                                <form method='post' action='/console/addcompany'
+                                                      id='add_company_form' enctype="multipart/form-data">
+                                                    {% csrf_token %}
+                                                    <div>Company name</div>
+                                                    <div>{{ form.name }}</div>
+                                                    <div>Description</div>
+                                                    <div>{{ form.description }}</div>
+                                                    <div>Logo</div>
+                                                    <div>{{ form.logo }}</div>
+                                                    <input type="submit" name='company_submit' value='submit'
+                                                           class="btn btn-primary  ">
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+                                     aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-hidden="true">&times;</button>
+                                                <h4 class="modal-title" id="myModalLabel">Edit company</h4>
+                                            </div>
+                                            <div class="modal-body" id="edit_company">
+
+                                            </div>
+
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
                                 </div>
                                 <!-- /.panel-body -->
                                 <!--/ Pagination -->
@@ -142,4 +147,48 @@
 
 {% endblock %}
 {% block script %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.deletecompany').click(function () {
+                if (confirm("Are you want to delete this company")) {
+                    var id = $(this).attr('id');
+                    var splitElements = id.split("_");
+                    var companyId = splitElements[2];
+                    $.ajax({
+                        type: "POST",
+                        url: '/console/deletecompany',
+                        data: {id: companyId, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                        success: function (response) {
+                            if (response == "success") {
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            });
+
+            $('.editcompany').click(function () {
+                var id = $(this).attr('id');
+                var splitElements = id.split("_");
+                var companyId = splitElements[2];
+                $.ajax({
+                    type: "POST",
+                    url: '/console/specificcompany',
+                    data: {id: companyId, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                    success: function (response) {
+                        $("#edit_company").html(response);
+                    }
+                });
+            });
+
+            $("#add_company_form").validate({
+                rules: {
+                    name: "required",
+                },
+                messages: {
+                    name: "<div class='text-danger'>Enter company name</div>",
+                }
+            });
+        });
+    </script>
 {% endblock %}

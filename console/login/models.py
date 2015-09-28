@@ -1,5 +1,6 @@
 from django.db import models
-from django.template.defaultfilters import slugify
+import os
+
 
 
 class Company(models.Model):
@@ -7,15 +8,15 @@ class Company(models.Model):
     class Meta:
         db_table = 'companies'
 
+    def generate_filename(self, filename):
+        extension = os.path.splitext(filename)[1]
+        changed_name = self.name + extension
+        url = "companies/logos/%s/%s" % (self.name, changed_name)
+        return url
+
     name = models.CharField(max_length=100)
-
-    def video_filename(instance, filename):
-        fname, dot, extension = filename.rpartition('.')
-        slug = slugify(instance.name)
-        return '%s.%s' % (slug, extension)
-
-    logo = models.FileField(upload_to=video_filename)
-    description = models.CharField(max_length=100, null=True)
+    logo = models.FileField(verbose_name='Upload Logo', upload_to=generate_filename, blank=True, null=True)
+    description = models.CharField(max_length=100)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
