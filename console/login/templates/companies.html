@@ -45,11 +45,11 @@
                                             <tbody>
                                             {% load staticfiles %}
                                             {% for company in all_companies %}
-                                                <tr class="odd gradeX">
+                                                <tr id="{{ company.id}}" class="odd gradeX companylisting">
                                                     <td>{{ company.name }} </td>
                                                     <td>{{ company.description }} </td>
-                                                    <td><img src="{{ MEDIA_URL }}{{ company.logo }}" height="25"
-                                                             width="25"
+                                                    <td><img src="{{ MEDIA_URL }}{{ company.logo }}" height="40"
+                                                             width="50"
                                                              onError="this.onerror=null;this.src='{{ MEDIA_URL }}companies/noimage.jpg';">
                                                     </td>
                                                     <td>
@@ -189,6 +189,13 @@
                     name: "<div class='text-danger'>Enter company name</div>",
                 }
             });
+
+            $('.companylisting').click(function () {
+                var id = $(this).attr('id');
+                window.location.href='/console/mapcompany?'+id;
+            });
+
+
         });
     </script>
 {% endblock %}

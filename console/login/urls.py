@@ -23,8 +23,10 @@ urlpatterns = [
         views.VariantView().specific_variant), name='specificvariant'),
     url(r'^editvariant', login_required(views.VariantView().edit_variant), name='editvariant'),
     url(r'^listcompanies', login_required(CompanyView.as_view()), name='listcompanies'),
-    url(r'^addcompany', login_required(views.CompanyView().add_company), name='addcompany'),
+    url(r'^addcompany', login_required(CompanyView.as_view()), name='addcompany'),
     url(r'^deletecompany', login_required(views.CompanyView().delete_company), name='deletecompany'),
     url(r'^specificcompany', login_required(views.CompanyView().specific_company), name='specificcompany'),
+    url(r'^editcompany', login_required(views.CompanyView().edit_company), name='editcompany'),
+    url(r'^mapcompany$', login_required(views.CompanyView().map_company), name='mapcompany'),
     url(r'^', LoginView.as_view()),
 ]

@@ -185,7 +185,7 @@ class CompanyView(View):
         all_companies = Company.objects.exclude(is_active=False)
         return render(request, 'companies.html', {'all_companies': all_companies, 'form': CompanyForm})
 
-    def add_company(self, request):
+    def post(self, request):
         form = CompanyForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
@@ -204,4 +204,19 @@ class CompanyView(View):
         company_id = request.POST.get('id')
         company = Company.objects.get(id=company_id)
         form = CompanyForm(instance=company)
-        return render(request, 'editcompany.html', {'form': form,'company_id':company_id })
+        return render(request, 'editcompany.html', {'form': form, 'company_id': company_id})
+
+    def edit_company(self, request):
+        company_id = request.POST.get('company_id')
+        company = Company.objects.get(id=company_id)
+        form = CompanyForm(request.POST, request.FILES, instance=company)
+        if form.is_valid():
+            company = form.save(commit=False)
+            company.save()
+            messages.success(request, 'Company details edited.')
+            return HttpResponseRedirect('/console/listcompanies/')
+        else:
+            return HttpResponseRedirect('/console/listcompanies/')
+
+    def map_company(self, request):
+         return render(request, 'mapcompany.html', {})

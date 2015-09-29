@@ -1,7 +1,7 @@
 <div class="panel-body">
     <div class="row">
         <div class="col-lg-12">
-            <form method='post' action='/console/editcompany' id='edit_company_form'>
+            <form enctype="multipart/form-data" method='post' action='/console/editcompany' id='edit_company_form'>
                 {% csrf_token %}
                 <input type="hidden" name='company_id' value='{{ company_id }}'>
 
