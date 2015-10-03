@@ -67,6 +67,7 @@ class DealerForm(forms.ModelForm):
         model = Dealer
         fields = ['name', 'city', 'address', 'phonenumber', 'mobilenumber', 'email', 'openinghours']
 
+
     name = forms.CharField(error_messages={'required': 'Dealer name is required'}, required=True, label='Dealername',
                            max_length=100,
                            widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Dealername'}))
@@ -86,8 +87,8 @@ class DealerForm(forms.ModelForm):
                                    widget=forms.TextInput(
                                        attrs={'class': 'form-control', 'placeholder': 'Mobile number'}))
     email = forms.EmailField(error_messages={'required': 'Mobile number is required'}, required=True, label='Email',
-                            max_length=100,
-                            widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Email'}))
+                             max_length=100,
+                             widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Email'}))
     openinghours = forms.CharField(error_messages={'required': 'Opening hours is required'}, required=True,
                                    label='Opening hours',
                                    max_length=100,

@@ -26,7 +26,7 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         Details
-                                        <button data-target="#add_dealer" data-toggle="modal"
+                                        <button id='#new_dealer' data-target="#add_dealer" data-toggle="modal"
                                                 class="btn btn-primary pull-right ">
                                             Add dealer
                                         </button>
@@ -117,20 +117,21 @@
                                         <form method='post' action='/console/adddealer'
                                               id='add_dealer_form'>
                                             {% csrf_token %}
-                                            <div>{{ DealerForm.name.label }}</div>
-                                            <div>{{ DealerForm.name }}</div>
-                                            <div>{{ DealerForm.city.label }}</div>
-                                            <div>{{ DealerForm.city }}</div>
-                                            <div>{{ DealerForm.address.label }}</div>
-                                            <div>{{ DealerForm.address }}</div>
-                                            <div>{{ DealerForm.phonenumber.label }}</div>
-                                            <div>{{ DealerForm.phonenumber }}</div>
-                                            <div>{{ DealerForm.mobilenumber.label }}</div>
-                                            <div>{{ DealerForm.mobilenumber }}</div>
-                                            <div>{{ DealerForm.email.label }}</div>
-                                            <div>{{ DealerForm.email }}</div>
-                                            <div>{{ DealerForm.openinghours.label }}</div>
-                                            <div>{{ DealerForm.openinghours }}</div>
+                                            <input type="hidden" name="company" value="{{ company.id}}">
+                                            <div>{{ dealerForm.name.label }}</div>
+                                            <div>{{ dealerForm.name }}</div>
+                                            <div>{{ dealerForm.city.label }}</div>
+                                            <div>{{ dealerForm.city }}</div>
+                                            <div>{{ dealerForm.address.label }}</div>
+                                            <div>{{ dealerForm.address }}</div>
+                                            <div>{{ dealerForm.phonenumber.label }}</div>
+                                            <div>{{ dealerForm.phonenumber }}</div>
+                                            <div>{{ dealerForm.mobilenumber.label }}</div>
+                                            <div>{{ dealerForm.mobilenumber }}</div>
+                                            <div>{{ dealerForm.email.label }}</div>
+                                            <div>{{ dealerForm.email }}</div>
+                                            <div>{{ dealerForm.openinghours.label }}</div>
+                                            <div>{{ dealerForm.openinghours }}</div>
                                             <input type="submit" name='dealer_submit' value='submit'
                                                    class="btn btn-primary  ">
                                         </form>
@@ -179,21 +180,29 @@
                     phonenumber: "required",
                     mobilenumber: "required",
                     email: {
-                            required: true,
-                            email: true
-                        },
-                    openinghours:"required",
+                        required: true,
+                        email: true
                     },
-                    messages: {
-                        name: "Enter company name",
-                        city: "Enter city name",
-                        address: "Enter address",
-                        phonenumber: "Enter  phone number",
-                        mobilenumber: "Enter mobile number",
+                    openinghours: "required",
+                },
+                messages: {
+                    name: "Enter company name",
+                    city: "Enter city name",
+                    address: "Enter address",
+                    phonenumber: "Enter  phone number",
+                    mobilenumber: "Enter mobile number",
 
-                    }
+                },
+                errorElement: 'div',
+                errorClass: 'text-danger'
 
-                });
+            });
+
+
+            $("#new_dealer").on('click',function () {
+                alert("asdasd");
+                $('#add_dealer_form')[0].reset();
+            });
 
 
         });

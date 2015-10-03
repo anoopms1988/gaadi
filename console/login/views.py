@@ -222,8 +222,9 @@ class CompanyView(View):
         company_id = request.GET.get('id')
         company = Company.objects.get(pk=company_id)
         company_dealers = Dealer.objects.exclude(is_active=False).filter(company_id=company_id)
+        dealerForm = DealerForm()
         return render(request, 'mapcompany.html',
-                      {'company': company, 'company_dealers': company_dealers, 'DealerForm': DealerForm})
+                      {'company': company, 'company_dealers': company_dealers, 'dealerForm': DealerForm})
 
 
 class DealerView(View):
@@ -235,3 +236,15 @@ class DealerView(View):
         dealer.is_active = 0
         dealer.save()
         return HttpResponse('success')
+
+    def post(self, request):
+        form = DealerForm(request.POST)
+        if form.is_valid():
+            dealer = form.save(commit=False)
+            company_id = request.POST.get('company')
+            company = Company.objects.get(pk=company_id)
+            dealer.company = company
+            dealer.save()
+            return HttpResponseRedirect('/console/listcompanies/')
+        else:
+            return HttpResponseRedirect('/console/listcompanies/')
