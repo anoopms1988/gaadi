@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import View
-from .forms import LoginForm, CarForm, VariantForm, CompanyForm
+from .forms import LoginForm, CarForm, VariantForm, CompanyForm, DealerForm
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib import messages
 from .models import Company, CarType, Car, Variant, Fuel, Dealer
@@ -222,4 +222,16 @@ class CompanyView(View):
         company_id = request.GET.get('id')
         company = Company.objects.get(pk=company_id)
         company_dealers = Dealer.objects.exclude(is_active=False).filter(company_id=company_id)
-        return render(request, 'mapcompany.html', {'company': company, 'company_dealers': company_dealers})
+        return render(request, 'mapcompany.html',
+                      {'company': company, 'company_dealers': company_dealers, 'DealerForm': DealerForm})
+
+
+class DealerView(View):
+    'View for dealing with dealer manipulation'
+
+    def delete_dealer(self, request):
+        dealer_id = request.POST.get('id')
+        dealer = Dealer.objects.get(id=dealer_id)
+        dealer.is_active = 0
+        dealer.save()
+        return HttpResponse('success')

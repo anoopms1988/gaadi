@@ -28,5 +28,6 @@ urlpatterns = [
     url(r'^specificcompany', login_required(views.CompanyView().specific_company), name='specificcompany'),
     url(r'^editcompany', login_required(views.CompanyView().edit_company), name='editcompany'),
     url(r'^mapcompany$', login_required(views.CompanyView().map_company), name='mapcompany'),
+    url(r'^deletedealer$', login_required(views.DealerView().delete_dealer), name='deletedealer'),
     url(r'^', LoginView.as_view()),
 ]

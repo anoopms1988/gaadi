@@ -11,14 +11,14 @@
             <div class="panel-body">
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#home" aria-expanded="false">Dealers</a>
+                    <li class="active"><a data-toggle="tab" href="#dealers" aria-expanded="false">Dealers</a>
                     </li>
-                    <li class=""><a data-toggle="tab" href="#profile" aria-expanded="false">Road side assistance</a>
+                    <li class=""><a data-toggle="tab" href="#assistance" aria-expanded="false">Road side assistance</a>
 
                 </ul>
 
                 <div class="tab-content">
-                    <div id="home" class="tab-pane fade active in">
+                    <div id="dealers" class="tab-pane fade active in">
                         <h4>List dealers</h4>
 
                         <div class="row">
@@ -26,6 +26,10 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         Details
+                                        <button data-target="#add_dealer" data-toggle="modal"
+                                                class="btn btn-primary pull-right ">
+                                            Add dealer
+                                        </button>
                                     </div>
                                     <!-- /.panel-heading -->
                                     <div class="panel-body">
@@ -57,7 +61,7 @@
                                                             <button class="editdealer btn btn-primary btn-circle"
                                                                     type="button"
                                                                     id="edit_dealer_{{ dealers.id }}"
-                                                                    data-target="#myModal"
+                                                                    data-target="#editModal"
                                                                     data-toggle="modal"><i
                                                                     class="fa fa-list"></i>
                                                             </button>
@@ -66,6 +70,10 @@
                                                                 <i class="fa fa-times"></i>
                                                             </button>
                                                         </td>
+                                                    </tr>
+                                                {% empty %}
+                                                    <tr>
+                                                        <td>No dealers for this company</td>
                                                     </tr>
                                                 {% endfor %}
                                                 </tbody>
@@ -79,8 +87,61 @@
                             </div>
 
                         </div>
+                        <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">Edit Dealer</h4>
+                                    </div>
+                                    <div class="modal-body" id="edit_dealer">
+
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        <div class="modal fade" id="add_dealer" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">Add new dealer</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method='post' action='/console/adddealer'
+                                              id='add_dealer_form'>
+                                            {% csrf_token %}
+                                            <div>{{ DealerForm.name.label }}</div>
+                                            <div>{{ DealerForm.name }}</div>
+                                            <div>{{ DealerForm.city.label }}</div>
+                                            <div>{{ DealerForm.city }}</div>
+                                            <div>{{ DealerForm.address.label }}</div>
+                                            <div>{{ DealerForm.address }}</div>
+                                            <div>{{ DealerForm.phonenumber.label }}</div>
+                                            <div>{{ DealerForm.phonenumber }}</div>
+                                            <div>{{ DealerForm.mobilenumber.label }}</div>
+                                            <div>{{ DealerForm.mobilenumber }}</div>
+                                            <div>{{ DealerForm.email.label }}</div>
+                                            <div>{{ DealerForm.email }}</div>
+                                            <div>{{ DealerForm.openinghours.label }}</div>
+                                            <div>{{ DealerForm.openinghours }}</div>
+                                            <input type="submit" name='dealer_submit' value='submit'
+                                                   class="btn btn-primary  ">
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
                     </div>
-                    <div id="profile" class="tab-pane fade">
+                    <div id="assistance" class="tab-pane fade">
                         <h4>List Roadside assistance</h4>
 
                     </div>
@@ -90,4 +151,51 @@
     </div>
 {% endblock %}
 {% block script %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.deletedealer').click(function () {
+                if (confirm("Are you want to delete this company")) {
+                    var id = $(this).attr('id');
+                    var splitElements = id.split("_");
+                    var dealer_id = splitElements[2];
+                    $.ajax({
+                        type: "POST",
+                        url: '/console/deletedealer',
+                        data: {id: dealer_id, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                        success: function (response) {
+                            if (response == "success") {
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            });
+
+            $("#add_dealer_form").validate({
+                rules: {
+                    name: "required",
+                    city: "required",
+                    address: "required",
+                    phonenumber: "required",
+                    mobilenumber: "required",
+                    email: {
+                            required: true,
+                            email: true
+                        },
+                    openinghours:"required",
+                    },
+                    messages: {
+                        name: "Enter company name",
+                        city: "Enter city name",
+                        address: "Enter address",
+                        phonenumber: "Enter  phone number",
+                        mobilenumber: "Enter mobile number",
+
+                    }
+
+                });
+
+
+        });
+    </script>
 {% endblock %}

@@ -90,6 +90,5 @@ class Dealer(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
-    mobilenumber = models.CharField(max_length=100, blank=False)
     email = models.CharField(max_length=100, blank=False)
     openinghours = models.CharField(max_length=100, blank=False)
