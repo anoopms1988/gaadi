@@ -4,7 +4,7 @@ from django.views.generic import View
 from .forms import LoginForm, CarForm, VariantForm, CompanyForm
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib import messages
-from .models import Company, CarType, Car, Variant, Fuel
+from .models import Company, CarType, Car, Variant, Fuel, Dealer
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from django.core import serializers
@@ -219,4 +219,7 @@ class CompanyView(View):
             return HttpResponseRedirect('/console/listcompanies/')
 
     def map_company(self, request):
-         return render(request, 'mapcompany.html', {})
+        company_id = request.GET.get('id')
+        company = Company.objects.get(pk=company_id)
+        company_dealers = Dealer.objects.exclude(is_active=False).filter(company_id=company_id)
+        return render(request, 'mapcompany.html', {'company': company, 'company_dealers': company_dealers})
