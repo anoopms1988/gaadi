@@ -29,6 +29,8 @@ urlpatterns = [
     url(r'^editcompany', login_required(views.CompanyView().edit_company), name='editcompany'),
     url(r'^mapcompany$', login_required(views.CompanyView().map_company), name='mapcompany'),
     url(r'^deletedealer$', login_required(views.DealerView().delete_dealer), name='deletedealer'),
-     url(r'^adddealer', login_required(DealerView.as_view()), name='dddealer'),
+    url(r'^adddealer', login_required(DealerView.as_view()), name='addealer'),
+    url(r'^specificdealer', login_required(views.DealerView().specific_dealer), name='specificdealer'),
+    url(r'^editdealer', login_required(views.DealerView().edit_dealer), name='editdealer'),
     url(r'^', LoginView.as_view()),
 ]

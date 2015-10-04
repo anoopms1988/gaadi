@@ -182,7 +182,15 @@ class CompanyView(View):
     'View for dealing with company manipulation'
 
     def get(self, request, *args, **kwargs):
-        all_companies = Company.objects.exclude(is_active=False)
+        companies_list = Company.objects.exclude(is_active=False)
+        paginator = Paginator(companies_list, settings.PAGINATION_LIMIT)
+        page = request.GET.get('page')
+        try:
+            all_companies = paginator.page(page)
+        except PageNotAnInteger:
+            all_companies = paginator.page(1)
+        except EmptyPage:
+            all_companies = paginator.page(paginator.num_pages)
         return render(request, 'companies.html', {'all_companies': all_companies, 'form': CompanyForm})
 
     def post(self, request):
@@ -221,8 +229,15 @@ class CompanyView(View):
     def map_company(self, request):
         company_id = request.GET.get('id')
         company = Company.objects.get(pk=company_id)
-        company_dealers = Dealer.objects.exclude(is_active=False).filter(company_id=company_id)
-        dealerForm = DealerForm()
+        dealers_list = Dealer.objects.exclude(is_active=False).filter(company_id=company_id)
+        paginator = Paginator(dealers_list, settings.PAGINATION_LIMIT)
+        page = request.GET.get('page')
+        try:
+            company_dealers = paginator.page(page)
+        except PageNotAnInteger:
+            company_dealers = paginator.page(1)
+        except EmptyPage:
+            company_dealers = paginator.page(paginator.num_pages)
         return render(request, 'mapcompany.html',
                       {'company': company, 'company_dealers': company_dealers, 'dealerForm': DealerForm})
 
@@ -239,12 +254,35 @@ class DealerView(View):
 
     def post(self, request):
         form = DealerForm(request.POST)
+        company_id = request.POST.get('company')
+        company = Company.objects.get(pk=company_id)
         if form.is_valid():
             dealer = form.save(commit=False)
-            company_id = request.POST.get('company')
-            company = Company.objects.get(pk=company_id)
             dealer.company = company
             dealer.save()
-            return HttpResponseRedirect('/console/listcompanies/')
+            messages.success(request, 'New dealer added.')
+            return HttpResponseRedirect('/console/mapcompany?id={0}'.format(company_id))
         else:
-            return HttpResponseRedirect('/console/listcompanies/')
+            return HttpResponseRedirect('/console/mapcompany?id={0}'.format(company_id))
+
+    def specific_dealer(self, request):
+        dealer_id = request.POST.get('id')
+        dealer = Dealer.objects.get(id=dealer_id)
+        company_id=dealer.company.id
+        form = DealerForm(instance=dealer)
+        return render(request, 'editdealer.html', {'form': form, 'dealer_id': dealer_id,'company_id':company_id})
+
+    def edit_dealer(self, request):
+        dealer_id = request.POST.get('dealer_id')
+        dealer = Dealer.objects.get(id=dealer_id)
+        company_id = request.POST.get('company_id')
+        company = Company.objects.get(pk=company_id)
+        form = DealerForm(request.POST, instance=dealer)
+        if form.is_valid():
+            dealer = form.save(commit=False)
+            dealer.company = company
+            dealer.save()
+            messages.success(request, 'Dealer details edited.')
+            return HttpResponseRedirect('/console/mapcompany?id={0}'.format(company_id))
+        else:
+            return HttpResponseRedirect('/console/mapcompany?id={0}'.format(company_id))

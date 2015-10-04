@@ -10,6 +10,11 @@
             </div>
             <div class="panel-body">
                 <!-- Nav tabs -->
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#dealers" aria-expanded="false">Dealers</a>
                     </li>
@@ -30,6 +35,7 @@
                                                 class="btn btn-primary pull-right ">
                                             Add dealer
                                         </button>
+                                        <button onclick="window.location='/console/listcompanies/';" class="btn btn-link pull-right" type="button">Back to companies list</button>
                                     </div>
                                     <!-- /.panel-heading -->
                                     <div class="panel-body">
@@ -80,6 +86,22 @@
                                             </table>
                                         </div>
                                         <!-- /.table-responsive -->
+                                         <!--/ Pagination -->
+                                <div class="pagination">
+                                    <span class="step-links">
+                                        {% if company_dealers.has_previous %}
+                                            <a href="?page={{ company_dealers.previous_page_number }}&id={{ company.id }}">previous</a>
+                                        {% endif %}
+
+                                        <span class="current">
+                                            Page {{ company_dealers.number }} of {{ company_dealers.paginator.num_pages }}.
+                                        </span>
+
+                                        {% if company_dealers.has_next %}
+                                            <a href="?page={{ company_dealers.next_page_number }}&id={{ company.id }}">next</a>
+                                        {% endif %}
+                                    </span>
+                                </div>
                                     </div>
                                     <!-- /.panel-body -->
                                 </div>
@@ -117,7 +139,8 @@
                                         <form method='post' action='/console/adddealer'
                                               id='add_dealer_form'>
                                             {% csrf_token %}
-                                            <input type="hidden" name="company" value="{{ company.id}}">
+                                            <input type="hidden" name="company" value="{{ company.id }}">
+
                                             <div>{{ dealerForm.name.label }}</div>
                                             <div>{{ dealerForm.name }}</div>
                                             <div>{{ dealerForm.city.label }}</div>
@@ -198,8 +221,22 @@
 
             });
 
+            $('.editdealer').click(function () {
+                var id = $(this).attr('id');
+                var splitElements = id.split("_");
+                var dealer_id = splitElements[2];
+                $.ajax({
+                    type: "POST",
+                    url: '/console/specificdealer',
+                    data: {id: dealer_id, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                    success: function (response) {
+                        $("#edit_dealer").html(response);
+                    }
+                });
+            });
 
-            $("#new_dealer").on('click',function () {
+
+            $("#new_dealer").on('click', function () {
                 alert("asdasd");
                 $('#add_dealer_form')[0].reset();
             });
