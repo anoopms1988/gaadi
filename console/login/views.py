@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import View
-from .forms import LoginForm, CarForm, VariantForm, CompanyForm
+from .forms import LoginForm, CarForm, VariantForm, CompanyForm, DealerForm
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib import messages
-from .models import Company, CarType, Car, Variant, Fuel
+from .models import Company, CarType, Car, Variant, Fuel, Dealer
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from django.core import serializers
@@ -182,10 +182,18 @@ class CompanyView(View):
     'View for dealing with company manipulation'
 
     def get(self, request, *args, **kwargs):
-        all_companies = Company.objects.exclude(is_active=False)
+        companies_list = Company.objects.exclude(is_active=False)
+        paginator = Paginator(companies_list, settings.PAGINATION_LIMIT)
+        page = request.GET.get('page')
+        try:
+            all_companies = paginator.page(page)
+        except PageNotAnInteger:
+            all_companies = paginator.page(1)
+        except EmptyPage:
+            all_companies = paginator.page(paginator.num_pages)
         return render(request, 'companies.html', {'all_companies': all_companies, 'form': CompanyForm})
 
-    def add_company(self, request):
+    def post(self, request):
         form = CompanyForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
@@ -204,4 +212,77 @@ class CompanyView(View):
         company_id = request.POST.get('id')
         company = Company.objects.get(id=company_id)
         form = CompanyForm(instance=company)
-        return render(request, 'editcompany.html', {'form': form,'company_id':company_id })
+        return render(request, 'editcompany.html', {'form': form, 'company_id': company_id})
+
+    def edit_company(self, request):
+        company_id = request.POST.get('company_id')
+        company = Company.objects.get(id=company_id)
+        form = CompanyForm(request.POST, request.FILES, instance=company)
+        if form.is_valid():
+            company = form.save(commit=False)
+            company.save()
+            messages.success(request, 'Company details edited.')
+            return HttpResponseRedirect('/console/listcompanies/')
+        else:
+            return HttpResponseRedirect('/console/listcompanies/')
+
+    def map_company(self, request):
+        company_id = request.GET.get('id')
+        company = Company.objects.get(pk=company_id)
+        dealers_list = Dealer.objects.exclude(is_active=False).filter(company_id=company_id)
+        paginator = Paginator(dealers_list, settings.PAGINATION_LIMIT)
+        page = request.GET.get('page')
+        try:
+            company_dealers = paginator.page(page)
+        except PageNotAnInteger:
+            company_dealers = paginator.page(1)
+        except EmptyPage:
+            company_dealers = paginator.page(paginator.num_pages)
+        return render(request, 'mapcompany.html',
+                      {'company': company, 'company_dealers': company_dealers, 'dealerForm': DealerForm})
+
+
+class DealerView(View):
+    'View for dealing with dealer manipulation'
+
+    def delete_dealer(self, request):
+        dealer_id = request.POST.get('id')
+        dealer = Dealer.objects.get(id=dealer_id)
+        dealer.is_active = 0
+        dealer.save()
+        return HttpResponse('success')
+
+    def post(self, request):
+        form = DealerForm(request.POST)
+        company_id = request.POST.get('company')
+        company = Company.objects.get(pk=company_id)
+        if form.is_valid():
+            dealer = form.save(commit=False)
+            dealer.company = company
+            dealer.save()
+            messages.success(request, 'New dealer added.')
+            return HttpResponseRedirect('/console/mapcompany?id={0}'.format(company_id))
+        else:
+            return HttpResponseRedirect('/console/mapcompany?id={0}'.format(company_id))
+
+    def specific_dealer(self, request):
+        dealer_id = request.POST.get('id')
+        dealer = Dealer.objects.get(id=dealer_id)
+        company_id=dealer.company.id
+        form = DealerForm(instance=dealer)
+        return render(request, 'editdealer.html', {'form': form, 'dealer_id': dealer_id,'company_id':company_id})
+
+    def edit_dealer(self, request):
+        dealer_id = request.POST.get('dealer_id')
+        dealer = Dealer.objects.get(id=dealer_id)
+        company_id = request.POST.get('company_id')
+        company = Company.objects.get(pk=company_id)
+        form = DealerForm(request.POST, instance=dealer)
+        if form.is_valid():
+            dealer = form.save(commit=False)
+            dealer.company = company
+            dealer.save()
+            messages.success(request, 'Dealer details edited.')
+            return HttpResponseRedirect('/console/mapcompany?id={0}'.format(company_id))
+        else:
+            return HttpResponseRedirect('/console/mapcompany?id={0}'.format(company_id))

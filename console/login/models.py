@@ -82,3 +82,20 @@ class Engine(models.Model):
     cyclinderconfiguration = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
+
+
+class Dealer(models.Model):
+    class Meta:
+        db_table = 'dealers'
+
+    company = models.ForeignKey(Company)
+    name = models.CharField(max_length=100, blank=False)
+    city = models.CharField(max_length=100, blank=False)
+    address = models.CharField(max_length=100, blank=False)
+    phonenumber = models.CharField(max_length=100, blank=False)
+    mobilenumber = models.CharField(max_length=100, blank=False)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
+    email = models.CharField(max_length=100, blank=False)
+    openinghours = models.CharField(max_length=100, blank=False)

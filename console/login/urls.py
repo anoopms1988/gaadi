@@ -1,7 +1,7 @@
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
-from .views import LoginView, CarView, VariantView, CompanyView
+from .views import LoginView, CarView, VariantView, CompanyView,DealerView
 from . import views
 
 urlpatterns = [
@@ -23,8 +23,14 @@ urlpatterns = [
         views.VariantView().specific_variant), name='specificvariant'),
     url(r'^editvariant', login_required(views.VariantView().edit_variant), name='editvariant'),
     url(r'^listcompanies', login_required(CompanyView.as_view()), name='listcompanies'),
-    url(r'^addcompany', login_required(views.CompanyView().add_company), name='addcompany'),
+    url(r'^addcompany', login_required(CompanyView.as_view()), name='addcompany'),
     url(r'^deletecompany', login_required(views.CompanyView().delete_company), name='deletecompany'),
     url(r'^specificcompany', login_required(views.CompanyView().specific_company), name='specificcompany'),
+    url(r'^editcompany', login_required(views.CompanyView().edit_company), name='editcompany'),
+    url(r'^mapcompany$', login_required(views.CompanyView().map_company), name='mapcompany'),
+    url(r'^deletedealer$', login_required(views.DealerView().delete_dealer), name='deletedealer'),
+    url(r'^adddealer', login_required(DealerView.as_view()), name='addealer'),
+    url(r'^specificdealer', login_required(views.DealerView().specific_dealer), name='specificdealer'),
+    url(r'^editdealer', login_required(views.DealerView().edit_dealer), name='editdealer'),
     url(r'^', LoginView.as_view()),
 ]

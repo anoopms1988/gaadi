@@ -46,16 +46,20 @@
                                             {% load staticfiles %}
                                             {% for company in all_companies %}
                                                 <tr class="odd gradeX">
-                                                    <td>{{ company.name }} </td>
-                                                    <td>{{ company.description }} </td>
-                                                    <td><img src="{{ MEDIA_URL }}{{ company.logo }}" height="25"
-                                                             width="25"
-                                                             onError="this.onerror=null;this.src='{{ MEDIA_URL }}companies/noimage.jpg';">
+                                                    <td id="{{ company.id }}"
+                                                        class="companylisting">{{ company.name }} </td>
+                                                    <td id="{{ company.id }}"
+                                                        class="companylisting">{{ company.description }} </td>
+                                                    <td id="{{ company.id }}" class="companylisting"><img
+                                                            src="{{ MEDIA_URL }}{{ company.logo }}" height="40"
+                                                            width="50"
+                                                            onError="this.onerror=null;this.src='{{ MEDIA_URL }}companies/noimage.jpg';">
                                                     </td>
                                                     <td>
                                                         <button class="editcompany btn btn-primary btn-circle"
                                                                 type="button"
-                                                                id="edit_company_{{ company.id }}" data-target="#myModal"
+                                                                id="edit_company_{{ company.id }}"
+                                                                data-target="#myModal"
                                                                 data-toggle="modal"><i
                                                                 class="fa fa-list"></i>
                                                         </button>
@@ -73,6 +77,22 @@
 
                                     </div>
 
+                                </div>
+                                <!--/ Pagination -->
+                                <div class="pagination">
+                                    <span class="step-links">
+                                        {% if all_companies.has_previous %}
+                                            <a href="?page={{ all_companies.previous_page_number }}">previous</a>
+                                        {% endif %}
+
+                                        <span class="current">
+                                            Page {{ all_companies.number }} of {{ all_companies.paginator.num_pages }}.
+                                        </span>
+
+                                        {% if all_companies.has_next %}
+                                            <a href="?page={{ all_companies.next_page_number }}">next</a>
+                                        {% endif %}
+                                    </span>
                                 </div>
                                 <div class="modal fade" id="add_company" tabindex="-1" role="dialog"
                                      aria-labelledby="myModalLabel" aria-hidden="true">
@@ -189,6 +209,13 @@
                     name: "<div class='text-danger'>Enter company name</div>",
                 }
             });
+
+            $('.companylisting').click(function () {
+                var id = $(this).attr('id');
+                window.location.href = '/console/mapcompany?id=' + id;
+            });
+
+
         });
     </script>
 {% endblock %}

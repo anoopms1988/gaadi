@@ -1,0 +1,247 @@
+{% extends "consolelayout/layout.html" %}
+{% block content %}
+    <div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                {{ company.name }}&nbsp;&nbsp;<img src="{{ MEDIA_URL }}{{ company.logo }}" height="40"
+                                                   width="50"
+                                                   onError="this.onerror=null;this.src='{{ MEDIA_URL }}companies/noimage.jpg';">
+            </div>
+            <div class="panel-body">
+                <!-- Nav tabs -->
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#dealers" aria-expanded="false">Dealers</a>
+                    </li>
+                    <li class=""><a data-toggle="tab" href="#assistance" aria-expanded="false">Road side assistance</a>
+
+                </ul>
+
+                <div class="tab-content">
+                    <div id="dealers" class="tab-pane fade active in">
+                        <h4>List dealers</h4>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        Details
+                                        <button id='#new_dealer' data-target="#add_dealer" data-toggle="modal"
+                                                class="btn btn-primary pull-right ">
+                                            Add dealer
+                                        </button>
+                                        <button onclick="window.location='/console/listcompanies/';" class="btn btn-link pull-right" type="button">Back to companies list</button>
+                                    </div>
+                                    <!-- /.panel-heading -->
+                                    <div class="panel-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th>Dealer name</th>
+                                                    <th>City</th>
+                                                    <th>Address</th>
+                                                    <th>Phone number</th>
+                                                    <th>Mobile number</th>
+                                                    <th>Email</th>
+                                                    <th>Opening hours</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for dealers in company_dealers %}
+                                                    <tr>
+                                                        <td>{{ dealers.name }}</td>
+                                                        <td>{{ dealers.city }}</td>
+                                                        <td>{{ dealers.address }}</td>
+                                                        <td>{{ dealers.phonenumber }}</td>
+                                                        <td>{{ dealers.mobilenumber }}</td>
+                                                        <td>{{ dealers.email }}</td>
+                                                        <td>{{ dealers.openinghours }}</td>
+                                                        <td>
+                                                            <button class="editdealer btn btn-primary btn-circle"
+                                                                    type="button"
+                                                                    id="edit_dealer_{{ dealers.id }}"
+                                                                    data-target="#editModal"
+                                                                    data-toggle="modal"><i
+                                                                    class="fa fa-list"></i>
+                                                            </button>
+                                                            <button class="deletedealer btn btn-warning btn-circle"
+                                                                    id="delete_dealer_{{ dealers.id }}" type="button">
+                                                                <i class="fa fa-times"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                {% empty %}
+                                                    <tr>
+                                                        <td>No dealers for this company</td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- /.table-responsive -->
+                                         <!--/ Pagination -->
+                                <div class="pagination">
+                                    <span class="step-links">
+                                        {% if company_dealers.has_previous %}
+                                            <a href="?page={{ company_dealers.previous_page_number }}&id={{ company.id }}">previous</a>
+                                        {% endif %}
+
+                                        <span class="current">
+                                            Page {{ company_dealers.number }} of {{ company_dealers.paginator.num_pages }}.
+                                        </span>
+
+                                        {% if company_dealers.has_next %}
+                                            <a href="?page={{ company_dealers.next_page_number }}&id={{ company.id }}">next</a>
+                                        {% endif %}
+                                    </span>
+                                </div>
+                                    </div>
+                                    <!-- /.panel-body -->
+                                </div>
+                                <!-- /.panel -->
+                            </div>
+
+                        </div>
+                        <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">Edit Dealer</h4>
+                                    </div>
+                                    <div class="modal-body" id="edit_dealer">
+
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        <div class="modal fade" id="add_dealer" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">Add new dealer</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method='post' action='/console/adddealer'
+                                              id='add_dealer_form'>
+                                            {% csrf_token %}
+                                            <input type="hidden" name="company" value="{{ company.id }}">
+
+                                            <div>{{ dealerForm.name.label }}</div>
+                                            <div>{{ dealerForm.name }}</div>
+                                            <div>{{ dealerForm.city.label }}</div>
+                                            <div>{{ dealerForm.city }}</div>
+                                            <div>{{ dealerForm.address.label }}</div>
+                                            <div>{{ dealerForm.address }}</div>
+                                            <div>{{ dealerForm.phonenumber.label }}</div>
+                                            <div>{{ dealerForm.phonenumber }}</div>
+                                            <div>{{ dealerForm.mobilenumber.label }}</div>
+                                            <div>{{ dealerForm.mobilenumber }}</div>
+                                            <div>{{ dealerForm.email.label }}</div>
+                                            <div>{{ dealerForm.email }}</div>
+                                            <div>{{ dealerForm.openinghours.label }}</div>
+                                            <div>{{ dealerForm.openinghours }}</div>
+                                            <input type="submit" name='dealer_submit' value='submit'
+                                                   class="btn btn-primary  ">
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                    </div>
+                    <div id="assistance" class="tab-pane fade">
+                        <h4>List Roadside assistance</h4>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.deletedealer').click(function () {
+                if (confirm("Are you want to delete this company")) {
+                    var id = $(this).attr('id');
+                    var splitElements = id.split("_");
+                    var dealer_id = splitElements[2];
+                    $.ajax({
+                        type: "POST",
+                        url: '/console/deletedealer',
+                        data: {id: dealer_id, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                        success: function (response) {
+                            if (response == "success") {
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            });
+
+            $("#add_dealer_form").validate({
+                rules: {
+                    name: "required",
+                    city: "required",
+                    address: "required",
+                    phonenumber: "required",
+                    mobilenumber: "required",
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    openinghours: "required",
+                },
+                messages: {
+                    name: "Enter company name",
+                    city: "Enter city name",
+                    address: "Enter address",
+                    phonenumber: "Enter  phone number",
+                    mobilenumber: "Enter mobile number",
+
+                },
+                errorElement: 'div',
+                errorClass: 'text-danger'
+
+            });
+
+            $('.editdealer').click(function () {
+                var id = $(this).attr('id');
+                var splitElements = id.split("_");
+                var dealer_id = splitElements[2];
+                $.ajax({
+                    type: "POST",
+                    url: '/console/specificdealer',
+                    data: {id: dealer_id, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                    success: function (response) {
+                        $("#edit_dealer").html(response);
+                    }
+                });
+            });
+
+
+            $("#new_dealer").on('click', function () {
+                alert("asdasd");
+                $('#add_dealer_form')[0].reset();
+            });
+
+
+        });
+    </script>
+{% endblock %}

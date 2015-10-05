@@ -119,6 +119,6 @@ STATICFILES_DIRS = (
 )
 
 #constants
-PAGINATION_LIMIT =2
+PAGINATION_LIMIT =5
 
 LOGIN_URL='/console/login/'
