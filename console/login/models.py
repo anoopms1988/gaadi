@@ -92,3 +92,15 @@ class Dealer(models.Model):
     updated_at = models.DateTimeField(auto_now=True, null=True)
     email = models.CharField(max_length=100, blank=False)
     openinghours = models.CharField(max_length=100, blank=False)
+
+
+class Assistance(models.Model):
+    class Meta:
+        db_table = 'road_assistance'
+
+    company = models.ForeignKey(Company)
+    contact_details = models.CharField(max_length=100, blank=False)
+    address = models.CharField(max_length=100, blank=False)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)

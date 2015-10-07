@@ -1,7 +1,7 @@
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
-from .views import LoginView, CarView, VariantView, CompanyView,DealerView
+from .views import LoginView, CarView, VariantView, CompanyView,DealerView,AssistanceView
 from . import views
 
 urlpatterns = [
@@ -32,5 +32,9 @@ urlpatterns = [
     url(r'^adddealer', login_required(DealerView.as_view()), name='addealer'),
     url(r'^specificdealer', login_required(views.DealerView().specific_dealer), name='specificdealer'),
     url(r'^editdealer', login_required(views.DealerView().edit_dealer), name='editdealer'),
+    url(r'^addassistance', login_required(AssistanceView.as_view()), name='addassistance'),
+    url(r'^specificassistance', login_required(views.AssistanceView().specific_assistance), name='specificassistance'),
+    url(r'^editassistance', login_required(views.AssistanceView().edit_assistance), name='editassistance'),
+    url(r'^deleteassistance', login_required(views.AssistanceView().delete_assistance), name='deleteassistance'),
     url(r'^', LoginView.as_view()),
 ]
