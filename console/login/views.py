@@ -314,13 +314,13 @@ class AssistanceView(View):
         else:
             return HttpResponseRedirect('/console/mapcompany?id={0}'.format(company_id))
 
-
     def specific_assistance(self, request):
         assistance_id = request.POST.get('id')
         assistance = Assistance.objects.get(id=assistance_id)
         company_id = assistance.company.id
         form = AssistanceForm(instance=assistance)
-        return render(request, 'editassistance.html', {'form': form, 'assistance_id': assistance_id, 'company_id': company_id})
+        return render(request, 'editassistance.html',
+                      {'form': form, 'assistance_id': assistance_id, 'company_id': company_id})
 
     def edit_assistance(self, request):
         assistance_id = request.POST.get('assistance_id')
