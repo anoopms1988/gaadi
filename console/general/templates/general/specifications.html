@@ -1,11 +1,18 @@
 {% extends "consolelayout/layout.html" %}
 {% block content %}
-    test
+    <div class="row">
+        <div class="well">
+            <h3>Specifications and Features</h3>
+            <h5><b>Variant name :</b>&nbsp;{{ variant.name }}</h5>
+            <h5><b>Car :</b>&nbsp;{{ variant.car.name }}</h5>
+            <h5><b>Company :</b>&nbsp;{{ variant.car.company.name }}</h5>
+        </div>
+    </div>
 {% endblock %}
 {% block script %}
-     <script type="text/javascript">
+    <script type="text/javascript">
         $(document).ready(function () {
 
         });
-      </script>
+    </script>
 {% endblock %}

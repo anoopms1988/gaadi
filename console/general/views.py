@@ -10,6 +10,8 @@ from console.login.models import Company, CarType, Car, Variant, Fuel, Dealer, A
 
 class SpecificationView(View):
     def get(self, request, *args, **kwargs):
-        return render(request, 'general/specifications.html', {})
+        variant_id=request.GET.get('id')
+        variant=Variant.objects.get(id=variant_id)
+        return render(request, 'general/specifications.html', {'variant':variant})
 
 

@@ -4,5 +4,5 @@ from .views import SpecificationView
 from . import views
 
 urlpatterns = [
-    url(r'^', login_required(SpecificationView.as_view())),
+    url(r'^$', login_required(SpecificationView.as_view())),
 ]

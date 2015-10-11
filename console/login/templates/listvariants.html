@@ -42,14 +42,21 @@
                                             <tbody>
                                             {% for variant in variants %}
                                                 <tr class="odd gradeX">
-                                                    <td>{{ variant.name }} </td>
-                                                    <td>{{ variant.car.name }} </td>
-                                                    <td>{{ variant.car.company.name }}</td>
-                                                    <td>{{ variant.car.cartype.cartype }}</td>
-                                                    <td>{{ variant.fuel.name }}</td>
+                                                    <td class="variantspecs"
+                                                        id="name_{{ variant.id }}">{{ variant.name }} </td>
+                                                    <td class="variantspecs"
+                                                        id="car_{{ variant.id }}">{{ variant.car.name }} </td>
+                                                    <td class="variantspecs"
+                                                        id="company_{{ variant.id }}">{{ variant.car.company.name }}</td>
+                                                    <td class="variantspecs"
+                                                        id="cartype_{{ variant.id }}">{{ variant.car.cartype.cartype }}</td>
+                                                    <td class="variantspecs"
+                                                        id="fuel_{{ variant.id }}">{{ variant.fuel.name }}</td>
                                                     <td>
-                                                        <button class="editvariant btn btn-primary btn-circle" type="button"
-                                                                id="edit_variant_{{ variant.id }}" data-target="#myModal"
+                                                        <button class="editvariant btn btn-primary btn-circle"
+                                                                type="button"
+                                                                id="edit_variant_{{ variant.id }}"
+                                                                data-target="#myModal"
                                                                 data-toggle="modal"><i
                                                                 class="fa fa-list"></i>
                                                         </button>
@@ -145,6 +152,14 @@
                     }
                 });
             });
+
+            $('.variantspecs').click(function () {
+                var id = $(this).attr('id');
+                var splitElements = id.split("_");
+                var variantId = splitElements[1];
+                window.location.href = '/general?id=' + variantId;
+            });
+
 
         });
 
