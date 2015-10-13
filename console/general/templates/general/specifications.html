@@ -26,6 +26,8 @@
                     <div class="tab-content">
                         <div id="specifications" class="tab-pane fade active in">
                             <h4>Specifications</h4>
+                            {{ form.errors }}
+                            {{ form.non_field_errors }}
                             {% if messages %}
                                 {% for message in messages %}
                                 <div class="alert alert-success">{{ message }}</div>
