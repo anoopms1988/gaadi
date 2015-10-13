@@ -34,4 +34,23 @@ class SpecificationView(View):
         else:
             return render(request, 'dashboard.html', {'form': form})
 
-    
+    def specific_dimension(self, request):
+        variant_id = request.POST.get('id')
+        variant = Variant.objects.get(id=variant_id)
+        dimension=Dimensions.objects.get(variant=variant)
+        form = DimensionForm(instance=dimension)
+        return render(request, 'general/specificdimension.html', {'form': form,'variant_id': variant_id})
+
+    def edit_dimension(self, request):
+        variant_id = request.POST.get('variant_id')
+        variant = Variant.objects.get(id=variant_id)
+        dimension=Dimensions.objects.get(variant=variant)   
+        form = DimensionForm(request.POST, instance=dimension)
+        if form.is_valid():
+            dimension = form.save(commit=False)
+            dimension.variant = variant
+            dimension.save()
+            messages.success(request, 'Car dimensions edited.')
+            return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
+        else:
+            return HttpResponseRedirect('/console/cars')

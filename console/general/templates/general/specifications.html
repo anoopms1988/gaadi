@@ -37,11 +37,11 @@
                                         <div class="panel-heading">
                                             Dimensions
                                             {% if dimensions %} 
-                                            <button data-target="#editdimensions" data-toggle="modal" class="btn btn-primary pull-right">
+                                            <button data-target="#editdimensions" id="dimensions_{{variant.id}}" data-toggle="modal" class="editdimensions btn btn-primary pull-right">
                                             Edit dimensions
                                             </button>
                                             {% else %} 
-                                            <button data-target="#adddimensions" data-toggle="modal" class="btn btn-primary pull-right">
+                                            <button data-target="#adddimensions" id="dimensions_{{variant.id}}" data-toggle="modal" class="btn btn-primary pull-right">
                                             Add dimensions
                                             </button>
                                             {% endif %}
@@ -118,7 +118,19 @@
 {% block script %}
     <script type="text/javascript">
         $(document).ready(function () {
-
+                 $('.editdimensions').click(function () {
+                var id = $(this).attr('id');
+                var splitElements = id.split("_");
+                var variantId = splitElements[1];
+                $.ajax({
+                    type: "POST",
+                    url: '/general/specificdimension',
+                    data: {id: variantId, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                    success: function (response) {
+                        $("#dimension-body").html(response);
+                    }
+                });
+            });
         });
     </script>
 {% endblock %}
