@@ -1,5 +1,5 @@
 from django import forms
-from .models import Car, Company, CarType, Variant, Fuel, Dealer
+from .models import Car, Company, CarType, Variant, Fuel, Dealer, Assistance
 from .fields import NameModelChoiceField, CartypeModelChoiceField
 
 
@@ -67,7 +67,6 @@ class DealerForm(forms.ModelForm):
         model = Dealer
         fields = ['name', 'city', 'address', 'phonenumber', 'mobilenumber', 'email', 'openinghours']
 
-
     name = forms.CharField(error_messages={'required': 'Dealer name is required'}, required=True, label='Dealername',
                            max_length=100,
                            widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Dealername'}))
@@ -94,3 +93,18 @@ class DealerForm(forms.ModelForm):
                                    max_length=100,
                                    widget=forms.TextInput(
                                        attrs={'class': 'form-control', 'placeholder': 'Opening hours'}))
+
+
+class AssistanceForm(forms.ModelForm):
+    class Meta:
+        model = Assistance
+        fields = ['contact_details', 'address']
+
+    contact_details = forms.CharField(error_messages={'required': 'Contact details is required'}, required=True,
+                                      label='Contact details',
+                                      max_length=100,
+                                      widget=forms.Textarea(
+                                          attrs={'class': 'form-control', 'placeholder': 'Contact details'}))
+    address = forms.CharField(error_messages={'required': 'Address is required'}, required=True, label='Address',
+                              max_length=100,
+                              widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Address'}))

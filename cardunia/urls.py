@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from console.login import urls as login_urls
+from console.general import urls as general_urls
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import patterns
@@ -23,6 +24,7 @@ from django.conf.urls import patterns
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^console/', include(login_urls)),
+    url(r'^general/', include(general_urls)),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += patterns('',
