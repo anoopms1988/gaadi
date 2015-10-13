@@ -1,18 +1,16 @@
 from django.db import models
 import os
 
-
+def generate_filename(self, filename):
+    extension = os.path.splitext(filename)[1]
+    changed_name = self.name + extension
+    url = "companies/logos/%s/%s" % (self.name, changed_name)
+    return url
 
 class Company(models.Model):
 
     class Meta:
         db_table = 'companies'
-
-    def generate_filename(self, filename):
-        extension = os.path.splitext(filename)[1]
-        changed_name = self.name + extension
-        url = "companies/logos/%s/%s" % (self.name, changed_name)
-        return url
 
     name = models.CharField(max_length=100)
     logo = models.FileField(verbose_name='Upload Logo', upload_to=generate_filename, blank=True, null=True)

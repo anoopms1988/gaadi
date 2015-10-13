@@ -26,12 +26,25 @@
                     <div class="tab-content">
                         <div id="specifications" class="tab-pane fade active in">
                             <h4>Specifications</h4>
-
+                            {% if messages %}
+                                {% for message in messages %}
+                                <div class="alert alert-success">{{ message }}</div>
+                                {% endfor %}
+                            {% endif %}
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             Dimensions
+                                            {% if dimensions %} 
+                                            <button data-target="#editdimensions" data-toggle="modal" class="btn btn-primary pull-right">
+                                            Edit dimensions
+                                            </button>
+                                            {% else %} 
+                                            <button data-target="#adddimensions" data-toggle="modal" class="btn btn-primary pull-right">
+                                            Add dimensions
+                                            </button>
+                                            {% endif %}
                                         </div>
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">
@@ -49,8 +62,9 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
+                                                    {% if dimensions %} 
                                                     <tr>
-                                                        <td>1</td>
+                                                        <td>#</td>
                                                         <td>{{ dimensions.length }}</td>
                                                         <td>{{ dimensions.width }}</td>
                                                         <td>{{ dimensions.height}}</td>
@@ -58,7 +72,16 @@
                                                         <td>{{ dimensions.bootspace}}</td>
                                                         <td>{{ dimensions.kerbweight}}</td>
                                                     </tr>
+                                                    {% else %} 
+                                                    <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>No dimensions added</td>
+                                                    <td></td>
+                                                    <td></td>
                                                     </tr>
+                                                    {% endif %}
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -70,6 +93,8 @@
                                 </div>
 
                             </div>
+                            {% include "partials/adddimensions.html" %}  
+                            {% include "partials/editdimensions.html" %} 
                         </div>
                         <div id="features" class="tab-pane fade">
                             <h4>Features</h4>

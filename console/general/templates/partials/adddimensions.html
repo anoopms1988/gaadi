@@ -1,0 +1,45 @@
+<div class="modal fade" id="adddimensions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">Add dimensions</h4>
+                                        </div>
+                                         <form method="post" action='/general/adddimensions' id='add_dimensions_form'>
+                                         {% csrf_token %}
+                                        <div class="modal-body">                       
+                                            <input type="hidden" name='variant' value='{{variant.id}}'>
+                                            {{dimensionsform.length.label}}{{dimensionsform.length}}
+                                            {{dimensionsform.width.label}}{{dimensionsform.width}}
+                                            {{dimensionsform.height.label}}{{dimensionsform.height}}
+                                            {{dimensionsform.wheelbase.label}}{{dimensionsform.wheelbase}}
+                                            {{dimensionsform.bootspace.label}}{{dimensionsform.bootspace}}
+                                            {{dimensionsform.kerbweight.label}}{{dimensionsform.kerbweight}}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <input type="submit"  class="btn btn-primary" name='dimensionsubmit' value='Save'>
+                                        </div>
+                                        </form>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+<script type="text/javascript">
+        $(document).ready(function () {
+             $("#add_dimensions_form").validate({
+            rules: {
+                length: "required",
+                width :"required",
+                height :"required",
+
+            },
+            messages: {
+                length: "<div class='text-danger'>Enter your length</div>",
+                width: "<div class='text-danger'>Enter your width</div>",
+                height: "<div class='text-danger'>Enter your height</div>",
+            }
+            });
+        });
+</script>

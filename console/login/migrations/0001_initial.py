@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+import console.login.models
 
 
 class Migration(migrations.Migration):
@@ -10,6 +11,20 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.CreateModel(
+            name='Assistance',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('contact_details', models.CharField(max_length=100)),
+                ('address', models.CharField(max_length=100)),
+                ('is_active', models.BooleanField(default=True)),
+                ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
+                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
+            ],
+            options={
+                'db_table': 'road_assistance',
+            },
+        ),
         migrations.CreateModel(
             name='Car',
             fields=[
@@ -41,14 +56,34 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=100)),
-                ('logo', models.CharField(max_length=100)),
-                ('description', models.CharField(max_length=100, null=True)),
+                ('logo', models.FileField(upload_to=console.login.models.generate_filename, null=True, verbose_name=b'Upload Logo', blank=True)),
+                ('description', models.CharField(max_length=100)),
                 ('is_active', models.BooleanField(default=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
                 ('updated_at', models.DateTimeField(auto_now=True, null=True)),
             ],
             options={
                 'db_table': 'companies',
+            },
+        ),
+        migrations.CreateModel(
+            name='Dealer',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=100)),
+                ('city', models.CharField(max_length=100)),
+                ('address', models.CharField(max_length=100)),
+                ('phonenumber', models.CharField(max_length=100)),
+                ('mobilenumber', models.CharField(max_length=100)),
+                ('is_active', models.BooleanField(default=True)),
+                ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
+                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
+                ('email', models.CharField(max_length=100)),
+                ('openinghours', models.CharField(max_length=100)),
+                ('company', models.ForeignKey(to='login.Company')),
+            ],
+            options={
+                'db_table': 'dealers',
             },
         ),
         migrations.CreateModel(
@@ -106,6 +141,11 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='car',
+            name='company',
+            field=models.ForeignKey(to='login.Company'),
+        ),
+        migrations.AddField(
+            model_name='assistance',
             name='company',
             field=models.ForeignKey(to='login.Company'),
         ),
