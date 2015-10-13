@@ -1,16 +1,16 @@
 from django.db import models
 import os
 
+def generate_filename(self, filename):
+    extension = os.path.splitext(filename)[1]
+    changed_name = self.name + extension
+    url = "companies/logos/%s/%s" % (self.name, changed_name)
+    return url
 
 class Company(models.Model):
+
     class Meta:
         db_table = 'companies'
-
-    def generate_filename(self, filename):
-        extension = os.path.splitext(filename)[1]
-        changed_name = self.name + extension
-        url = "companies/logos/%s/%s" % (self.name, changed_name)
-        return url
 
     name = models.CharField(max_length=100)
     logo = models.FileField(verbose_name='Upload Logo', upload_to=generate_filename, blank=True, null=True)
@@ -21,6 +21,7 @@ class Company(models.Model):
 
 
 class CarType(models.Model):
+
     class Meta:
         db_table = 'cartypes'
 
@@ -30,6 +31,7 @@ class CarType(models.Model):
 
 
 class Car(models.Model):
+
     class Meta:
         db_table = 'cars'
 
@@ -43,6 +45,7 @@ class Car(models.Model):
 
 
 class Fuel(models.Model):
+
     class Meta:
         db_table = 'fueltype'
 
@@ -50,6 +53,7 @@ class Fuel(models.Model):
 
 
 class Variant(models.Model):
+
     class Meta:
         db_table = 'variants'
 
@@ -62,6 +66,7 @@ class Variant(models.Model):
 
 
 class Engine(models.Model):
+
     class Meta:
         db_table = 'engines'
 
