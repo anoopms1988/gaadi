@@ -26,8 +26,6 @@
                     <div class="tab-content">
                         <div id="specifications" class="tab-pane fade active in">
                             <h4>Specifications</h4>
-                            {{ form.errors }}
-                            {{ form.non_field_errors }}
                             {% if messages %}
                                 {% for message in messages %}
                                 <div class="alert alert-success">{{ message }}</div>
@@ -99,6 +97,73 @@
                             </div>
                             {% include "partials/adddimensions.html" %}  
                             {% include "partials/editdimensions.html" %} 
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            Engine Specifications
+                                            {% if engine %} 
+                                            <button data-target="#editengine" id="engine_{{variant.id}}" data-toggle="modal" class="editengine btn btn-primary pull-right">
+                                            Edit engine specs
+                                            </button>
+                                            {% else %} 
+                                            <button data-target="#addengine" id="engine_{{variant.id}}" data-toggle="modal" class="btn btn-primary pull-right">
+                                            Add engine specs
+                                            </button>
+                                            {% endif %}
+
+                                        </div>
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <div class="table-responsive table-bordered">
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Torque</th>
+                                                        <th>Dispalcement</th>
+                                                        <th>Power</th>
+                                                        <th>Cylinders</th>
+                                                        <th>Valves per cylinder</th>
+                                                        <th>Valve mechanism</th>
+                                                        <th>Cyclinder configuration</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% if engine %} 
+                                                    <tr>
+                                                        <td>#</td>
+                                                        <td>{{ engine.torque}}</td>
+                                                        <td>{{ engine.displacement }}</td>
+                                                        <td>{{ engine.power}}</td>
+                                                        <td>{{ engine.cylinders}}</td>
+                                                        <td>{{ engine.valvespercylinder}}</td>
+                                                        <td>{{ engine.valvemechanism}}</td>
+                                                        <td>{{ engine.cyclinderconfiguration}}</td>
+
+                                                    </tr>
+                                                    {% else %} 
+                                                    <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>No engine specifications added</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    </tr>
+                                                    {% endif %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!-- /.table-responsive -->
+                                        </div>
+                                        <!-- /.panel-body -->
+                                    </div>
+                                    <!-- /.panel -->
+                                </div>
+
+                            </div>
+                            
                         </div>
                         <div id="features" class="tab-pane fade">
                             <h4>Features</h4>

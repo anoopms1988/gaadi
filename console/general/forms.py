@@ -1,5 +1,6 @@
 from django import forms
 from .models import Dimensions
+from console.login.models import Engine
 
 
 class DimensionForm(forms.ModelForm):
@@ -19,3 +20,5 @@ class DimensionForm(forms.ModelForm):
                                 widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Bootspace'}))
     kerbweight = forms.CharField(label='Kerbweight', required=False,
                                  widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Kerbweight'}))
+
+
