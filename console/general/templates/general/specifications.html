@@ -26,6 +26,8 @@
                     <div class="tab-content">
                         <div id="specifications" class="tab-pane fade active in">
                             <h4>Specifications</h4>
+                            {{ form.errors }}
+                            {{ form.non_field_errors }}
                             {% if messages %}
                                 {% for message in messages %}
                                 <div class="alert alert-success">{{ message }}</div>
@@ -35,6 +37,7 @@
                                 <div class="col-lg-12">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
+
                                             Dimensions
                                             {% if dimensions %} 
                                             <button data-target="#editdimensions" id="dimensions_{{variant.id}}" data-toggle="modal" class="editdimensions btn btn-primary pull-right">
@@ -45,6 +48,7 @@
                                             Add dimensions
                                             </button>
                                             {% endif %}
+
                                         </div>
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">

@@ -228,10 +228,13 @@ class CompanyView(View):
 
     def map_company(self, request):
         company_id = request.GET.get('id')
-        company = Company.objects.get(pk=company_id)
+        try:
+            company = Company.objects.get(pk=company_id)
+        except Company.DoesNotExist:
+            company = None
         dealers_list = Dealer.objects.exclude(is_active=False).filter(company_id=company_id)
-        assistance_list = Assistance.objects.exclude(is_active=False).filter(company_id=company_id)
         paginator = Paginator(dealers_list, settings.PAGINATION_LIMIT)
+        assistance_list = Assistance.objects.exclude(is_active=False).filter(company_id=company_id)
         assistance_paginator = Paginator(assistance_list, settings.PAGINATION_LIMIT)
         page = request.GET.get('page')
         try:

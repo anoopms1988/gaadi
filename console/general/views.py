@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.views.generic import View
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib import messages
@@ -11,7 +11,6 @@ from .forms import DimensionForm
 
 
 class SpecificationView(View):
-
     def get(self, request, *args, **kwargs):
         variant_id = request.GET.get('id')
         variant = Variant.objects.get(id=variant_id)
@@ -19,7 +18,8 @@ class SpecificationView(View):
             dimensions = Dimensions.objects.get(variant=variant)
         except Dimensions.DoesNotExist:
             dimensions = None
-        return render(request, 'general/specifications.html', {'dimensionsform': DimensionForm, 'variant': variant, 'dimensions': dimensions})
+        return render(request, 'general/specifications.html',
+                      {'dimensionsform': DimensionForm, 'variant': variant, 'dimensions': dimensions})
 
     def post(self, request, *args, **kwargs):
         form = DimensionForm(request.POST)
@@ -30,21 +30,20 @@ class SpecificationView(View):
             dimensions.variant = variant
             dimensions.save()
             messages.success(request, 'Car dimensions added.')
-            return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
-        else:
-            return render(request, 'dashboard.html', {'form': form})
+
+        return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
 
     def specific_dimension(self, request):
         variant_id = request.POST.get('id')
         variant = Variant.objects.get(id=variant_id)
-        dimension=Dimensions.objects.get(variant=variant)
+        dimension = Dimensions.objects.get(variant=variant)
         form = DimensionForm(instance=dimension)
-        return render(request, 'general/specificdimension.html', {'form': form,'variant_id': variant_id})
+        return render(request, 'general/specificdimension.html', {'form': form, 'variant_id': variant_id})
 
     def edit_dimension(self, request):
         variant_id = request.POST.get('variant_id')
         variant = Variant.objects.get(id=variant_id)
-        dimension=Dimensions.objects.get(variant=variant)   
+        dimension = Dimensions.objects.get(variant=variant)
         form = DimensionForm(request.POST, instance=dimension)
         if form.is_valid():
             dimension = form.save(commit=False)
@@ -53,4 +52,4 @@ class SpecificationView(View):
             messages.success(request, 'Car dimensions edited.')
             return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
         else:
-            return HttpResponseRedirect('/console/cars')
+            return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
