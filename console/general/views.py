@@ -5,12 +5,13 @@ from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from django.core import serializers
-from console.login.models import Company, CarType, Car, Variant, Fuel, Dealer, Assistance
+from console.login.models import Company, CarType, Car, Variant, Fuel, Dealer, Assistance, Engine
 from .models import Dimensions
 from .forms import DimensionForm
 
 
 class SpecificationView(View):
+
     def get(self, request, *args, **kwargs):
         variant_id = request.GET.get('id')
         variant = Variant.objects.get(id=variant_id)
@@ -18,8 +19,12 @@ class SpecificationView(View):
             dimensions = Dimensions.objects.get(variant=variant)
         except Dimensions.DoesNotExist:
             dimensions = None
+        try:
+            engine = Engine.objects.get(variant=variant)
+        except Engine.DoesNotExist:
+            engine = None
         return render(request, 'general/specifications.html',
-                      {'dimensionsform': DimensionForm, 'variant': variant, 'dimensions': dimensions})
+                      {'dimensionsform': DimensionForm, 'variant': variant, 'dimensions': dimensions, 'engine': engine})
 
     def post(self, request, *args, **kwargs):
         form = DimensionForm(request.POST)
