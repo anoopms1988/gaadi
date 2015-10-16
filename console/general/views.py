@@ -7,7 +7,7 @@ from django.conf import settings
 from django.core import serializers
 from console.login.models import Company, CarType, Car, Variant, Fuel, Dealer, Assistance, Engine
 from .models import Dimensions
-from .forms import DimensionForm
+from .forms import DimensionForm,EngineForm
 
 
 class SpecificationView(View):
@@ -24,7 +24,7 @@ class SpecificationView(View):
         except Engine.DoesNotExist:
             engine = None
         return render(request, 'general/specifications.html',
-                      {'dimensionsform': DimensionForm, 'variant': variant, 'dimensions': dimensions, 'engine': engine})
+                      {'dimensionsform': DimensionForm,'engineform':EngineForm, 'variant': variant, 'dimensions': dimensions, 'engine': engine})
 
     def post(self, request, *args, **kwargs):
         form = DimensionForm(request.POST)
@@ -35,7 +35,6 @@ class SpecificationView(View):
             dimensions.variant = variant
             dimensions.save()
             messages.success(request, 'Car dimensions added.')
-
         return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
 
     def specific_dimension(self, request):
@@ -58,3 +57,21 @@ class SpecificationView(View):
             return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
         else:
             return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
+
+class EngineView(View):
+
+    def post(self, request, *args, **kwargs):
+        form = EngineForm(request.POST)
+        variant_id = request.POST.get('variant')
+        variant = Variant.objects.get(id=variant_id)
+        if form.is_valid():
+            engine = form.save(commit=False)
+            engine.variant = variant
+            engine.save()
+            messages.success(request, 'Engine details added.')
+        return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
+
+
+
+
+

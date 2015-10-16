@@ -74,10 +74,10 @@ class Engine(models.Model):
     torque = models.CharField(max_length=100)
     displacement = models.CharField(max_length=100)
     power = models.CharField(max_length=100)
-    cylinders = models.PositiveIntegerField()
-    valvespercylinder = models.PositiveIntegerField()
+    cylinders = models.PositiveIntegerField(null=True)
+    valvespercylinder = models.PositiveIntegerField(null=True)
     valvemechanism = models.CharField(max_length=100)
-    cyclinderconfiguration = models.CharField(max_length=100)
+    cylinderconfiguration = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 

@@ -22,3 +22,23 @@ class DimensionForm(forms.ModelForm):
                                  widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Kerbweight'}))
 
 
+class EngineForm(forms.ModelForm):
+    class Meta:
+        model = Engine
+        fields = ['torque', 'displacement', 'power', 'cylinders', 'valvespercylinder', 'valvemechanism',
+                  'cylinderconfiguration']
+
+    torque = forms.CharField(label='Torque',required=False,
+                             widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Torque'}))
+    displacement = forms.CharField(label='Displacement',required=False,
+                             widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Displacement'}))
+    power = forms.CharField(label='Power',required=False,
+                             widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Power'}))
+    cylinders=forms.CharField(label='Cylinders',required=False,
+                             widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Cylinders'}))
+    valvespercylinder=forms.CharField(label='Valvespercylinder',required=False,
+                             widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Valvespercylinder'}))
+    valvemechanism=forms.CharField(label='Valvemechanism',required=False,
+                             widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Valvemechanism'}))
+    cylinderconfiguration=forms.CharField(label='Cylinder configuration',required=False,
+                             widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Cylinder configuration'}))
