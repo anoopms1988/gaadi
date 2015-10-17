@@ -1,5 +1,5 @@
 from django import forms
-from .models import Dimensions
+from .models import Dimensions,Brake
 from console.login.models import Engine
 
 
@@ -42,3 +42,13 @@ class EngineForm(forms.ModelForm):
                              widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Valvemechanism'}))
     cylinderconfiguration=forms.CharField(label='Cylinder configuration',required=False,
                              widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Cylinder configuration'}))
+
+class BrakeForm(forms.ModelForm):
+    class Meta:
+        model = Brake
+        fields = ['rear_brakes', 'front_brakes']
+
+    rear_brakes = forms.CharField(label='Rear brakes',required=False,
+                             widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Rear brakes'}))
+    front_brakes = forms.CharField(label='Front brakes',required=False,
+                             widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Front brakes'}))

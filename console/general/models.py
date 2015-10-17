@@ -15,3 +15,12 @@ class Dimensions(models.Model):
     kerbweight = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
+
+
+class Brake(models.Model):
+    class Meta:
+        db_table = 'brakes'
+
+    variant = models.ForeignKey(Variant)
+    rear_brakes = models.CharField(max_length=100, blank=False)
+    front_brakes = models.CharField(max_length=100, blank=False)

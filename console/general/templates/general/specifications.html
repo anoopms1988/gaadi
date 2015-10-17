@@ -28,7 +28,7 @@
                             <h4>Specifications</h4>
                             {% if messages %}
                                 {% for message in messages %}
-                                <div class="alert alert-success">{{ message }}</div>
+                                    <div class="alert alert-success">{{ message }}</div>
                                 {% endfor %}
                             {% endif %}
                             <div class="row">
@@ -37,14 +37,17 @@
                                         <div class="panel-heading">
 
                                             Dimensions
-                                            {% if dimensions %} 
-                                            <button data-target="#editdimensions" id="dimensions_{{variant.id}}" data-toggle="modal" class="editdimensions btn btn-primary pull-right">
-                                            Edit dimensions
-                                            </button>
-                                            {% else %} 
-                                            <button data-target="#adddimensions" id="dimensions_{{variant.id}}" data-toggle="modal" class="btn btn-primary pull-right">
-                                            Add dimensions
-                                            </button>
+                                            {% if dimensions %}
+                                                <button data-target="#editdimensions" id="dimensions_{{ variant.id }}"
+                                                        data-toggle="modal"
+                                                        class="editdimensions btn btn-primary pull-right">
+                                                    Edit dimensions
+                                                </button>
+                                            {% else %}
+                                                <button data-target="#adddimensions" id="dimensions_{{ variant.id }}"
+                                                        data-toggle="modal" class="btn btn-primary pull-right">
+                                                    Add dimensions
+                                                </button>
                                             {% endif %}
 
                                         </div>
@@ -64,25 +67,25 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    {% if dimensions %} 
-                                                    <tr>
-                                                        <td>#</td>
-                                                        <td>{{ dimensions.length }}</td>
-                                                        <td>{{ dimensions.width }}</td>
-                                                        <td>{{ dimensions.height}}</td>
-                                                        <td>{{ dimensions.wheelbase}}</td>
-                                                        <td>{{ dimensions.bootspace}}</td>
-                                                        <td>{{ dimensions.kerbweight}}</td>
-                                                    </tr>
-                                                    {% else %} 
-                                                    <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>No dimensions added</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    </tr>
+                                                    {% if dimensions %}
+                                                        <tr>
+                                                            <td>#</td>
+                                                            <td>{{ dimensions.length }}</td>
+                                                            <td>{{ dimensions.width }}</td>
+                                                            <td>{{ dimensions.height }}</td>
+                                                            <td>{{ dimensions.wheelbase }}</td>
+                                                            <td>{{ dimensions.bootspace }}</td>
+                                                            <td>{{ dimensions.kerbweight }}</td>
+                                                        </tr>
+                                                    {% else %}
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>No dimensions added</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
                                                     {% endif %}
                                                     </tbody>
                                                 </table>
@@ -95,21 +98,24 @@
                                 </div>
 
                             </div>
-                            {% include "partials/adddimensions.html" %}  
-                            {% include "partials/editdimensions.html" %} 
+                            {% include "partials/adddimensions.html" %}
+                            {% include "partials/editdimensions.html" %}
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             Engine Specifications
-                                            {% if engine %} 
-                                            <button data-target="#editengine" id="engine_{{variant.id}}" data-toggle="modal" class="editengine btn btn-primary pull-right">
-                                            Edit engine specs
-                                            </button>
-                                            {% else %} 
-                                            <button data-target="#addengine" id="engine_{{variant.id}}" data-toggle="modal" class="btn btn-primary pull-right">
-                                            Add engine specs
-                                            </button>
+                                            {% if engine %}
+                                                <button data-target="#editengine" id="engine_{{ variant.id }}"
+                                                        data-toggle="modal"
+                                                        class="editengine btn btn-primary pull-right">
+                                                    Edit engine specs
+                                                </button>
+                                            {% else %}
+                                                <button data-target="#addengine" id="engine_{{ variant.id }}"
+                                                        data-toggle="modal" class="btn btn-primary pull-right">
+                                                    Add engine specs
+                                                </button>
                                             {% endif %}
 
                                         </div>
@@ -130,27 +136,27 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    {% if engine %} 
-                                                    <tr>
-                                                        <td>#</td>
-                                                        <td>{{ engine.torque}}</td>
-                                                        <td>{{ engine.displacement }}</td>
-                                                        <td>{{ engine.power}}</td>
-                                                        <td>{{ engine.cylinders}}</td>
-                                                        <td>{{ engine.valvespercylinder}}</td>
-                                                        <td>{{ engine.valvemechanism}}</td>
-                                                        <td>{{ engine.cyclinderconfiguration}}</td>
+                                                    {% if engine %}
+                                                        <tr>
+                                                            <td>#</td>
+                                                            <td>{{ engine.torque }}</td>
+                                                            <td>{{ engine.displacement }}</td>
+                                                            <td>{{ engine.power }}</td>
+                                                            <td>{{ engine.cylinders }}</td>
+                                                            <td>{{ engine.valvespercylinder }}</td>
+                                                            <td>{{ engine.valvemechanism }}</td>
+                                                            <td>{{ engine.cyclinderconfiguration }}</td>
 
-                                                    </tr>
-                                                    {% else %} 
-                                                    <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>No engine specifications added</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    </tr>
+                                                        </tr>
+                                                    {% else %}
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>No engine specifications added</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
                                                     {% endif %}
                                                     </tbody>
                                                 </table>
@@ -163,9 +169,107 @@
                                 </div>
 
                             </div>
-                            
+                            {% include "partials/addengines.html" %}
+                            {% include "partials/editengines.html" %}
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            Brake system
+                                             {% if brake %}
+                                                <button data-target="#editbrake" id="brake_{{ variant.id }}"
+                                                        data-toggle="modal"
+                                                        class="editbrake btn btn-primary pull-right">
+                                                    Edit brakes
+                                                </button>
+                                            {% else %}
+                                                <button data-target="#addbrake" id="brake_{{ variant.id }}"
+                                                        data-toggle="modal" class="btn btn-primary pull-right">
+                                                    Add brake
+                                                </button>
+                                            {% endif %}
+                                        </div>
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Rear brakes</th>
+                                                        <th>Front brakes</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% if brake %}
+                                                    <tr>
+                                                        <td>#</td>
+                                                        <td>{{ brake.rear_brakes }}</td>
+                                                        <td>{{ brake.front_brakes }}</td>
+                                                    </tr>
+                                                    {% else %}
+                                                        <td></td>
+                                                        <td>No brake details added</td>
+                                                        <td></td>
+                                                    {% endif %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!-- /.table-responsive -->
+                                        </div>
+                                        <!-- /.panel-body -->
+                                    </div>
+                                    <!-- /.panel -->
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            Kitchen Sink
+                                        </div>
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>First Name</th>
+                                                        <th>Last Name</th>
+                                                        <th>Username</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>Mark</td>
+                                                        <td>Otto</td>
+                                                        <td>@mdo</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td>Jacob</td>
+                                                        <td>Thornton</td>
+                                                        <td>@fat</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td>Larry</td>
+                                                        <td>the Bird</td>
+                                                        <td>@twitter</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!-- /.table-responsive -->
+                                        </div>
+                                        <!-- /.panel-body -->
+                                    </div>
+                                    <!-- /.panel -->
+                                </div>
+                            </div>
+                            {% include "partials/addbrakes.html" %}
                         </div>
-                        {% include "partials/addengines.html" %}
+
                         <div id="features" class="tab-pane fade">
                             <h4>Features</h4>
 
@@ -188,7 +292,7 @@
 {% block script %}
     <script type="text/javascript">
         $(document).ready(function () {
-                 $('.editdimensions').click(function () {
+            $('.editdimensions').click(function () {
                 var id = $(this).attr('id');
                 var splitElements = id.split("_");
                 var variantId = splitElements[1];
@@ -201,6 +305,21 @@
                     }
                 });
             });
+            $('.editengine').click(function () {
+                var id = $(this).attr('id');
+                var splitElements = id.split("_");
+                var variantId = splitElements[1];
+                $.ajax({
+                    type: "POST",
+                    url: '/general/specificengine',
+                    data: {id: variantId, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                    success: function (response) {
+                        $("#engine-body").html(response);
+                    }
+                });
+            });
+
+
         });
     </script>
 {% endblock %}
