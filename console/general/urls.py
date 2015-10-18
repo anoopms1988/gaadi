@@ -1,6 +1,6 @@
 from django.conf.urls import include, url
 from django.contrib.auth.decorators import login_required
-from .views import SpecificationView,EngineView,BrakeView,CapacityView
+from .views import SpecificationView,EngineView,BrakeView,CapacityView,MileageView
 from . import views
 
 urlpatterns = [
@@ -16,5 +16,8 @@ urlpatterns = [
     url(r'^addcapacity',login_required(CapacityView.as_view()), name='addcapacity'),
     url(r'^specificcapacity',login_required(views.CapacityView().specific_capacity), name='specificcapacity'),
     url(r'^editcapacity',login_required(views.CapacityView().edit_capacity), name='editcapacity'),
+    url(r'^addmileage',login_required(MileageView.as_view()), name='addmileage'),
+    url(r'^specificmileage',login_required(views.MileageView().specific_mileage), name='specificmileage'),
+    url(r'^editmileage',login_required(views.MileageView().edit_mileage), name='editmileage'),
     url(r'^$', login_required(SpecificationView.as_view())),
 ]

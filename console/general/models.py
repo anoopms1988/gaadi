@@ -32,4 +32,14 @@ class Capacity(models.Model):
 
     variant = models.ForeignKey(Variant)
     seating_capacity = models.PositiveIntegerField(null=True)
-    tank_capacity =models.CharField(max_length=100, blank=True, null=True)
+    tank_capacity = models.CharField(max_length=100, blank=True, null=True)
+
+
+class Mileage(models.Model):
+    class Meta:
+        db_table = 'mileage'
+
+    variant = models.ForeignKey(Variant)
+    mileage_highway = models.CharField(max_length=100, blank=True, null=True)
+    mileage_city = models.CharField(max_length=100, blank=True, null=True)
+    mileage_overall = models.CharField(max_length=100, blank=True, null=True)

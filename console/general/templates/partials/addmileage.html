@@ -1,0 +1,36 @@
+<div class="modal fade" id="addmileage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Add Mileage specifications</h4>
+            </div>
+            <form method="post" action='/general/addmileage' id='add_mileage_form'>
+                {% csrf_token %}
+                <div class="modal-body">
+                    <input type="hidden" name='variant_id' value='{{ variant.id }}'>
+
+                    <div class="form-group">
+                        <label> {{ mileageform.mileage_highway.label }}</label>
+                        {{ mileageform.mileage_highway}}
+                    </div>
+                    <div class="form-group">
+                        <label> {{ mileageform.mileage_city.label }}</label>
+                        {{ mileageform.mileage_city}}
+                    </div>
+                    <div class="form-group">
+                        <label> {{ mileageform.mileage_overall.label }}</label>
+                        {{ mileageform.mileage_overall}}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" name='mileagesubmit' value='Save'>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

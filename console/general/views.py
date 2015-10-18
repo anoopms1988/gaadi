@@ -3,8 +3,8 @@ from django.views.generic import View
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib import messages
 from console.login.models import Engine
-from .models import Dimensions, Brake, Variant, Capacity
-from .forms import DimensionForm, EngineForm, BrakeForm, CapacityForm
+from .models import Dimensions, Brake, Variant, Capacity, Mileage
+from .forms import DimensionForm, EngineForm, BrakeForm, CapacityForm, MileageForm
 
 
 class SpecificationView(View):
@@ -27,11 +27,17 @@ class SpecificationView(View):
             capacity = Capacity.objects.get(variant=variant)
         except Capacity.DoesNotExist:
             capacity = None
+        try:
+            mileage = Mileage.objects.get(variant=variant)
+        except Mileage.DoesNotExist:
+            mileage = None
+
         return render(request, 'general/specifications.html',
                       {'dimensionsform': DimensionForm, 'engineform': EngineForm, 'brakeform': BrakeForm,
-                       'capacityform': CapacityForm,
+                       'capacityform': CapacityForm, 'mileageform': MileageForm,
                        'variant': variant,
-                       'dimensions': dimensions, 'engine': engine, 'brake': brake, 'capacity': capacity})
+                       'dimensions': dimensions, 'engine': engine, 'brake': brake, 'capacity': capacity,
+                       'mileage': mileage})
 
     def post(self, request, *args, **kwargs):
         form = DimensionForm(request.POST)
@@ -163,6 +169,40 @@ class CapacityView(View):
             capacity.variant = variant
             capacity.save()
             messages.success(request, 'Capacity details changed.')
+            return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
+        else:
+            return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
+
+class MileageView(View):
+
+    def post(self, request, *args, **kwargs):
+        form = MileageForm(request.POST)
+        variant_id = request.POST.get('variant_id')
+        variant = Variant.objects.get(id=variant_id)
+        if form.is_valid():
+            mileage = form.save(commit=False)
+            mileage.variant = variant
+            mileage.save()
+            messages.success(request, 'Mileage details added.')
+        return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
+
+    def specific_mileage(self, request):
+        variant_id = request.POST.get('id')
+        variant = Variant.objects.get(id=variant_id)
+        mileage = Mileage.objects.get(variant=variant)
+        form = MileageForm(instance=mileage)
+        return render(request, 'general/specificmileage.html', {'form': form, 'variant_id': variant_id})
+
+    def edit_mileage(self, request):
+        variant_id = request.POST.get('variant_id')
+        variant = Variant.objects.get(id=variant_id)
+        mileage = Mileage.objects.get(variant=variant)
+        form = MileageForm(request.POST, instance=mileage)
+        if form.is_valid():
+            mileage = form.save(commit=False)
+            mileage.variant = variant
+            mileage.save()
+            messages.success(request, 'Mileage details changed.')
             return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
         else:
             return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
