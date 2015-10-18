@@ -176,7 +176,7 @@
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             Brake system
-                                             {% if brake %}
+                                            {% if brake %}
                                                 <button data-target="#editbrake" id="brake_{{ variant.id }}"
                                                         data-toggle="modal"
                                                         class="editbrake btn btn-primary pull-right">
@@ -202,11 +202,11 @@
                                                     </thead>
                                                     <tbody>
                                                     {% if brake %}
-                                                    <tr>
-                                                        <td>#</td>
-                                                        <td>{{ brake.rear_brakes }}</td>
-                                                        <td>{{ brake.front_brakes }}</td>
-                                                    </tr>
+                                                        <tr>
+                                                            <td>#</td>
+                                                            <td>{{ brake.rear_brakes }}</td>
+                                                            <td>{{ brake.front_brakes }}</td>
+                                                        </tr>
                                                     {% else %}
                                                         <td></td>
                                                         <td>No brake details added</td>
@@ -224,7 +224,19 @@
                                 <div class="col-lg-6">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
-                                            Kitchen Sink
+                                            Capacity
+                                            {% if capacity %}
+                                                <button data-target="#editcapacity" id="capacity_{{ variant.id }}"
+                                                        data-toggle="modal"
+                                                        class="editcapacity btn btn-primary pull-right">
+                                                    Edit capacity
+                                                </button>
+                                            {% else %}
+                                                <button data-target="#addcapacity" id="capacity_{{ variant.id }}"
+                                                        data-toggle="modal" class="btn btn-primary pull-right">
+                                                    Add capacity
+                                                </button>
+                                            {% endif %}
                                         </div>
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">
@@ -233,30 +245,22 @@
                                                     <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>First Name</th>
-                                                        <th>Last Name</th>
-                                                        <th>Username</th>
+                                                        <th>Seating capacity</th>
+                                                        <th>Tank capacity</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>Mark</td>
-                                                        <td>Otto</td>
-                                                        <td>@mdo</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>Jacob</td>
-                                                        <td>Thornton</td>
-                                                        <td>@fat</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td>Larry</td>
-                                                        <td>the Bird</td>
-                                                        <td>@twitter</td>
-                                                    </tr>
+                                                    {% if capacity %}
+                                                        <tr>
+                                                            <td>#</td>
+                                                            <td>{{ capacity.seating_capacity }}</td>
+                                                            <td>{{ capacity.tank_capacity }}</td>
+                                                        </tr>
+                                                    {% else %}
+                                                        <td></td>
+                                                        <td>No capacity details added</td>
+                                                        <td></td>
+                                                    {% endif %}
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -268,6 +272,9 @@
                                 </div>
                             </div>
                             {% include "partials/addbrakes.html" %}
+                            {% include "partials/editbrakes.html" %}
+                            {% include "partials/addcapacity.html" %}
+                            {% include "partials/editcapacity.html" %}
                         </div>
 
                         <div id="features" class="tab-pane fade">
@@ -315,6 +322,32 @@
                     data: {id: variantId, csrfmiddlewaretoken: '{{ csrf_token }}'},
                     success: function (response) {
                         $("#engine-body").html(response);
+                    }
+                });
+            });
+            $('.editbrake').click(function () {
+                var id = $(this).attr('id');
+                var splitElements = id.split("_");
+                var variantId = splitElements[1];
+                $.ajax({
+                    type: "POST",
+                    url: '/general/specificbrake',
+                    data: {id: variantId, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                    success: function (response) {
+                        $("#brake-body").html(response);
+                    }
+                });
+            });
+             $('.editcapacity').click(function () {
+                var id = $(this).attr('id');
+                var splitElements = id.split("_");
+                var variantId = splitElements[1];
+                $.ajax({
+                    type: "POST",
+                    url: '/general/specificcapacity',
+                    data: {id: variantId, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                    success: function (response) {
+                        $("#capacity-body").html(response);
                     }
                 });
             });

@@ -3,8 +3,8 @@ from django.views.generic import View
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib import messages
 from console.login.models import Engine
-from .models import Dimensions, Brake, Variant
-from .forms import DimensionForm, EngineForm, BrakeForm
+from .models import Dimensions, Brake, Variant, Capacity
+from .forms import DimensionForm, EngineForm, BrakeForm, CapacityForm
 
 
 class SpecificationView(View):
@@ -23,10 +23,15 @@ class SpecificationView(View):
             brake = Brake.objects.get(variant=variant)
         except Brake.DoesNotExist:
             brake = None
+        try:
+            capacity = Capacity.objects.get(variant=variant)
+        except Capacity.DoesNotExist:
+            capacity = None
         return render(request, 'general/specifications.html',
                       {'dimensionsform': DimensionForm, 'engineform': EngineForm, 'brakeform': BrakeForm,
+                       'capacityform': CapacityForm,
                        'variant': variant,
-                       'dimensions': dimensions, 'engine': engine, 'brake': brake})
+                       'dimensions': dimensions, 'engine': engine, 'brake': brake, 'capacity': capacity})
 
     def post(self, request, *args, **kwargs):
         form = DimensionForm(request.POST)
@@ -106,3 +111,58 @@ class BrakeView(View):
             brake.save()
             messages.success(request, 'Brake details added.')
         return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
+
+    def specific_brake(self, request):
+        variant_id = request.POST.get('id')
+        variant = Variant.objects.get(id=variant_id)
+        brake = Brake.objects.get(variant=variant)
+        form = BrakeForm(instance=brake)
+        return render(request, 'general/specificbrake.html', {'form': form, 'variant_id': variant_id})
+
+    def edit_brake(self, request):
+        variant_id = request.POST.get('variant_id')
+        variant = Variant.objects.get(id=variant_id)
+        brake = Brake.objects.get(variant=variant)
+        form = BrakeForm(request.POST, instance=brake)
+        if form.is_valid():
+            brake = form.save(commit=False)
+            brake.variant = variant
+            brake.save()
+            messages.success(request, 'Brake specifications changed.')
+            return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
+        else:
+            return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
+
+
+class CapacityView(View):
+    def post(self, request, *args, **kwargs):
+        form = CapacityForm(request.POST)
+        variant_id = request.POST.get('variant_id')
+        variant = Variant.objects.get(id=variant_id)
+        if form.is_valid():
+            capacity = form.save(commit=False)
+            capacity.variant = variant
+            capacity.save()
+            messages.success(request, 'Capacity details added.')
+        return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
+
+    def specific_capacity(self, request):
+        variant_id = request.POST.get('id')
+        variant = Variant.objects.get(id=variant_id)
+        capacity = Capacity.objects.get(variant=variant)
+        form = CapacityForm(instance=capacity)
+        return render(request, 'general/specificcapacity.html', {'form': form, 'variant_id': variant_id})
+
+    def edit_capacity(self, request):
+        variant_id = request.POST.get('variant_id')
+        variant = Variant.objects.get(id=variant_id)
+        capacity = Capacity.objects.get(variant=variant)
+        form = CapacityForm(request.POST, instance=capacity)
+        if form.is_valid():
+            capacity = form.save(commit=False)
+            capacity.variant = variant
+            capacity.save()
+            messages.success(request, 'Capacity details changed.')
+            return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
+        else:
+            return HttpResponseRedirect('/general/?id={0}'.format(variant_id))

@@ -24,3 +24,12 @@ class Brake(models.Model):
     variant = models.ForeignKey(Variant)
     rear_brakes = models.CharField(max_length=100, blank=False)
     front_brakes = models.CharField(max_length=100, blank=False)
+
+
+class Capacity(models.Model):
+    class Meta:
+        db_table = 'capacity'
+
+    variant = models.ForeignKey(Variant)
+    seating_capacity = models.PositiveIntegerField(null=True)
+    tank_capacity =models.CharField(max_length=100, blank=True, null=True)

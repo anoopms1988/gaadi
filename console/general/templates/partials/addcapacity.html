@@ -1,0 +1,32 @@
+<div class="modal fade" id="addcapacity" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Add Capacity specifications</h4>
+            </div>
+            <form method="post" action='/general/addcapacity' id='add_capacity_form'>
+                {% csrf_token %}
+                <div class="modal-body">
+                    <input type="hidden" name='variant_id' value='{{ variant.id }}'>
+
+                    <div class="form-group">
+                        <label> {{ capacityform.seating_capacity.label }}</label>
+                        {{ capacityform.seating_capacity}}
+                    </div>
+                    <div class="form-group">
+                        <label> {{ capacityform.tank_capacity.label }}</label>
+                        {{ capacityform.tank_capacity}}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" name='capacitysubmit' value='Save'>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
