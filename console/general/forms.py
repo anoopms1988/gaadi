@@ -1,12 +1,14 @@
 from django import forms
-from .models import Dimensions, Brake, Capacity, Mileage,Price
+from .models import Dimensions, Brake, Capacity, Mileage, Price
 from console.login.models import Engine
 
 
 class DimensionForm(forms.ModelForm):
+
     class Meta:
         model = Dimensions
-        fields = ['length', 'width', 'height', 'wheelbase', 'bootspace', 'kerbweight']
+        fields = ['length', 'width', 'height',
+                  'wheelbase', 'bootspace', 'kerbweight']
 
     length = forms.CharField(label='Length',
                              widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Length'}))
@@ -23,6 +25,7 @@ class DimensionForm(forms.ModelForm):
 
 
 class EngineForm(forms.ModelForm):
+
     class Meta:
         model = Engine
         fields = ['torque', 'displacement', 'power', 'cylinders', 'valvespercylinder', 'valvemechanism',
@@ -49,6 +52,7 @@ class EngineForm(forms.ModelForm):
 
 
 class BrakeForm(forms.ModelForm):
+
     class Meta:
         model = Brake
         fields = ['rear_brakes', 'front_brakes']
@@ -61,6 +65,7 @@ class BrakeForm(forms.ModelForm):
 
 
 class CapacityForm(forms.ModelForm):
+
     class Meta:
         model = Capacity
         fields = ['seating_capacity', 'tank_capacity']
@@ -74,6 +79,7 @@ class CapacityForm(forms.ModelForm):
 
 
 class MileageForm(forms.ModelForm):
+
     class Meta:
         model = Mileage
         fields = ['mileage_highway', 'mileage_city', 'mileage_overall']
@@ -88,14 +94,16 @@ class MileageForm(forms.ModelForm):
                                       widget=forms.TextInput(
                                           attrs={'class': 'form-control', 'placeholder': 'Mileage overall'}))
 
+
 class PriceForm(forms.ModelForm):
+
     class Meta:
         model = Price
-        fields =['showroom_price', 'onroad_price']
+        fields = ['showroom_price', 'onroad_price']
 
     showroom_price = forms.CharField(label='Showroom price', required=False,
-                                      widget=forms.TextInput(
-                                          attrs={'class': 'form-control', 'placeholder': 'Showroom price'}))
+                                     widget=forms.TextInput(
+                                         attrs={'class': 'form-control', 'placeholder': 'Showroom price'}))
     onroad_price = forms.CharField(label='Onroad price', required=False,
-                                      widget=forms.TextInput(
-                                          attrs={'class': 'form-control', 'placeholder': 'Onroad price'}))
+                                   widget=forms.TextInput(
+                                       attrs={'class': 'form-control', 'placeholder': 'Onroad price'}))
