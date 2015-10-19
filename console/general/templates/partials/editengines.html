@@ -1,18 +1,18 @@
-<div class="modal fade" id="editdimensions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade" id="editengine" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Edit dimensions</h4>
+                <h4 class="modal-title" id="myModalLabel">Edit engine specifications</h4>
             </div>
-            <form method="post" action='/general/editdimensions' id='edit_dimensions_form'>
+            <form method="post" action='/general/editengine' id='edit_engine_form'>
                 {% csrf_token %}
-                <div class="modal-body" id="dimension-body">
+                <div class="modal-body" id="engine-body">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-primary" name='dimensionsubmit' value='Save'>
+                    <input type="submit" class="btn btn-primary" name='enginesubmit' value='Save'>
                 </div>
             </form>
         </div>

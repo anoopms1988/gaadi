@@ -6,18 +6,38 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">Add Engine specifications</h4>
             </div>
-            <form method="post" action='/general/adddimensions' id='add_engine_form'>
+            <form method="post" action='/general/addengine' id='add_engine_form'>
                 {% csrf_token %}
                 <div class="modal-body">
                     <input type="hidden" name='variant' value='{{ variant.id }}'>
 
                     <div class="form-group">
-                        <label> {{ engineform.length.label }}</label>
-                        {{ engineform.length }}
+                        <label> {{ engineform.torque.label }}</label>
+                        {{ engineform.torque }}
                     </div>
                     <div class="form-group">
-                        <label> {{ engineform.width.label }}</label>
-                        {{ engineform.width }}
+                        <label> {{ engineform.displacement.label }}</label>
+                        {{ engineform.displacement }}
+                    </div>
+                    <div class="form-group">
+                        <label> {{ engineform.power.label }}</label>
+                        {{ engineform.power }}
+                    </div>
+                    <div class="form-group">
+                        <label> {{ engineform.cylinders.label }}</label>
+                        {{ engineform.cylinders }}
+                    </div>
+                    <div class="form-group">
+                        <label> {{ engineform.valvespercylinder.label }}</label>
+                        {{ engineform.valvespercylinder }}
+                    </div>
+                    <div class="form-group">
+                        <label> {{ engineform.valvemechanism.label }}</label>
+                        {{ engineform.valvemechanism }}
+                    </div>
+                    <div class="form-group">
+                        <label> {{ engineform.cylinderconfiguration.label }}</label>
+                        {{ engineform.cylinderconfiguration }}
                     </div>
                     
                 </div>

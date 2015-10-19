@@ -1,18 +1,18 @@
-<div class="modal fade" id="editdimensions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade" id="editbrake" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Edit dimensions</h4>
+                <h4 class="modal-title" id="myModalLabel">Edit brake</h4>
             </div>
-            <form method="post" action='/general/editdimensions' id='edit_dimensions_form'>
+            <form method="post" action='/general/editbrake' id='edit_brake_form'>
                 {% csrf_token %}
-                <div class="modal-body" id="dimension-body">
+                <div class="modal-body" id="brake-body">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-primary" name='dimensionsubmit' value='Save'>
+                    <input type="submit" class="btn btn-primary" name='brakesubmit' value='Save'>
                 </div>
             </form>
         </div>

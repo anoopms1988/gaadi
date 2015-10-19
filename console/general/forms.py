@@ -1,5 +1,5 @@
 from django import forms
-from .models import Dimensions
+from .models import Dimensions, Brake, Capacity, Mileage
 from console.login.models import Engine
 
 
@@ -22,3 +22,68 @@ class DimensionForm(forms.ModelForm):
                                  widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Kerbweight'}))
 
 
+class EngineForm(forms.ModelForm):
+    class Meta:
+        model = Engine
+        fields = ['torque', 'displacement', 'power', 'cylinders', 'valvespercylinder', 'valvemechanism',
+                  'cylinderconfiguration']
+
+    torque = forms.CharField(label='Torque', required=False,
+                             widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Torque'}))
+    displacement = forms.CharField(label='Displacement', required=False,
+                                   widget=forms.TextInput(
+                                       attrs={'class': 'form-control', 'placeholder': 'Displacement'}))
+    power = forms.CharField(label='Power', required=False,
+                            widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Power'}))
+    cylinders = forms.CharField(label='Cylinders', required=False,
+                                widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Cylinders'}))
+    valvespercylinder = forms.CharField(label='Valvespercylinder', required=False,
+                                        widget=forms.TextInput(
+                                            attrs={'class': 'form-control', 'placeholder': 'Valvespercylinder'}))
+    valvemechanism = forms.CharField(label='Valvemechanism', required=False,
+                                     widget=forms.TextInput(
+                                         attrs={'class': 'form-control', 'placeholder': 'Valvemechanism'}))
+    cylinderconfiguration = forms.CharField(label='Cylinder configuration', required=False,
+                                            widget=forms.TextInput(attrs={'class': 'form-control',
+                                                                          'placeholder': 'Cylinder configuration'}))
+
+
+class BrakeForm(forms.ModelForm):
+    class Meta:
+        model = Brake
+        fields = ['rear_brakes', 'front_brakes']
+
+    rear_brakes = forms.CharField(label='Rear brakes', required=False,
+                                  widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Rear brakes'}))
+    front_brakes = forms.CharField(label='Front brakes', required=False,
+                                   widget=forms.TextInput(
+                                       attrs={'class': 'form-control', 'placeholder': 'Front brakes'}))
+
+
+class CapacityForm(forms.ModelForm):
+    class Meta:
+        model = Capacity
+        fields = ['seating_capacity', 'tank_capacity']
+
+    seating_capacity = forms.CharField(label='Seating capacity', required=False,
+                                       widget=forms.TextInput(
+                                           attrs={'class': 'form-control', 'placeholder': 'Seating capacity'}))
+    tank_capacity = forms.CharField(label='Tank capacity', required=False,
+                                    widget=forms.TextInput(
+                                        attrs={'class': 'form-control', 'placeholder': 'Tank capacity'}))
+
+
+class MileageForm(forms.ModelForm):
+    class Meta:
+        model = Mileage
+        fields = ['mileage_highway', 'mileage_city', 'mileage_overall']
+
+    mileage_highway = forms.CharField(label='Mileage highway', required=False,
+                                      widget=forms.TextInput(
+                                          attrs={'class': 'form-control', 'placeholder': 'Mileage highway'}))
+    mileage_city = forms.CharField(label='Mileage city', required=False,
+                                   widget=forms.TextInput(
+                                       attrs={'class': 'form-control', 'placeholder': 'Mileage city'}))
+    mileage_overall = forms.CharField(label='Mileage overall', required=False,
+                                      widget=forms.TextInput(
+                                          attrs={'class': 'form-control', 'placeholder': 'Mileage overall'}))
