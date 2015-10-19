@@ -3,11 +3,12 @@ from django.views.generic import View
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib import messages
 from console.login.models import Engine
-from .models import Dimensions, Brake, Variant, Capacity, Mileage
-from .forms import DimensionForm, EngineForm, BrakeForm, CapacityForm, MileageForm
+from .models import Dimensions, Brake, Variant, Capacity, Mileage, Price
+from .forms import DimensionForm, EngineForm, BrakeForm, CapacityForm, MileageForm, PriceForm
 
 
 class SpecificationView(View):
+
     def get(self, request, *args, **kwargs):
         variant_id = request.GET.get('id')
         variant = Variant.objects.get(id=variant_id)
@@ -31,11 +32,15 @@ class SpecificationView(View):
             mileage = Mileage.objects.get(variant=variant)
         except Mileage.DoesNotExist:
             mileage = None
+        try:
+            price = Price.objects.get(variant=variant)
+        except Price.DoesNotExist:
+            price = None
 
         return render(request, 'general/specifications.html',
                       {'dimensionsform': DimensionForm, 'engineform': EngineForm, 'brakeform': BrakeForm,
-                       'capacityform': CapacityForm, 'mileageform': MileageForm,
-                       'variant': variant,
+                       'capacityform': CapacityForm, 'mileageform': MileageForm, 'priceform': PriceForm,
+                       'variant': variant, 'price': Price,
                        'dimensions': dimensions, 'engine': engine, 'brake': brake, 'capacity': capacity,
                        'mileage': mileage})
 
@@ -73,6 +78,7 @@ class SpecificationView(View):
 
 
 class EngineView(View):
+
     def post(self, request, *args, **kwargs):
         form = EngineForm(request.POST)
         variant_id = request.POST.get('variant')
@@ -107,6 +113,7 @@ class EngineView(View):
 
 
 class BrakeView(View):
+
     def post(self, request, *args, **kwargs):
         form = BrakeForm(request.POST)
         variant_id = request.POST.get('variant_id')
@@ -141,6 +148,7 @@ class BrakeView(View):
 
 
 class CapacityView(View):
+
     def post(self, request, *args, **kwargs):
         form = CapacityForm(request.POST)
         variant_id = request.POST.get('variant_id')
@@ -172,6 +180,7 @@ class CapacityView(View):
             return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
         else:
             return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
+
 
 class MileageView(View):
 

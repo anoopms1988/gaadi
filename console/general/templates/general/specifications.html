@@ -328,55 +328,55 @@
                                     </div>
                                     <!-- /.panel -->
                                 </div>
-{#                                <div class="col-lg-6">#}
-{#                                    <div class="panel panel-default">#}
-{#                                        <div class="panel-heading">#}
-{#                                            Capacity#}
-{#                                            {% if capacity %}#}
-{#                                                <button data-target="#editcapacity" id="capacity_{{ variant.id }}"#}
-{#                                                        data-toggle="modal"#}
-{#                                                        class="editcapacity btn btn-primary pull-right">#}
-{#                                                    Edit capacity#}
-{#                                                </button>#}
-{#                                            {% else %}#}
-{#                                                <button data-target="#addcapacity" id="capacity_{{ variant.id }}"#}
-{#                                                        data-toggle="modal" class="btn btn-primary pull-right">#}
-{#                                                    Add capacity#}
-{#                                                </button>#}
-{#                                            {% endif %}#}
-{#                                        </div>#}
-{#                                        <!-- /.panel-heading -->#}
-{#                                        <div class="panel-body">#}
-{#                                            <div class="table-responsive">#}
-{#                                                <table class="table table-striped table-bordered table-hover">#}
-{#                                                    <thead>#}
-{#                                                    <tr>#}
-{#                                                        <th>#</th>#}
-{#                                                        <th>Seating capacity</th>#}
-{#                                                        <th>Tank capacity</th>#}
-{#                                                    </tr>#}
-{#                                                    </thead>#}
-{#                                                    <tbody>#}
-{#                                                    {% if capacity %}#}
-{#                                                        <tr>#}
-{#                                                            <td>#</td>#}
-{#                                                            <td>{{ capacity.seating_capacity }}</td>#}
-{#                                                            <td>{{ capacity.tank_capacity }}</td>#}
-{#                                                        </tr>#}
-{#                                                    {% else %}#}
-{#                                                        <td></td>#}
-{#                                                        <td>No capacity details added</td>#}
-{#                                                        <td></td>#}
-{#                                                    {% endif %}#}
-{#                                                    </tbody>#}
-{#                                                </table>#}
-{#                                            </div>#}
-{#                                            <!-- /.table-responsive -->#}
-{#                                        </div>#}
-{#                                        <!-- /.panel-body -->#}
-{#                                    </div>#}
-{#                                    <!-- /.panel -->#}
-{#                                </div>#}
+                                <div class="col-lg-6">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            Price details
+                                            {% if price %}
+                                                <button data-target="#editprice" id="price_{{ variant.id }}"
+                                                        data-toggle="modal"
+                                                        class="editprice btn btn-primary pull-right">
+                                                    Edit price
+                                                </button>
+                                            {% else %}
+                                                <button data-target="#addprice" id="price_{{ variant.id }}"
+                                                        data-toggle="modal" class="btn btn-primary pull-right">
+                                                    Add price
+                                                </button>
+                                            {% endif %}
+                                        </div>
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Showroom price</th>
+                                                        <th>Onroad price</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% if price %}
+                                                        <tr>
+                                                            <td>#</td>
+                                                            <td>{{ price.showroom_price }}</td>
+                                                            <td>{{ price.onroad_price }}</td>
+                                                        </tr>
+                                                    {% else %}
+                                                        <td></td>
+                                                        <td>No details </td>
+                                                        <td></td>
+                                                    {% endif %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!-- /.table-responsive -->
+                                        </div>
+                                        <!-- /.panel-body -->
+                                    </div>
+                                    <!-- /.panel -->
+                                </div>
                             </div>
                             {% include "partials/addmileage.html" %}
                             {% include "partials/editmileage.html" %}

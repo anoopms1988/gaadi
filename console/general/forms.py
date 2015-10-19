@@ -1,5 +1,5 @@
 from django import forms
-from .models import Dimensions, Brake, Capacity, Mileage
+from .models import Dimensions, Brake, Capacity, Mileage,Price
 from console.login.models import Engine
 
 
@@ -87,3 +87,15 @@ class MileageForm(forms.ModelForm):
     mileage_overall = forms.CharField(label='Mileage overall', required=False,
                                       widget=forms.TextInput(
                                           attrs={'class': 'form-control', 'placeholder': 'Mileage overall'}))
+
+class PriceForm(forms.ModelForm):
+    class Meta:
+        model = Price
+        fields =['showroom_price', 'onroad_price']
+
+    showroom_price = forms.CharField(label='Showroom price', required=False,
+                                      widget=forms.TextInput(
+                                          attrs={'class': 'form-control', 'placeholder': 'Showroom price'}))
+    onroad_price = forms.CharField(label='Onroad price', required=False,
+                                      widget=forms.TextInput(
+                                          attrs={'class': 'form-control', 'placeholder': 'Onroad price'}))
