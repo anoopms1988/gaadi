@@ -1,5 +1,5 @@
 from django import forms
-from .models import Dimensions, Brake, Capacity, Mileage, Price
+from .models import Dimensions, Brake, Capacity, Mileage, Price,Steering
 from console.login.models import Engine
 
 
@@ -107,3 +107,16 @@ class PriceForm(forms.ModelForm):
     onroad_price = forms.CharField(label='Onroad price', required=False,
                                    widget=forms.TextInput(
                                        attrs={'class': 'form-control', 'placeholder': 'Onroad price'}))
+
+class SteeringForm(forms.ModelForm):
+
+    class Meta:
+        model = Steering
+        fields = ['turning_radius', 'steering_type']
+
+    turning_radius = forms.CharField(label='Turning radius', required=False,
+                                     widget=forms.TextInput(
+                                         attrs={'class': 'form-control', 'placeholder': 'Turning radius'}))
+    steering_type = forms.CharField(label='Steering type', required=False,
+                                   widget=forms.TextInput(
+                                       attrs={'class': 'form-control', 'placeholder': 'Steering type'}))

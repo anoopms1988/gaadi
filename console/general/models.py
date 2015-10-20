@@ -44,10 +44,20 @@ class Mileage(models.Model):
     mileage_city = models.CharField(max_length=100, blank=True, null=True)
     mileage_overall = models.CharField(max_length=100, blank=True, null=True)
 
+
 class Price(models.Model):
     class Meta:
         db_table = 'price'
 
     variant = models.ForeignKey(Variant)
-    showroom_price=models.CharField(max_length=100, blank=True, null=True)
-    onroad_price  =models.CharField(max_length=100, blank=True, null=True)
+    showroom_price = models.CharField(max_length=100, blank=True, null=True)
+    onroad_price = models.CharField(max_length=100, blank=True, null=True)
+
+
+class Steering(models.Model):
+    class Meta:
+        db_table = 'steering'
+
+    variant = models.ForeignKey(Variant)
+    turning_radius = models.CharField(max_length=100, blank=True, null=True)
+    steering_type = models.CharField(max_length=100, blank=True, null=True)
