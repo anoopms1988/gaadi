@@ -61,3 +61,11 @@ class Steering(models.Model):
     variant = models.ForeignKey(Variant)
     turning_radius = models.CharField(max_length=100, blank=True, null=True)
     steering_type = models.CharField(max_length=100, blank=True, null=True)
+
+class Wheel(models.Model):
+    class Meta:
+        db_table = 'wheel'
+
+    variant = models.ForeignKey(Variant)
+    wheelsize = models.CharField(max_length=100, blank=True, null=True)
+    wheeltype = models.CharField(max_length=100, blank=True, null=True)

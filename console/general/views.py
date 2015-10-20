@@ -3,8 +3,8 @@ from django.views.generic import View
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib import messages
 from console.login.models import Engine
-from .models import Dimensions, Brake, Variant, Capacity, Mileage, Price,Steering
-from .forms import DimensionForm, EngineForm, BrakeForm, CapacityForm, MileageForm, PriceForm,SteeringForm
+from .models import Dimensions, Brake, Variant, Capacity, Mileage, Price, Steering, Wheel
+from .forms import DimensionForm, EngineForm, BrakeForm, CapacityForm, MileageForm, PriceForm, SteeringForm, WheelForm
 
 
 class SpecificationView(View):
@@ -39,11 +39,16 @@ class SpecificationView(View):
             steering = Steering.objects.get(variant=variant)
         except Steering.DoesNotExist:
             steering = None
+        try:
+            wheel = Wheel.objects.get(variant=variant)
+        except Wheel.DoesNotExist:
+            wheel = None
 
         return render(request, 'general/specifications.html',
                       {'dimensionsform': DimensionForm, 'engineform': EngineForm, 'brakeform': BrakeForm,
-                       'capacityform': CapacityForm, 'mileageform': MileageForm, 'priceform': PriceForm,'steeringform':SteeringForm,
-                       'variant': variant, 'price': price,'steering':steering,
+                       'capacityform': CapacityForm, 'mileageform': MileageForm, 'priceform': PriceForm,
+                       'steeringform': SteeringForm,
+                       'variant': variant, 'price': price, 'steering': steering, 'wheel': wheel, 'wheelform': WheelForm,
                        'dimensions': dimensions, 'engine': engine, 'brake': brake, 'capacity': capacity,
                        'mileage': mileage})
 
@@ -255,6 +260,7 @@ class PriceView(View):
             messages.success(request, 'Price details added.')
         return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
 
+
 class SteeringView(View):
     def post(self, request, *args, **kwargs):
         form = SteeringForm(request.POST)
@@ -290,3 +296,16 @@ class SteeringView(View):
             return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
         else:
             return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
+
+
+class WheelView(View):
+    def post(self, request, *args, **kwargs):
+        form = WheelForm(request.POST)
+        variant_id = request.POST.get('variant_id')
+        variant = Variant.objects.get(id=variant_id)
+        if form.is_valid():
+            wheel = form.save(commit=False)
+            wheel.variant = variant
+            wheel.save()
+            messages.success(request, 'Wheel details added.')
+        return HttpResponseRedirect('/general/?id={0}'.format(variant_id))

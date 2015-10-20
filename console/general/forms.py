@@ -1,5 +1,5 @@
 from django import forms
-from .models import Dimensions, Brake, Capacity, Mileage, Price,Steering
+from .models import Dimensions, Brake, Capacity, Mileage, Price,Steering,Wheel
 from console.login.models import Engine
 
 
@@ -120,3 +120,16 @@ class SteeringForm(forms.ModelForm):
     steering_type = forms.CharField(label='Steering type', required=False,
                                    widget=forms.TextInput(
                                        attrs={'class': 'form-control', 'placeholder': 'Steering type'}))
+
+class WheelForm(forms.ModelForm):
+
+    class Meta:
+        model = Wheel
+        fields = ['wheelsize', 'wheeltype']
+
+    wheelsize = forms.CharField(label='Wheel size', required=False,
+                                     widget=forms.TextInput(
+                                         attrs={'class': 'form-control', 'placeholder': 'Wheel size'}))
+    wheeltype = forms.CharField(label='Wheel type', required=False,
+                                   widget=forms.TextInput(
+                                       attrs={'class': 'form-control', 'placeholder': 'Wheel type'}))

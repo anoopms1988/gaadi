@@ -435,17 +435,17 @@
                                 <div class="col-lg-6">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
-                                            Price details
-                                            {% if price %}
-                                                <button data-target="#editprice" id="price_{{ variant.id }}"
+                                            Wheel type
+                                            {% if wheel %}
+                                                <button data-target="#editwheel" id="wheel_{{ variant.id }}"
                                                         data-toggle="modal"
-                                                        class="editprice btn btn-primary pull-right">
+                                                        class="editwheel btn btn-primary pull-right">
                                                     Edit price
                                                 </button>
                                             {% else %}
-                                                <button data-target="#addprice" id="price_{{ variant.id }}"
+                                                <button data-target="#addwheel" id="wheel_{{ variant.id }}"
                                                         data-toggle="modal" class="btn btn-primary pull-right">
-                                                    Add price
+                                                    Add wheel
                                                 </button>
                                             {% endif %}
                                         </div>
@@ -456,16 +456,16 @@
                                                     <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Showroom price</th>
-                                                        <th>Onroad price</th>
+                                                        <th>Wheel size</th>
+                                                        <th>Wheel type</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    {% if price %}
+                                                    {% if wheel %}
                                                         <tr>
                                                             <td>#</td>
-                                                            <td>{{ price.showroom_price }}</td>
-                                                            <td>{{ price.onroad_price }}</td>
+                                                            <td>{{ wheel.wheelsize }}</td>
+                                                            <td>{{ wheel.wheeltype }}</td>
                                                         </tr>
                                                     {% else %}
                                                         <td></td>
@@ -484,6 +484,7 @@
                             </div>
                             {% include "partials/addsteering.html" %}
                             {% include "partials/editsteering.html" %}
+                            {% include "partials/addwheels.html" %}
                         </div>
 
                         <div id="features" class="tab-pane fade">
