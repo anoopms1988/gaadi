@@ -442,7 +442,7 @@
                                                 <button data-target="#editwheel" id="wheel_{{ variant.id }}"
                                                         data-toggle="modal"
                                                         class="editwheel btn btn-primary pull-right">
-                                                    Edit price
+                                                    Edit wheel
                                                 </button>
                                             {% else %}
                                                 <button data-target="#addwheel" id="wheel_{{ variant.id }}"
@@ -487,7 +487,7 @@
                             {% include "partials/addsteering.html" %}
                             {% include "partials/editsteering.html" %}
                             {% include "partials/addwheels.html" %}
-
+                            {% include "partials/editwheel.html" %}
                         </div>
 
                         <div id="features" class="tab-pane fade">
@@ -601,6 +601,20 @@
                     data: {id: variantId, csrfmiddlewaretoken: '{{ csrf_token }}'},
                     success: function (response) {
                         $("#steering-body").html(response);
+                    }
+                });
+            });
+
+            $('.editwheel').click(function () {
+                var id = $(this).attr('id');
+                var splitElements = id.split("_");
+                var variantId = splitElements[1];
+                $.ajax({
+                    type: "POST",
+                    url: '/general/specificwheel',
+                    data: {id: variantId, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                    success: function (response) {
+                        $("#wheel-body").html(response);
                     }
                 });
             });
