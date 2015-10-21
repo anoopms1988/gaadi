@@ -1,19 +1,18 @@
-<div class="modal fade" id="editprice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade" id="editsteering" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-
-                <h4 class="modal-title" id="myModalLabel">Edit Price</h4>
+                <h4 class="modal-title" id="myModalLabel">Edit Steering</h4>
             </div>
-            <form method="post" action='/general/editprice' id='edit_brake_form'>
+            <form method="post" action='/general/editsteering' id='edit_brake_form'>
                 {% csrf_token %}
-                <div class="modal-body" id="price-body">
+                <div class="modal-body" id="steering-body">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-primary" name='pricesubmit' value='Save'>
+                    <input type="submit" class="btn btn-primary" name='steeringsubmit' value='Save'>
                 </div>
             </form>
         </div>

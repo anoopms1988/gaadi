@@ -3,12 +3,11 @@ from django.views.generic import View
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib import messages
 from console.login.models import Engine
-from .models import Dimensions, Brake, Variant, Capacity, Mileage, Price
-from .forms import DimensionForm, EngineForm, BrakeForm, CapacityForm, MileageForm, PriceForm
+from .models import Dimensions, Brake, Variant, Capacity, Mileage, Price, Steering, Wheel
+from .forms import DimensionForm, EngineForm, BrakeForm, CapacityForm, MileageForm, PriceForm, SteeringForm, WheelForm
 
 
 class SpecificationView(View):
-
     def get(self, request, *args, **kwargs):
         variant_id = request.GET.get('id')
         variant = Variant.objects.get(id=variant_id)
@@ -36,11 +35,20 @@ class SpecificationView(View):
             price = Price.objects.get(variant=variant)
         except Price.DoesNotExist:
             price = None
+        try:
+            steering = Steering.objects.get(variant=variant)
+        except Steering.DoesNotExist:
+            steering = None
+        try:
+            wheel = Wheel.objects.get(variant=variant)
+        except Wheel.DoesNotExist:
+            wheel = None
 
         return render(request, 'general/specifications.html',
                       {'dimensionsform': DimensionForm, 'engineform': EngineForm, 'brakeform': BrakeForm,
                        'capacityform': CapacityForm, 'mileageform': MileageForm, 'priceform': PriceForm,
-                       'variant': variant, 'price': Price,
+                       'steeringform': SteeringForm,
+                       'variant': variant, 'price': price, 'steering': steering, 'wheel': wheel, 'wheelform': WheelForm,
                        'dimensions': dimensions, 'engine': engine, 'brake': brake, 'capacity': capacity,
                        'mileage': mileage})
 
@@ -78,7 +86,6 @@ class SpecificationView(View):
 
 
 class EngineView(View):
-
     def post(self, request, *args, **kwargs):
         form = EngineForm(request.POST)
         variant_id = request.POST.get('variant')
@@ -113,7 +120,6 @@ class EngineView(View):
 
 
 class BrakeView(View):
-
     def post(self, request, *args, **kwargs):
         form = BrakeForm(request.POST)
         variant_id = request.POST.get('variant_id')
@@ -148,7 +154,6 @@ class BrakeView(View):
 
 
 class CapacityView(View):
-
     def post(self, request, *args, **kwargs):
         form = CapacityForm(request.POST)
         variant_id = request.POST.get('variant_id')
@@ -183,7 +188,6 @@ class CapacityView(View):
 
 
 class MileageView(View):
-
     def post(self, request, *args, **kwargs):
         form = MileageForm(request.POST)
         variant_id = request.POST.get('variant_id')
@@ -216,11 +220,94 @@ class MileageView(View):
         else:
             return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
 
-class PriceView(View):
 
+
+class PriceView(View):
     def specific_price(self, request):
         variant_id = request.POST.get('id')
         variant = Variant.objects.get(id=variant_id)
-        price = Price.objects.get(variant=variant)
+        try:
+            price = Price.objects.get(variant=variant)
+        except Price.DoesNotExist:
+            price = None
         form = PriceForm(instance=price)
         return render(request, 'general/specificprice.html', {'form': form, 'variant_id': variant_id})
+
+    def edit_price(self, request):
+        variant_id = request.POST.get('variant_id')
+        variant = Variant.objects.get(id=variant_id)
+        try:
+            price = Price.objects.get(variant=variant)
+        except Price.DoesNotExist:
+            price = None
+        form = PriceForm(request.POST, instance=price)
+        if form.is_valid():
+            price = form.save(commit=False)
+            price.variant = variant
+            price.save()
+            messages.success(request, 'Price details changed.')
+            return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
+        else:
+            return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
+
+    def post(self, request, *args, **kwargs):
+        form = PriceForm(request.POST)
+        variant_id = request.POST.get('variant_id')
+        variant = Variant.objects.get(id=variant_id)
+        if form.is_valid():
+            price = form.save(commit=False)
+            price.variant = variant
+            price.save()
+            messages.success(request, 'Price details added.')
+        return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
+
+
+class SteeringView(View):
+    def post(self, request, *args, **kwargs):
+        form = SteeringForm(request.POST)
+        variant_id = request.POST.get('variant_id')
+        variant = Variant.objects.get(id=variant_id)
+        if form.is_valid():
+            steering = form.save(commit=False)
+            steering.variant = variant
+            steering.save()
+            messages.success(request, 'Steering details added.')
+        return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
+
+    def specific_steering(self, request):
+        variant_id = request.POST.get('id')
+        variant = Variant.objects.get(id=variant_id)
+        try:
+            steering = Steering.objects.get(variant=variant)
+        except Steering.DoesNotExist:
+            steering = None
+        form = SteeringForm(instance=steering)
+        return render(request, 'general/specificsteering.html', {'form': form, 'variant_id': variant_id})
+
+    def edit_steering(self, request):
+        variant_id = request.POST.get('variant_id')
+        variant = Variant.objects.get(id=variant_id)
+        steering = Steering.objects.get(variant=variant)
+        form = SteeringForm(request.POST, instance=steering)
+        if form.is_valid():
+            steering = form.save(commit=False)
+            steering.variant = variant
+            steering.save()
+            messages.success(request, 'Steering details changed.')
+            return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
+        else:
+            return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
+
+
+class WheelView(View):
+    def post(self, request, *args, **kwargs):
+        form = WheelForm(request.POST)
+        variant_id = request.POST.get('variant_id')
+        variant = Variant.objects.get(id=variant_id)
+        if form.is_valid():
+            wheel = form.save(commit=False)
+            wheel.variant = variant
+            wheel.save()
+            messages.success(request, 'Wheel details added.')
+        return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
+

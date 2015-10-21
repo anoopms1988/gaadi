@@ -317,7 +317,7 @@
                                                     {% else %}
                                                         <td></td>
                                                         <td></td>
-                                                        <td>No details </td>
+                                                        <td>No details</td>
                                                         <td></td>
                                                     {% endif %}
                                                     </tbody>
@@ -366,7 +366,7 @@
                                                         </tr>
                                                     {% else %}
                                                         <td></td>
-                                                        <td>No details </td>
+                                                        <td>No details</td>
                                                         <td></td>
                                                     {% endif %}
                                                     </tbody>
@@ -383,7 +383,111 @@
                             {% include "partials/editmileage.html" %}
                             {% include "partials/addprice.html" %}
                             {% include "partials/editprice.html" %}
-                            
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            Steering
+                                            {% if steering %}
+                                                <button data-target="#editsteering" id="steering_{{ variant.id }}"
+                                                        data-toggle="modal"
+                                                        class="editsteering btn btn-primary pull-right">
+                                                    Edit steering
+                                                </button>
+                                            {% else %}
+                                                <button data-target="#addsteering" id="steering_{{ variant.id }}"
+                                                        data-toggle="modal" class="btn btn-primary pull-right">
+                                                    Add steering
+                                                </button>
+                                            {% endif %}
+                                        </div>
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Turning radius</th>
+                                                        <th>Steering type</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% if steering %}
+                                                        <tr>
+                                                            <td>#</td>
+                                                            <td>{{ steering.turning_radius }}</td>
+                                                            <td>{{ steering.steering_type }}</td>
+                                                        </tr>
+                                                    {% else %}
+                                                        <td></td>
+                                                        <td>No details</td>
+                                                        <td></td>
+                                                    {% endif %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!-- /.table-responsive -->
+                                        </div>
+                                        <!-- /.panel-body -->
+                                    </div>
+                                    <!-- /.panel -->
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            Wheel type
+                                            {% if wheel %}
+                                                <button data-target="#editwheel" id="wheel_{{ variant.id }}"
+                                                        data-toggle="modal"
+                                                        class="editwheel btn btn-primary pull-right">
+                                                    Edit price
+                                                </button>
+                                            {% else %}
+                                                <button data-target="#addwheel" id="wheel_{{ variant.id }}"
+                                                        data-toggle="modal" class="btn btn-primary pull-right">
+                                                    Add wheel
+                                                </button>
+                                            {% endif %}
+                                        </div>
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Wheel size</th>
+                                                        <th>Wheel type</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% if wheel %}
+                                                        <tr>
+                                                            <td>#</td>
+                                                            <td>{{ wheel.wheelsize }}</td>
+                                                            <td>{{ wheel.wheeltype }}</td>
+                                                        </tr>
+                                                    {% else %}
+                                                        <td></td>
+                                                        <td>No details</td>
+                                                        <td></td>
+                                                    {% endif %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!-- /.table-responsive -->
+                                        </div>
+                                        <!-- /.panel-body -->
+                                    </div>
+                                    <!-- /.panel -->
+                                </div>
+                            </div>
+                            {% include "partials/addsteering.html" %}
+                            {% include "partials/editsteering.html" %}
+                            {% include "partials/addwheels.html" %}
+
                         </div>
 
                         <div id="features" class="tab-pane fade">
@@ -483,6 +587,20 @@
                     data: {id: variantId, csrfmiddlewaretoken: '{{ csrf_token }}'},
                     success: function (response) {
                         $("#price-body").html(response);
+                    }
+                });
+            });
+
+            $('.editsteering').click(function () {
+                var id = $(this).attr('id');
+                var splitElements = id.split("_");
+                var variantId = splitElements[1];
+                $.ajax({
+                    type: "POST",
+                    url: '/general/specificsteering',
+                    data: {id: variantId, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                    success: function (response) {
+                        $("#steering-body").html(response);
                     }
                 });
             });
