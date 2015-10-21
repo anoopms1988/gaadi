@@ -275,6 +275,7 @@
                             {% include "partials/editbrakes.html" %}
                             {% include "partials/addcapacity.html" %}
                             {% include "partials/editcapacity.html" %}
+
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="panel panel-default">
@@ -380,6 +381,8 @@
                             </div>
                             {% include "partials/addmileage.html" %}
                             {% include "partials/editmileage.html" %}
+                            {% include "partials/addprice.html" %}
+                            {% include "partials/editprice.html" %}
                             
                         </div>
 
@@ -467,6 +470,19 @@
                     data: {id: variantId, csrfmiddlewaretoken: '{{ csrf_token }}'},
                     success: function (response) {
                         $("#mileage-body").html(response);
+                    }
+                });
+            });
+            $('.editprice').click(function () {
+                var id = $(this).attr('id');
+                var splitElements = id.split("_");
+                var variantId = splitElements[1];
+                $.ajax({
+                    type: "POST",
+                    url: '/general/specificprice',
+                    data: {id: variantId, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                    success: function (response) {
+                        $("#price-body").html(response);
                     }
                 });
             });

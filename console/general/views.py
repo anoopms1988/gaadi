@@ -215,3 +215,12 @@ class MileageView(View):
             return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
         else:
             return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
+
+class PriceView(View):
+
+    def specific_price(self, request):
+        variant_id = request.POST.get('id')
+        variant = Variant.objects.get(id=variant_id)
+        price = Price.objects.get(variant=variant)
+        form = PriceForm(instance=price)
+        return render(request, 'general/specificprice.html', {'form': form, 'variant_id': variant_id})
