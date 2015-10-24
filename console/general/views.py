@@ -221,6 +221,7 @@ class MileageView(View):
             return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
 
 
+
 class PriceView(View):
     def specific_price(self, request):
         variant_id = request.POST.get('id')
@@ -309,3 +310,28 @@ class WheelView(View):
             wheel.save()
             messages.success(request, 'Wheel details added.')
         return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
+
+    def specific_wheel(self, request, *args, **kwargs):
+        variant_id = request.POST.get('id')
+        variant = Variant.objects.get(id=variant_id)
+        try:
+            wheel = Wheel.objects.get(variant=variant)
+        except Wheel.DoesNotExist:
+            wheel = None
+        form = WheelForm(instance=wheel)
+        return render(request, 'general/specificwheel.html', {'form': form, 'variant_id': variant_id})
+
+    def edit_wheel(self, request):
+        variant_id = request.POST.get('variant_id')
+        variant = Variant.objects.get(id=variant_id)
+        wheel = Wheel.objects.get(variant=variant)
+        form = WheelForm(request.POST, instance=wheel)
+        if form.is_valid():
+            wheel = form.save(commit=False)
+            wheel.variant = variant
+            wheel.save()
+            messages.success(request, 'Wheel details changed.')
+            return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
+        else:
+            return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
+

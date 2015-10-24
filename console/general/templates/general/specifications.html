@@ -275,6 +275,7 @@
                             {% include "partials/editbrakes.html" %}
                             {% include "partials/addcapacity.html" %}
                             {% include "partials/editcapacity.html" %}
+
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="panel panel-default">
@@ -382,6 +383,7 @@
                             {% include "partials/editmileage.html" %}
                             {% include "partials/addprice.html" %}
                             {% include "partials/editprice.html" %}
+
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="panel panel-default">
@@ -440,7 +442,7 @@
                                                 <button data-target="#editwheel" id="wheel_{{ variant.id }}"
                                                         data-toggle="modal"
                                                         class="editwheel btn btn-primary pull-right">
-                                                    Edit price
+                                                    Edit wheel
                                                 </button>
                                             {% else %}
                                                 <button data-target="#addwheel" id="wheel_{{ variant.id }}"
@@ -485,6 +487,7 @@
                             {% include "partials/addsteering.html" %}
                             {% include "partials/editsteering.html" %}
                             {% include "partials/addwheels.html" %}
+                            {% include "partials/editwheel.html" %}
                         </div>
 
                         <div id="features" class="tab-pane fade">
@@ -587,6 +590,7 @@
                     }
                 });
             });
+
             $('.editsteering').click(function () {
                 var id = $(this).attr('id');
                 var splitElements = id.split("_");
@@ -600,6 +604,21 @@
                     }
                 });
             });
+
+            $('.editwheel').click(function () {
+                var id = $(this).attr('id');
+                var splitElements = id.split("_");
+                var variantId = splitElements[1];
+                $.ajax({
+                    type: "POST",
+                    url: '/general/specificwheel',
+                    data: {id: variantId, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                    success: function (response) {
+                        $("#wheel-body").html(response);
+                    }
+                });
+            });
+
 
 
         });

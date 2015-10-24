@@ -1,5 +1,6 @@
 from django.conf.urls import include, url
 from django.contrib.auth.decorators import login_required
+
 from .views import SpecificationView,EngineView,BrakeView,CapacityView,MileageView,PriceView,SteeringView,WheelView
 from . import views
 
@@ -26,5 +27,7 @@ urlpatterns = [
     url(r'^specificsteering',login_required(views.SteeringView().specific_steering), name='specificsteering'),
     url(r'^editsteering',login_required(views.SteeringView().edit_steering), name='editsteering'),
     url(r'^addwheel',login_required(WheelView.as_view()), name='addwheel'),
+    url(r'^specificwheel',login_required(views.WheelView().specific_wheel), name='specificwheel'),
+    url(r'^editwheel',login_required(views.WheelView().edit_wheel), name='editwheel'),
     url(r'^$', login_required(SpecificationView.as_view())),
 ]
