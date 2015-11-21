@@ -101,3 +101,22 @@ class InteriorFeatures(models.Model):
     foot_rest = models.BooleanField(default=False)
     driver_seat_height_adjust = models.BooleanField(default=False)
     power_seats = models.BooleanField(default=False)
+
+class  ExteriorFeatures(models.Model):
+    class Meta:
+        db_table = 'exterior_features'
+
+    variant = models.ForeignKey(Variant)
+    keyless_entry = models.BooleanField(default=False)
+    rear_wiper = models.BooleanField(default=False)
+    rain_sensing_wipers = models.BooleanField(default=False)
+    alloy_wheels = models.BooleanField(default=False)
+    roof_rails = models.BooleanField(default=False)
+    projector_lamps = models.BooleanField(default=False)
+    fog_lights = models.BooleanField(default=False)
+    moon_roof = models.BooleanField(default=False)
+    auto_headlamps = models.BooleanField(default=False)
+    steel_rims = models.BooleanField(default=False)
+    rear_spoiler = models.BooleanField(default=False)
+    chrome_grille = models.BooleanField(default=False)
+    daytime_running_lamps = models.BooleanField(default=False)
