@@ -491,14 +491,51 @@
                         </div>
 
                         <div id="features" class="tab-pane fade">
-                            <h4>Features</h4>
+                            <div class="panel-body">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a data-toggle="tab" href="#interiorfeatures"
+                                                          aria-expanded="false">Interior features</a>
+                                    </li>
+                                    <li class=""><a data-toggle="tab" href="#exteriorfeatures" aria-expanded="false">Exterior
+                                        features</a>
+                                    </li>
+                                    <li class=""><a data-toggle="tab" href="#safetyfeatures" aria-expanded="false">Safety
+                                        features</a>
+                                    </li>
+                                </ul>
 
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                                mollit anim id est laborum.</p>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div id="interiorfeatures" class="tab-pane fade active in">
+                                        <form method="post" action='/general/interiorfeatures' id='interior_features_form'>
+                                            {% csrf_token %}
+                                            <br>
+                                            <input type="hidden" name='variant_id' value='{{ variant.id }}'>
+
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label> {{interiorform.power_steering.label}}</label>
+                                                    {{interiorform.power_steering}}
+                                                </div>
+                                            </div>
+
+                                            <input type="submit" class="btn btn-primary" name='submit' value='Save'>
+                                        </form>
+                                    </div>
+                                    <div id="exteriorfeatures" class="tab-pane fade">
+                                        <h4>Profile Tab</h4>
+
+                                        <p>Exter</p>
+                                    </div>
+                                    <div id="safetyfeatures" class="tab-pane fade">
+                                        <h4>Messages Tab</h4>
+
+                                        <p>Safety</p>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -618,7 +655,6 @@
                     }
                 });
             });
-
 
 
         });

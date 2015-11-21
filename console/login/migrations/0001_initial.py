@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Assistance',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
                 ('contact_details', models.CharField(max_length=100)),
                 ('address', models.CharField(max_length=100)),
                 ('is_active', models.BooleanField(default=True)),
@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Car',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
                 ('name', models.CharField(max_length=100)),
                 ('is_active', models.BooleanField(default=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CarType',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
                 ('cartype', models.CharField(max_length=100)),
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
                 ('updated_at', models.DateTimeField(auto_now=True, null=True)),
@@ -54,9 +54,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Company',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
                 ('name', models.CharField(max_length=100)),
-                ('logo', models.FileField(upload_to=console.login.models.generate_filename, null=True, verbose_name=b'Upload Logo', blank=True)),
+                ('logo', models.FileField(blank=True, upload_to=console.login.models.generate_filename, verbose_name='Upload Logo', null=True)),
                 ('description', models.CharField(max_length=100)),
                 ('is_active', models.BooleanField(default=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
@@ -69,7 +69,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Dealer',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
                 ('name', models.CharField(max_length=100)),
                 ('city', models.CharField(max_length=100)),
                 ('address', models.CharField(max_length=100)),
@@ -89,14 +89,14 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Engine',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
                 ('torque', models.CharField(max_length=100)),
                 ('displacement', models.CharField(max_length=100)),
                 ('power', models.CharField(max_length=100)),
-                ('cylinders', models.PositiveIntegerField()),
-                ('valvespercylinder', models.PositiveIntegerField()),
+                ('cylinders', models.PositiveIntegerField(null=True)),
+                ('valvespercylinder', models.PositiveIntegerField(null=True)),
                 ('valvemechanism', models.CharField(max_length=100)),
-                ('cyclinderconfiguration', models.CharField(max_length=100)),
+                ('cylinderconfiguration', models.CharField(max_length=100)),
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
                 ('updated_at', models.DateTimeField(auto_now=True, null=True)),
             ],
@@ -107,7 +107,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Fuel',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
                 ('name', models.CharField(max_length=100)),
             ],
             options={
@@ -117,13 +117,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Variant',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
                 ('name', models.CharField(max_length=100)),
                 ('is_active', models.BooleanField(default=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
                 ('updated_at', models.DateTimeField(auto_now=True, null=True)),
                 ('car', models.ForeignKey(to='login.Car')),
-                ('fuel', models.ForeignKey(default=1, to='login.Fuel')),
+                ('fuel', models.ForeignKey(to='login.Fuel', default=1)),
             ],
             options={
                 'db_table': 'variants',

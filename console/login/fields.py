@@ -8,3 +8,7 @@ class NameModelChoiceField(ModelChoiceField):
 class CartypeModelChoiceField(ModelChoiceField):
     def label_from_instance(self, obj):
         return "%s" % obj.cartype
+
+class SteeringModelChoiceField(ModelChoiceField):
+    def label_from_instance(self, obj):
+        return "%s" % obj.power_steering

@@ -3,8 +3,9 @@ from django.views.generic import View
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib import messages
 from console.login.models import Engine
-from .models import Dimensions, Brake, Variant, Capacity, Mileage, Price, Steering, Wheel
-from .forms import DimensionForm, EngineForm, BrakeForm, CapacityForm, MileageForm, PriceForm, SteeringForm, WheelForm
+from .models import Dimensions, Brake, Variant, Capacity, Mileage, Price, Steering, Wheel, InteriorFeatures
+from .forms import DimensionForm, EngineForm, BrakeForm, CapacityForm, MileageForm, PriceForm, SteeringForm, WheelForm, \
+    InteriorfeaturesForm
 
 
 class SpecificationView(View):
@@ -43,11 +44,16 @@ class SpecificationView(View):
             wheel = Wheel.objects.get(variant=variant)
         except Wheel.DoesNotExist:
             wheel = None
+        try:
+            interiorfeatures = InteriorFeatures.objects.get(variant=variant)
+        except InteriorFeatures.DoesNotExist:
+            interiorfeatures = None
+        interiorform = InteriorfeaturesForm(instance=interiorfeatures)
 
         return render(request, 'general/specifications.html',
                       {'dimensionsform': DimensionForm, 'engineform': EngineForm, 'brakeform': BrakeForm,
                        'capacityform': CapacityForm, 'mileageform': MileageForm, 'priceform': PriceForm,
-                       'steeringform': SteeringForm,
+                       'steeringform': SteeringForm, 'interiorform': interiorform, 'interiorfeatures': interiorfeatures,
                        'variant': variant, 'price': price, 'steering': steering, 'wheel': wheel, 'wheelform': WheelForm,
                        'dimensions': dimensions, 'engine': engine, 'brake': brake, 'capacity': capacity,
                        'mileage': mileage})
@@ -221,7 +227,6 @@ class MileageView(View):
             return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
 
 
-
 class PriceView(View):
     def specific_price(self, request):
         variant_id = request.POST.get('id')
@@ -335,3 +340,19 @@ class WheelView(View):
         else:
             return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
 
+
+class InteriorFeaturesView(View):
+    def post(self, request, *args, **kwargs):
+        try:
+            variant_id = request.POST.get('variant_id')
+            variant = Variant.objects.get(id=variant_id)
+            interiorfeatures = InteriorFeatures.objects.get(variant=variant)
+            power_steering=request.POST.get('power_steering')
+            if power_steering == 'False':
+                power_steering = False
+            interiorfeatures.power_steering =power_steering
+            interiorfeatures.save()
+        except Exception as ex:
+            return HttpResponse(ex)
+        messages.success(request, 'Interior features added.')
+        return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
