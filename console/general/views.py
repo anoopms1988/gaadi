@@ -53,7 +53,7 @@ class SpecificationView(View):
         return render(request, 'general/specifications.html',
                       {'dimensionsform': DimensionForm, 'engineform': EngineForm, 'brakeform': BrakeForm,
                        'capacityform': CapacityForm, 'mileageform': MileageForm, 'priceform': PriceForm,
-                       'steeringform': SteeringForm, 'interiorform': interiorform, 'interiorfeatures': interiorfeatures,
+                       'steeringform': SteeringForm, 'interiorform': interiorform,
                        'variant': variant, 'price': price, 'steering': steering, 'wheel': wheel, 'wheelform': WheelForm,
                        'dimensions': dimensions, 'engine': engine, 'brake': brake, 'capacity': capacity,
                        'mileage': mileage})
@@ -347,12 +347,14 @@ class InteriorFeaturesView(View):
             variant_id = request.POST.get('variant_id')
             variant = Variant.objects.get(id=variant_id)
             interiorfeatures = InteriorFeatures.objects.get(variant=variant)
-            power_steering=request.POST.get('power_steering')
-            if power_steering == 'False':
-                power_steering = False
-            interiorfeatures.power_steering =power_steering
-            interiorfeatures.save()
+            form = InteriorfeaturesForm(request.POST, instance=interiorfeatures)
+            if form.is_valid():
+                interior = form.save(commit=False)
+                interior.variant = variant
+                interior.save()
+                messages.success(request, 'Interior Features changed.')
+            else:
+                messages.success(request, 'Oops something went wrong.')
         except Exception as ex:
-            return HttpResponse(ex)
-        messages.success(request, 'Interior features added.')
+            print(ex)
         return HttpResponseRedirect('/general/?id={0}'.format(variant_id))

@@ -145,73 +145,73 @@ class InteriorfeaturesForm(forms.ModelForm):
                   'steering_controls', 'driver_info_display', 'foot_rest', 'driver_seat_height_adjust', 'power_seats']
 
     power_steering = forms.TypedChoiceField(coerce=lambda x: x == 'True',
-                                            choices=((False, 'False'), (True, 'True')),
+                                            choices=((False, 'No'), (True, 'Yes')),
                                             widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),label='Power steering')
 
     power_windows = forms.TypedChoiceField(coerce=lambda x: x == 'True',
-                                           choices=((False, 'False'), (True, 'True')),
-                                           widget=forms.RadioSelect,label='Power windows')
+                                           choices=((False, 'No'), (True, 'Yes')),
+                                           widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),label='Power windows')
 
     anti_pinch = forms.TypedChoiceField(coerce=lambda x: x == 'True',
-                                        choices=((False, 'False'), (True, 'True')),
+                                        choices=((False, 'No'), (True, 'Yes')),
                                         widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),label='Anti Pinch')
     air_con = forms.TypedChoiceField(coerce=lambda x: x == 'True',
-                                     choices=((False, 'False'), (True, 'True')),
+                                     choices=((False, 'No'), (True, 'Yes')),
                                      widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),label='Air conditioner')
     audio_system = forms.TypedChoiceField(coerce=lambda x: x == 'True',
-                                          choices=((False, 'False'), (True, 'True')),
+                                          choices=((False, 'No'), (True, 'Yes')),
                                           widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),label='Audio System')
     electric_mirrors = forms.TypedChoiceField(coerce=lambda x: x == 'True',
-                                              choices=((False, 'False'), (True, 'True')),
+                                              choices=((False, 'No'), (True, 'Yes')),
                                               widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),label='Electric Mirrors')
     deffoger = forms.TypedChoiceField(coerce=lambda x: x == 'True',
-                                      choices=((False, 'False'), (True, 'True')),
+                                      choices=((False, 'No'), (True, 'Yes')),
                                       widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),label='Deffoger')
     leather_seats = forms.TypedChoiceField(coerce=lambda x: x == 'True',
-                                           choices=((False, 'False'), (True, 'True')),
+                                           choices=((False, 'No'), (True, 'Yes')),
                                            widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),label='Leather seats')
     reversing_camera = forms.TypedChoiceField(coerce=lambda x: x == 'True',
-                                              choices=((False, 'False'), (True, 'True')),
+                                              choices=((False, 'No'), (True, 'Yes')),
                                               widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),label='Reversing camera')
     bluetooth_connectivity = forms.TypedChoiceField(coerce=lambda x: x == 'True',
-                                                    choices=((False, 'False'), (True, 'True')),
+                                                    choices=((False, 'No'), (True, 'Yes')),
                                                     widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),label='Bluetooth connectivity')
     cruise_control = forms.TypedChoiceField(coerce=lambda x: x == 'True',
-                                            choices=((False, 'False'), (True, 'True')),
+                                            choices=((False, 'No'), (True, 'Yes')),
                                             widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),label='Cruise control')
     remote_boot_release = forms.TypedChoiceField(coerce=lambda x: x == 'True',
-                                                 choices=((False, 'False'), (True, 'True')),
+                                                 choices=((False, 'No'), (True, 'Yes')),
                                                  widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),label='Remote boot release')
     chilled_glovebox = forms.TypedChoiceField(coerce=lambda x: x == 'True',
-                                              choices=((False, 'False'), (True, 'True')),
+                                              choices=((False, 'No'), (True, 'Yes')),
                                               widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),label='Chilled glovebox')
     rear_ac_vents = forms.TypedChoiceField(coerce=lambda x: x == 'True',
-                                           choices=((False, 'False'), (True, 'True')),
+                                           choices=((False, 'No'), (True, 'Yes')),
                                            widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),label='Rear ac vents')
     keyless_start_stop_button = forms.TypedChoiceField(coerce=lambda x: x == 'True',
-                                                       choices=((False, 'False'), (True, 'True')),
+                                                       choices=((False, 'No'), (True, 'Yes')),
                                                        widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),label='Keyless start stop button')
     electric_foldable_mirrors = forms.TypedChoiceField(coerce=lambda x: x == 'True',
-                                                       choices=((False, 'False'), (True, 'True')),
+                                                       choices=((False, 'No'), (True, 'Yes')),
                                                        widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),label='Electric foldable mirrors')
     tachometer = forms.TypedChoiceField(coerce=lambda x: x == 'True',
-                                        choices=((False, 'False'), (True, 'True')),
+                                        choices=((False, 'No'), (True, 'Yes')),
                                         widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),label='Tachometer')
     arm_rest = forms.TypedChoiceField(coerce=lambda x: x == 'True',
-                                      choices=((False, 'False'), (True, 'True')),
+                                      choices=((False, 'No'), (True, 'Yes')),
                                       widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),label='Arm rest')
     steering_controls = forms.TypedChoiceField(coerce=lambda x: x == 'True',
-                                               choices=((False, 'False'), (True, 'True')),
+                                               choices=((False, 'No'), (True, 'Yes')),
                                                widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),label='Steering controls')
     driver_info_display = forms.TypedChoiceField(coerce=lambda x: x == 'True',
-                                                 choices=((False, 'False'), (True, 'True')),
+                                                 choices=((False, 'No'), (True, 'Yes')),
                                                  widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),label='Driver info display')
     foot_rest = forms.TypedChoiceField(coerce=lambda x: x == 'True',
-                                       choices=((False, 'False'), (True, 'True')),
+                                       choices=((False, 'No'), (True, 'Yes')),
                                        widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),label='Foot rest')
     driver_seat_height_adjust = forms.TypedChoiceField(coerce=lambda x: x == 'True',
-                                                       choices=((False, 'False'), (True, 'True')),
+                                                       choices=((False, 'No'), (True, 'Yes')),
                                                        widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),label='Driver seat height adjust')
     power_seats = forms.TypedChoiceField(coerce=lambda x: x == 'True',
-                                         choices=((False, 'False'), (True, 'True')),
+                                         choices=((False, 'No'), (True, 'Yes')),
                                          widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),label='Power seats')
