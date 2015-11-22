@@ -3,9 +3,10 @@ from django.views.generic import View
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib import messages
 from console.login.models import Engine
-from .models import Dimensions, Brake, Variant, Capacity, Mileage, Price, Steering, Wheel, InteriorFeatures
+from .models import Dimensions, Brake, Variant, Capacity, Mileage, Price, Steering, Wheel, InteriorFeatures, \
+    ExteriorFeatures,SafetyFeatures
 from .forms import DimensionForm, EngineForm, BrakeForm, CapacityForm, MileageForm, PriceForm, SteeringForm, WheelForm, \
-    InteriorfeaturesForm
+    InteriorfeaturesForm, ExteriorfeaturesForm,SafetyfeaturesForm
 
 
 class SpecificationView(View):
@@ -49,11 +50,21 @@ class SpecificationView(View):
         except InteriorFeatures.DoesNotExist:
             interiorfeatures = None
         interiorform = InteriorfeaturesForm(instance=interiorfeatures)
+        try:
+            exteriorfeatures = ExteriorFeatures.objects.get(variant=variant)
+        except ExteriorFeatures.DoesNotExist:
+            exteriorfeatures = None
+        exteriorform = ExteriorfeaturesForm(instance=exteriorfeatures)
+        try:
+            safetyfeatures = SafetyFeatures.objects.get(variant=variant)
+        except SafetyFeatures.DoesNotExist:
+            safetyfeatures = None
+        safetyform = SafetyfeaturesForm(instance=safetyfeatures)
 
         return render(request, 'general/specifications.html',
                       {'dimensionsform': DimensionForm, 'engineform': EngineForm, 'brakeform': BrakeForm,
                        'capacityform': CapacityForm, 'mileageform': MileageForm, 'priceform': PriceForm,
-                       'steeringform': SteeringForm, 'interiorform': interiorform,
+                       'steeringform': SteeringForm, 'interiorform': interiorform, 'exteriorform': exteriorform,'safetyform':safetyform,
                        'variant': variant, 'price': price, 'steering': steering, 'wheel': wheel, 'wheelform': WheelForm,
                        'dimensions': dimensions, 'engine': engine, 'brake': brake, 'capacity': capacity,
                        'mileage': mileage})
@@ -353,6 +364,43 @@ class InteriorFeaturesView(View):
                 interior.variant = variant
                 interior.save()
                 messages.success(request, 'Interior Features changed.')
+            else:
+                messages.success(request, 'Oops something went wrong.')
+        except Exception as ex:
+            print(ex)
+        return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
+
+
+class ExteriorFeaturesView(View):
+    def post(self, request, *args, **kwargs):
+        try:
+            variant_id = request.POST.get('variant_id')
+            variant = Variant.objects.get(id=variant_id)
+            exteriorfeatures = ExteriorFeatures.objects.get(variant=variant)
+            form = ExteriorfeaturesForm(request.POST, instance=exteriorfeatures)
+            if form.is_valid():
+                exterior = form.save(commit=False)
+                exterior.variant = variant
+                exterior.save()
+                messages.success(request, 'Exterior Features changed.')
+            else:
+                messages.success(request, 'Oops something went wrong.')
+        except Exception as ex:
+            print(ex)
+        return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
+
+class SafetyFeaturesView(View):
+    def post(self, request, *args, **kwargs):
+        try:
+            variant_id = request.POST.get('variant_id')
+            variant = Variant.objects.get(id=variant_id)
+            safetyfeatures = SafetyFeatures.objects.get(variant=variant)
+            form = SafetyfeaturesForm(request.POST, instance=safetyfeatures)
+            if form.is_valid():
+                safety = form.save(commit=False)
+                safety.variant = variant
+                safety.save()
+                messages.success(request, 'Safety Features changed.')
             else:
                 messages.success(request, 'Oops something went wrong.')
         except Exception as ex:

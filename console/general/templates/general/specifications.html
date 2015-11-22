@@ -508,174 +508,27 @@
                                 <!-- Tab panes -->
                                 <div class="tab-content">
                                     <div id="interiorfeatures" class="tab-pane fade active in">
-                                        <form method="post" action='/general/interiorfeatures' id='interior_features_form'>
-                                            {% csrf_token %}
-                                            <br>
-                                            <input type="hidden" name='variant_id' value='{{ variant.id }}'>
-
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label> {{interiorform.power_steering.label}}</label>
-                                                    {{interiorform.power_steering}}
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label> {{interiorform.power_windows.label}}</label>
-                                                    {{interiorform.power_windows}}
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label> {{interiorform.anti_pinch.label}}</label>
-                                                    {{interiorform.anti_pinch}}
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label> {{interiorform.air_con.label}}</label>
-                                                    {{interiorform.air_con}}
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label> {{interiorform.audio_system.label}}</label>
-                                                    {{interiorform.audio_system}}
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label> {{interiorform.electric_mirrors.label}}</label>
-                                                    {{interiorform.electric_mirrors}}
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label> {{interiorform.deffoger.label}}</label>
-                                                    {{interiorform.deffoger}}
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label> {{interiorform.leather_seats.label}}</label>
-                                                    {{interiorform.leather_seats}}
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label> {{interiorform.reversing_camera.label}}</label>
-                                                    {{interiorform.reversing_camera}}
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label> {{interiorform.bluetooth_connectivity.label}}</label>
-                                                    {{interiorform.bluetooth_connectivity}}
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label> {{interiorform.cruise_control.label}}</label>
-                                                    {{interiorform.cruise_control}}
-                                                </div>
-                                            </div>
-                                             <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label> {{interiorform.remote_boot_release.label}}</label>
-                                                    {{interiorform.remote_boot_release}}
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label> {{interiorform.chilled_glovebox.label}}</label>
-                                                    {{interiorform.chilled_glovebox}}
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label> {{interiorform.rear_ac_vents.label}}</label>
-                                                    {{interiorform.rear_ac_vents}}
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label> {{interiorform.keyless_start_stop_button.label}}</label>
-                                                    {{interiorform.keyless_start_stop_button}}
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label> {{interiorform.electric_foldable_mirrors.label}}</label>
-                                                    {{interiorform.electric_foldable_mirrors}}
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label> {{interiorform.tachometer.label}}</label>
-                                                    {{interiorform.tachometer}}
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label> {{interiorform.arm_rest.label}}</label>
-                                                    {{interiorform.arm_rest}}
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label> {{interiorform.steering_controls.label}}</label>
-                                                    {{interiorform.steering_controls}}
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label> {{interiorform.driver_info_display.label}}</label>
-                                                    {{interiorform.driver_info_display}}
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label> {{interiorform.foot_rest.label}}</label>
-                                                    {{interiorform.foot_rest}}
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label> {{interiorform.driver_seat_height_adjust.label}}</label>
-                                                    {{interiorform.driver_seat_height_adjust}}
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <div class="form-group">
-                                                    <label> {{interiorform.power_seats.label}}</label>
-                                                    {{interiorform.power_seats}}
-                                                </div>
-                                            </div>
-                                            <br>
-                                            <input type="submit" class="btn btn-primary" name='submit' value='Save'>
-                                        </form>
+                                        {% include "partials/features/interiorfeatures.html" %}
                                     </div>
                                     <div id="exteriorfeatures" class="tab-pane fade">
-                                        <h4>Profile Tab</h4>
-
-                                        <p>Exter</p>
+                                         {% include "partials/features/exteriorfeatures.html" %}
                                     </div>
                                     <div id="safetyfeatures" class="tab-pane fade">
-                                        <h4>Messages Tab</h4>
-
-                                        <p>Safety</p>
+                                         {% include "partials/features/safetyfeatures.html" %}
                                     </div>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
+
                     </div>
                 </div>
-                <!-- /.panel-body -->
             </div>
-            <!-- /.panel -->
+            <!-- /.panel-body -->
         </div>
-        <!-- /.col-lg-6 -->
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-6 -->
     </div>
 {% endblock %}
 {% block script %}

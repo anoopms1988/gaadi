@@ -102,7 +102,8 @@ class InteriorFeatures(models.Model):
     driver_seat_height_adjust = models.BooleanField(default=False)
     power_seats = models.BooleanField(default=False)
 
-class  ExteriorFeatures(models.Model):
+
+class ExteriorFeatures(models.Model):
     class Meta:
         db_table = 'exterior_features'
 
@@ -120,3 +121,21 @@ class  ExteriorFeatures(models.Model):
     rear_spoiler = models.BooleanField(default=False)
     chrome_grille = models.BooleanField(default=False)
     daytime_running_lamps = models.BooleanField(default=False)
+
+
+class SafetyFeatures(models.Model):
+    class Meta:
+        db_table = 'safety_features'
+
+    variant = models.ForeignKey(Variant)
+    abs = models.BooleanField(default=True)
+    airbags = models.BooleanField(default=True)
+    immobilizer = models.BooleanField(default=True)
+    hill_control = models.BooleanField(default=True)
+    central_locking = models.BooleanField(default=True)
+    ebd = models.BooleanField(default=True)
+    child_safety_lock = models.BooleanField(default=True)
+    traction_control = models.BooleanField(default=True)
+    hill_descent = models.BooleanField(default=True)
+    esp = models.BooleanField(default=True)
+    wheel_drive = models.BooleanField(default=True)

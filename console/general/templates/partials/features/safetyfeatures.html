@@ -1,0 +1,74 @@
+<form method="post" action='/general/safetyfeatures'
+      id='safety_features_form'>
+    {% csrf_token %}
+    <input type="hidden" name='variant_id' value='{{ variant.id }}'>
+
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label> {{ safetyform.abs.label }}</label>
+            {{ safetyform.abs }}
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label> {{ safetyform.airbags.label }}</label>
+            {{ safetyform.airbags }}
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label> {{ safetyform.immobilizer.label }}</label>
+            {{ safetyform.immobilizer }}
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label> {{ safetyform.hill_control.label }}</label>
+            {{ safetyform.hill_control }}
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label> {{ safetyform.central_locking.label }}</label>
+            {{ safetyform.central_locking }}
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label> {{ safetyform.ebd.label }}</label>
+            {{ safetyform.ebd }}
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label> {{ safetyform.child_safety_lock.label }}</label>
+            {{ safetyform.child_safety_lock }}
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label> {{ safetyform.traction_control.label }}</label>
+            {{ safetyform.traction_control }}
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label> {{ safetyform.hill_descent.label }}</label>
+            {{ safetyform.hill_descent }}
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label> {{ safetyform.esp.label }}</label>
+            {{ safetyform.esp }}
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="form-group">
+            <label> {{ safetyform.wheel_drive.label }}</label>
+            {{ safetyform.wheel_drive }}
+        </div>
+    </div>
+    <br>
+    <input type="submit" class="btn btn-primary" name='submit' value='Save'>
+</form>
