@@ -1,6 +1,6 @@
 from django import forms
 from .models import Dimensions, Brake, Capacity, Mileage, Price, Steering, Wheel, InteriorFeatures, ExteriorFeatures, \
-    SafetyFeatures
+    SafetyFeatures, User
 from console.login.models import Engine
 from django.utils.safestring import mark_safe
 
@@ -353,3 +353,38 @@ class SafetyfeaturesForm(forms.ModelForm):
                                          choices=((False, 'No'), (True, 'Yes')),
                                          widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
                                          label='Wheel drive')
+
+
+class UserForm(forms.ModelForm):
+    """
+    Foem class to deal with user model
+    """
+    class Meta:
+        model = User
+        fields = ['user_name', 'first_name', 'last_name', 'email', 'gender', 'password', 'city', 'mobile']
+
+        user_name = forms.CharField(error_messages={'required': 'Username is required'}, required=True,
+                                    label='Username',
+                                    max_length=100,
+                                    widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}))
+        first_name = forms.CharField(error_messages={'required': 'First Name is required'}, required=True,
+                                     label='First Name',
+                                     max_length=100,
+                                     widget=forms.TextInput(
+                                         attrs={'class': 'form-control', 'placeholder': 'First Name'}))
+        last_name = forms.CharField(label='Last Name', max_length=100,
+                                    widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'}))
+        email = forms.CharField(label='Email', max_length=100, error_messages={'required': 'Email is required'},
+                                required=True,
+                                widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Email'}))
+        gender = forms.CharField(label='Gender', max_length=100,
+                                 widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Gender'}))
+        password = forms.CharField(label='Password', max_length=100,
+                                   error_messages={'required': 'Password is required'}, required=True,
+                                   widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
+        city = forms.CharField(label='City ', max_length=100, error_messages={'required': 'City is required'},
+                               required=True,
+                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'City'}))
+        mobile = forms.CharField(label='Mobile', max_length=100, error_messages={'required': 'Mobile is required'},
+                                 required=True,
+                                 widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Mobile'}))

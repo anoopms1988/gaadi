@@ -6,7 +6,7 @@ from .views import SpecificationView,EngineView,BrakeView,CapacityView,MileageVi
 
 from . import views
 from console.general.dir import specifiedviews
-from console.general.dir.specifiedviews import InsuranceView
+from console.general.dir.specifiedviews import InsuranceView,UserView
 
 urlpatterns = [
     url(r'^adddimensions',login_required(SpecificationView.as_view()), name='adddimensions'),
@@ -37,5 +37,7 @@ urlpatterns = [
     url(r'^exteriorfeatures',login_required(ExteriorFeaturesView.as_view()), name='exteriorfeatures'),
     url(r'^safetyfeatures',login_required(SafetyFeaturesView.as_view()), name='safetyfeatures'),
     url(r'^insurance',login_required(InsuranceView.as_view()), name='insurance'),
+    url(r'^listusers',login_required(UserView.as_view()), name='listusers'),
+    url(r'^deleteuser',login_required(specifiedviews.UserView.delete_user), name='listusers'),
     url(r'^$', login_required(SpecificationView.as_view())),
 ]

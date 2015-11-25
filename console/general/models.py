@@ -139,3 +139,22 @@ class SafetyFeatures(models.Model):
     hill_descent = models.BooleanField(default=True)
     esp = models.BooleanField(default=True)
     wheel_drive = models.BooleanField(default=True)
+
+
+class User(models.Model):
+    """
+    Model to define registered users
+    """
+
+    class Meta:
+        db_table = 'users'
+
+    user_name = models.CharField(max_length=100, blank=False, null=False)
+    first_name = models.CharField(max_length=100, blank=False, null=False)
+    last_name = models.CharField(max_length=100, blank=True, null=True)
+    email = models.CharField(max_length=100, blank=False, null=False)
+    gender = models.CharField(max_length=100, blank=False, null=False)
+    password = models.CharField(max_length=100, blank=False, null=False)
+    city = models.CharField(max_length=100, blank=False, null=False)
+    mobile = models.CharField(max_length=100, blank=False, null=False)
+    is_active = models.BooleanField(default=True)
