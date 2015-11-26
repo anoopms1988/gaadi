@@ -149,12 +149,12 @@ class User(models.Model):
     class Meta:
         db_table = 'users'
 
-    user_name = models.CharField(max_length=100, blank=False, null=False)
-    first_name = models.CharField(max_length=100, blank=False, null=False)
-    last_name = models.CharField(max_length=100, blank=True, null=True)
-    email = models.CharField(max_length=100, blank=False, null=False)
-    gender = models.CharField(max_length=100, blank=False, null=False)
-    password = models.CharField(max_length=100, blank=False, null=False)
-    city = models.CharField(max_length=100, blank=False, null=False)
-    mobile = models.CharField(max_length=100, blank=False, null=False)
+    user_name = models.CharField(max_length=100,blank=True, null=True)
+    first_name = models.CharField(max_length=100, blank=True, null=True)
+    last_name = models.CharField(max_length=100,blank=True, null=True)
+    email = models.CharField(max_length=100, blank=True, null=True)
+    gender = models.CharField(max_length=100,blank=True, null=True)
+    password = models.CharField(max_length=100, blank=True, null=True)
+    city = models.CharField(max_length=100,blank=True, null=True)
+    mobile = models.CharField(max_length=100, blank=True, null=True)
     is_active = models.BooleanField(default=True)

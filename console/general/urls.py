@@ -37,7 +37,9 @@ urlpatterns = [
     url(r'^exteriorfeatures',login_required(ExteriorFeaturesView.as_view()), name='exteriorfeatures'),
     url(r'^safetyfeatures',login_required(SafetyFeaturesView.as_view()), name='safetyfeatures'),
     url(r'^insurance',login_required(InsuranceView.as_view()), name='insurance'),
-    url(r'^listusers',login_required(UserView.as_view()), name='listusers'),
-    url(r'^deleteuser',login_required(specifiedviews.UserView.delete_user), name='listusers'),
+    url(r'^listusers',login_required(UserView.as_view()),name='listusers'),
+    url(r'^deleteuser',login_required(specifiedviews.UserView().delete_user),name='deleteuser'),
+    url(r'^specificuser',login_required(specifiedviews.UserView().specific_user), name='specificuser'),
+    url(r'^edituser',login_required(specifiedviews.UserView().edit_user), name='edituser'),
     url(r'^$', login_required(SpecificationView.as_view())),
 ]
