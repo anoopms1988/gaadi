@@ -8,6 +8,7 @@ from .models import Company, CarType, Car, Variant, Fuel, Dealer, Assistance
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from django.core import serializers
+from django.core.mail import send_mail,EmailMessage
 
 
 class LoginView(View):
@@ -273,6 +274,11 @@ class DealerView(View):
             dealer = form.save(commit=False)
             dealer.company = company
             dealer.save()
+            subject ='Dealer partnership program'
+            message ='You are added as a dealer'
+            send_mail(subject, message, '1988anoopms@gmail.com',
+    ['1988anoopms@gmail.com'], fail_silently=False)
+
             messages.success(request, 'New dealer added.')
             return HttpResponseRedirect('/console/mapcompany?id={0}'.format(company_id))
         else:

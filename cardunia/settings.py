@@ -123,3 +123,11 @@ STATICFILES_DIRS = (
 PAGINATION_LIMIT =5
 
 LOGIN_URL='/console/login/'
+
+
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST='localhost'
+EMAIL_PORT=25
+EMAIL_HOST_USER='1988anoopms@gmail.com'
+EMAIL_HOST_PASSWORD='masaimara'
+MAIL_USE_TLS=True

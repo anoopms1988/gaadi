@@ -368,7 +368,7 @@ class UserForm(forms.ModelForm):
                                      max_length=100,
                                      widget=forms.TextInput(
                                          attrs={'class':'form-control','placeholder': 'First Name'}))
-    last_name = forms.CharField(label='Last Name', max_length=100,
+    last_name = forms.CharField(label='Last Name', max_length=100,required=False,
                                     widget=forms.TextInput(attrs={'class':'form-control','placeholder': 'Last Name'}))
 
     gender = forms.CharField(label='Gender', max_length=100,

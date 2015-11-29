@@ -36,18 +36,20 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-{#        $("#edit_car_form").validate({#}
-{#            rules: {#}
-{#                company: "required",#}
-{#                cartype: "required",#}
-{#                name: "required",#}
-{#            },#}
-{#            messages: {#}
-{#                company: "<div class='text-danger'>Enter  your company.</div>",#}
-{#                cartype: "<div class='text-danger'>Enter your cartype.</div>",#}
-{#                name: "<div class='text-danger'>Enter your name</div>"#}
-{#            }#}
-{#        });#}
+        $("#edit_user_form").validate({
+            rules: {
+                first_name: "required",
+                gender: "required",
+                city: "required",
+                mobile: "required",
+            },
+            messages: {
+                first_name: "<div class='text-danger'>Enter  your first name.</div>",
+                gender: "<div class='text-danger'>Enter your gender.</div>",
+                city: "<div class='text-danger'>Enter your city</div>",
+                mobile: "<div class='text-danger'>Enter your mobile</div>",
+            }
+        });
 
 
 
