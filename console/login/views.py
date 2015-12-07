@@ -9,6 +9,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from django.core import serializers
 from django.core.mail import send_mail,EmailMessage
+import uuid
 
 
 class LoginView(View):
@@ -273,12 +274,13 @@ class DealerView(View):
         if form.is_valid():
             dealer = form.save(commit=False)
             dealer.company = company
+            secret_token=uuid.uuid4()
+            dealer.token =secret_token
             dealer.save()
-            subject ='Dealer partnership program'
-            message ='You are added as a dealer'
-            send_mail(subject, message, '1988anoopms@gmail.com',
-    ['1988anoopms@gmail.com'], fail_silently=False)
-
+    #         subject ='Dealer partnership program'
+    #         message ='You are added as a dealer'
+    #         send_mail(subject, message, '1988anoopms@gmail.com',
+    # ['1988anoopms@gmail.com'], fail_silently=False)
             messages.success(request, 'New dealer added.')
             return HttpResponseRedirect('/console/mapcompany?id={0}'.format(company_id))
         else:

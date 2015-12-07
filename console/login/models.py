@@ -97,6 +97,8 @@ class Dealer(models.Model):
     updated_at = models.DateTimeField(auto_now=True, null=True)
     email = models.CharField(max_length=100, blank=False)
     openinghours = models.CharField(max_length=100, blank=False)
+    token = models.CharField(max_length=100, blank=True)
+
 
 
 class Assistance(models.Model):
