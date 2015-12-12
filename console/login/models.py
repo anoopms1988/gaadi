@@ -14,7 +14,7 @@ class Company(models.Model):
 
     name = models.CharField(max_length=100)
     logo = models.FileField(verbose_name='Upload Logo', upload_to=generate_filename, blank=True, null=True)
-    description = models.CharField(max_length=100)
+    description = models.TextField()
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
