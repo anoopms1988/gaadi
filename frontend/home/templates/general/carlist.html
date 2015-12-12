@@ -3,9 +3,8 @@
     <div class="row">
         <div class="span12">
             <ul class="breadcrumb">
-                <li><a href="index.html">Home</a> <span class="divider">/</span></li>
-                <li><a href="products.html">Products</a> <span class="divider">/</span></li>
-                <li class="active">product Details</li>
+                <li><a href="{% url 'home' %}">Home</a> <span class="divider">/</span></li>
+                <li class="active">{{ company.name }}</li>
             </ul>
             <div class="row">
                 <div class="span3" id="gallery">
@@ -42,19 +41,10 @@
                 {% for list in carlist %}
                     <li class="span3">
                         <div class="thumbnail">
-                            <a href="product_details.html"><img alt="" src="themes/images/products/6.jpg"></a>
-
+                            <a href="product_details.html"><img height="75"
+                                                                width="100" alt="" src="{{ MEDIA_URL }}{{list.logo }}" onError="this.src='{{ MEDIA_URL }}general/noimage.jpg';" ></a>
                             <div class="caption">
                                 <h5>{{ list.name }}</h5>
-
-                                <p>
-                                    Lorem Ipsum is simply dummy text.
-                                </p>
-
-                                <h4 style="text-align:center"><a href="product_details.html" class="btn"> <i
-                                        class="icon-zoom-in"></i></a> <a href="#" class="btn">Add to <i
-                                        class="icon-shopping-cart"></i></a> <a href="#"
-                                                                               class="btn btn-primary">$222.00</a></h4>
                             </div>
                         </div>
                     </li>

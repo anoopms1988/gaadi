@@ -14,7 +14,7 @@ class LoginForm(forms.Form):
 class CarForm(forms.ModelForm):
     class Meta:
         model = Car
-        fields = ['name', 'description']
+        fields = ['name', 'logo', 'description']
 
     company = NameModelChoiceField(error_messages={'required': 'Company is required'}, queryset=Company.objects.all(),
                                    widget=forms.Select(attrs={'class': 'form-control', 'id': 'company'}),
@@ -27,6 +27,7 @@ class CarForm(forms.ModelForm):
                            widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter car name'}))
     description = forms.CharField(required=False, widget=forms.Textarea(
         attrs={'class': 'form-control', 'placeholder': 'Enter car description'}))
+    logo = forms.FileField(required=False,widget=forms.FileInput)
 
 
 class VariantForm(forms.ModelForm):

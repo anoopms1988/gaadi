@@ -7,6 +7,12 @@ def generate_filename(self, filename):
     url = "companies/logos/%s/%s" % (self.name, changed_name)
     return url
 
+def generate_carlogo(self, filename):
+    extension = os.path.splitext(filename)[1]
+    changed_name = self.name + extension
+    url = "cars/logos/%s/%s" % (self.name, changed_name)
+    return url
+
 class Company(models.Model):
 
     class Meta:
@@ -36,6 +42,7 @@ class Car(models.Model):
         db_table = 'cars'
 
     name = models.CharField(max_length=100, blank=False)
+    logo = models.FileField(verbose_name='Upload image', upload_to=generate_carlogo, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)

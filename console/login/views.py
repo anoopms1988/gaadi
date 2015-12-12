@@ -8,7 +8,7 @@ from .models import Company, CarType, Car, Variant, Fuel, Dealer, Assistance
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from django.core import serializers
-from django.core.mail import send_mail,EmailMessage
+from django.core.mail import send_mail, EmailMessage
 import uuid
 
 
@@ -57,7 +57,7 @@ class CarView(View):
         return render(request, 'dashboard.html', {'form': CarForm})
 
     def post(self, request, *args, **kwargs):
-        form = CarForm(request.POST)
+        form = CarForm(request.POST,request.FILES)
         if form.is_valid():
             car = form.save(commit=False)
             car.company = form.cleaned_data['company']
@@ -99,7 +99,7 @@ class CarView(View):
     def edit_car(self, request):
         car_id = request.POST.get('car_id')
         car = Car.objects.get(pk=car_id)
-        form = CarForm(request.POST, instance=car)
+        form = CarForm(request.POST, request.FILES, instance=car)
         if form.is_valid():
             car = form.save(commit=False)
             car.company = form.cleaned_data['company']
@@ -274,13 +274,13 @@ class DealerView(View):
         if form.is_valid():
             dealer = form.save(commit=False)
             dealer.company = company
-            secret_token=uuid.uuid4()
-            dealer.token =secret_token
+            secret_token = uuid.uuid4()
+            dealer.token = secret_token
             dealer.save()
-    #         subject ='Dealer partnership program'
-    #         message ='You are added as a dealer'
-    #         send_mail(subject, message, '1988anoopms@gmail.com',
-    # ['1988anoopms@gmail.com'], fail_silently=False)
+            #         subject ='Dealer partnership program'
+            #         message ='You are added as a dealer'
+            #         send_mail(subject, message, '1988anoopms@gmail.com',
+            # ['1988anoopms@gmail.com'], fail_silently=False)
             messages.success(request, 'New dealer added.')
             return HttpResponseRedirect('/console/mapcompany?id={0}'.format(company_id))
         else:
