@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('login', '0003_auto_20151212_0729'),
+        ('login', '0001_initial'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='company',
+            model_name='car',
             name='description',
-            field=models.TextField(),
+            field=models.TextField(default='Not available'),
         ),
     ]

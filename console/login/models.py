@@ -1,11 +1,13 @@
 from django.db import models
 import os
 
+
 def generate_filename(self, filename):
     extension = os.path.splitext(filename)[1]
     changed_name = self.name + extension
     url = "companies/logos/%s/%s" % (self.name, changed_name)
     return url
+
 
 def generate_carlogo(self, filename):
     extension = os.path.splitext(filename)[1]
@@ -13,8 +15,8 @@ def generate_carlogo(self, filename):
     url = "cars/logos/%s/%s" % (self.name, changed_name)
     return url
 
-class Company(models.Model):
 
+class Company(models.Model):
     class Meta:
         db_table = 'companies'
 
@@ -27,7 +29,6 @@ class Company(models.Model):
 
 
 class CarType(models.Model):
-
     class Meta:
         db_table = 'cartypes'
 
@@ -37,7 +38,6 @@ class CarType(models.Model):
 
 
 class Car(models.Model):
-
     class Meta:
         db_table = 'cars'
 
@@ -48,11 +48,11 @@ class Car(models.Model):
     updated_at = models.DateTimeField(auto_now=True, null=True)
     company = models.ForeignKey(Company)
     cartype = models.ForeignKey(CarType)
-    description = models.CharField(max_length=100)
+    description = models.TextField()
+    price = models.TextField(null=True)
 
 
 class Fuel(models.Model):
-
     class Meta:
         db_table = 'fueltype'
 
@@ -60,7 +60,6 @@ class Fuel(models.Model):
 
 
 class Variant(models.Model):
-
     class Meta:
         db_table = 'variants'
 
@@ -73,7 +72,6 @@ class Variant(models.Model):
 
 
 class Engine(models.Model):
-
     class Meta:
         db_table = 'engines'
 
@@ -105,7 +103,6 @@ class Dealer(models.Model):
     email = models.CharField(max_length=100, blank=False)
     openinghours = models.CharField(max_length=100, blank=False)
     token = models.CharField(max_length=100, blank=True)
-
 
 
 class Assistance(models.Model):

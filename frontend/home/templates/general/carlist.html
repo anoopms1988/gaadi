@@ -12,6 +12,7 @@
                         <img alt="{{ company.name }}" height="100" width="150"
                              src="{{ MEDIA_URL }}{{ company.logo }}">
                     </a>
+
                     <div class="btn-toolbar">
                         <div class="btn-group">
                             <span class="btn"><i class="icon-envelope"></i></span>
@@ -19,7 +20,7 @@
                             <span class="btn"><i class="icon-zoom-in"></i></span>
                             <span class="btn"><i class="icon-star"></i></span>
                             <span class="btn"><i class=" icon-thumbs-up"></i></span>
-{#                            <span class="btn"><i class="icon-thumbs-down"></i></span>#}
+                            {#                            <span class="btn"><i class="icon-thumbs-down"></i></span>#}
                         </div>
                     </div>
                 </div>
@@ -42,9 +43,16 @@
                     <li class="span3">
                         <div class="thumbnail">
                             <a href="product_details.html"><img height="75"
-                                                                width="100" alt="" src="{{ MEDIA_URL }}{{list.logo }}" onError="this.src='{{ MEDIA_URL }}general/noimage.jpg';" ></a>
+                                                                width="100" alt="" src="{{ MEDIA_URL }}{{ list.logo }}"
+                                                                onError="this.src='{{ MEDIA_URL }}general/noimage.jpg';"></a>
+
                             <div class="caption">
                                 <h5>{{ list.name }}</h5>
+                                {% if list.price %}
+                                    <p>{{ list.price }}</p>
+                                {% else %}
+                                    <p>Not available</p>
+                                {% endif %}
                             </div>
                         </div>
                     </li>

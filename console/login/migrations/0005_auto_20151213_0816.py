@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('general', '0014_user'),
+        ('login', '0004_auto_20151213_0815'),
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='user',
-            name='is_active',
-            field=models.BooleanField(default=True),
+        migrations.AlterField(
+            model_name='car',
+            name='price',
+            field=models.TextField(null=True),
         ),
     ]
