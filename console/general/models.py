@@ -39,7 +39,7 @@ class Mileage(models.Model):
     class Meta:
         db_table = 'mileage'
 
-    variant = models.ForeignKey(Variant)
+    variant = models.ForeignKey(Variant, related_name='mileage')
     mileage_highway = models.CharField(max_length=100, blank=True, null=True)
     mileage_city = models.CharField(max_length=100, blank=True, null=True)
     mileage_overall = models.CharField(max_length=100, blank=True, null=True)

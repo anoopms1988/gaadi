@@ -4,7 +4,8 @@
         <div class="span12">
             <ul class="breadcrumb">
                 <li><a href="{% url 'home' %}">Home</a> <span class="divider">/</span></li>
-                <li><a href="{% url 'company' %}?company_id={{ car.company.id }}">{{ car.company.name}}</a> <span class="divider">/</span></li>
+                <li><a href="{% url 'company' %}?company_id={{ car.company.id }}">{{ car.company.name }}</a> <span
+                        class="divider">/</span></li>
                 <li class="active">{{ car.name }}</li>
             </ul>
             <div class="row">
@@ -30,7 +31,7 @@
                     <hr class="soft clr">
                     <h4>{{ car.price }}</h4>
                     <hr class="soft clr">
-                    <p>{{  car.description }}</p>
+                    <p>{{ car.description }}</p>
                     <a href="#detail" class="btn btn-small pull-right">More Details</a>
                     <br class="clr">
                     <a name="detail" href="#"></a>
@@ -38,6 +39,54 @@
                 </div>
             </div>
         </div>
+        <h4>Petrol variants</h4>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Mileage</th>
+                <th>Engine</th>
+                <th>Starting Price</th>
+                <th>Starting Emi</th>
+                <th>On road price</th>
+            </tr>
+            </thead>
+            <tbody>
+             {% for list in variantlist %}
+            <tr>
+                <td>{{ list.name }}</td>
+                <td>{{ list.mileage.get.mileage_overall }}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <h4>Diesel variants</h4>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Mileage</th>
+                <th>Engine</th>
+                <th>Starting Price</th>
+                <th>Starting Emi</th>
+                <th>On road price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
         <div class="span12">
             {#            <div class="well well-small">#}
             <h4>{{ car.name }} variants </h4>
@@ -46,16 +95,16 @@
                     <li class="span3">
                         <div class="thumbnail">
                             <a href="#"><img height="75"
-                                                                width="100" alt="" src="{{ MEDIA_URL }}{{ list.logo }}"
-                                                                onError="this.src='{{ MEDIA_URL }}general/noimage.jpg';"></a>
+                                             width="100" alt="" src="{{ MEDIA_URL }}{{ list.logo }}"
+                                             onError="this.src='{{ MEDIA_URL }}general/noimage.jpg';"></a>
 
                             <div class="caption">
                                 <h5>{{ list.name }}</h5>
-{#                                {% if list.price %}#}
-{#                                    <p>{{ list.price }}</p>#}
-{#                                {% else %}#}
-{#                                    <p>Not available</p>#}
-{#                                {% endif %}#}
+                                {#                                {% if list.price %}#}
+                                {#                                    <p>{{ list.price }}</p>#}
+                                {#                                {% else %}#}
+                                {#                                    <p>Not available</p>#}
+                                {#                                {% endif %}#}
                             </div>
                         </div>
                     </li>
