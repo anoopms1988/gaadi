@@ -75,7 +75,7 @@ class Engine(models.Model):
     class Meta:
         db_table = 'engines'
 
-    variant = models.ForeignKey(Variant)
+    variant = models.ForeignKey(Variant, related_name='engine')
     torque = models.CharField(max_length=100)
     displacement = models.CharField(max_length=100)
     power = models.CharField(max_length=100)

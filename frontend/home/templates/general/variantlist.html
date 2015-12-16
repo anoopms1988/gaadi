@@ -52,12 +52,12 @@
             </tr>
             </thead>
             <tbody>
-             {% for list in variantlist %}
+             {% for list in petrol_variants %}
             <tr>
                 <td>{{ list.name }}</td>
-                <td>{{ list.mileage.get.mileage_overall }}</td>
-                <td></td>
-                <td></td>
+                <td>{% firstof list.mileage.get.mileage_overall '--' %}</td>
+                <td>{% firstof list.engine.get.displacement '--' %}</td>
+                <td>{% firstof list.price.get.showroom_price '--' %}</td>
                 <td></td>
                 <td></td>
             </tr>
@@ -77,40 +77,18 @@
             </tr>
             </thead>
             <tbody>
+            {% for list in diesel_variants %}
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{ list.name }}</td>
+                <td>{% firstof list.mileage.get.mileage_overall '--' %}</td>
+                <td>{% firstof list.engine.get.displacement '--' %}</td>
+                <td>{% firstof list.price.get.showroom_price '--' %}</td>
+                <td>{% firstof list.price.get.showroom_price '--' %}</td>
                 <td></td>
             </tr>
+            {% endfor %}
             </tbody>
         </table>
-        <div class="span12">
-            {#            <div class="well well-small">#}
-            <h4>{{ car.name }} variants </h4>
-            <ul class="thumbnails">
-                {% for list in variantlist %}
-                    <li class="span3">
-                        <div class="thumbnail">
-                            <a href="#"><img height="75"
-                                             width="100" alt="" src="{{ MEDIA_URL }}{{ list.logo }}"
-                                             onError="this.src='{{ MEDIA_URL }}general/noimage.jpg';"></a>
 
-                            <div class="caption">
-                                <h5>{{ list.name }}</h5>
-                                {#                                {% if list.price %}#}
-                                {#                                    <p>{{ list.price }}</p>#}
-                                {#                                {% else %}#}
-                                {#                                    <p>Not available</p>#}
-                                {#                                {% endif %}#}
-                            </div>
-                        </div>
-                    </li>
-                {% endfor %}
-            </ul>
-            {#            </div>#}
-        </div>
     </div>
 {% endblock %}

@@ -49,7 +49,7 @@ class Price(models.Model):
     class Meta:
         db_table = 'price'
 
-    variant = models.ForeignKey(Variant)
+    variant = models.ForeignKey(Variant, related_name='price')
     showroom_price = models.CharField(max_length=100, blank=True, null=True)
     onroad_price = models.CharField(max_length=100, blank=True, null=True)
 

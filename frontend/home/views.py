@@ -2,7 +2,7 @@ from django.shortcuts import render, render_to_response
 from django.views.generic import View
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib import messages
-from console.login.models import Company, Car,Variant
+from console.login.models import Company, Car, Variant
 
 
 class DashboardView(View):
@@ -24,16 +24,18 @@ class DashboardView(View):
         except Company.DoesNotExist:
             company = None
         car_list = Car.objects.filter(company=company)
-        return render(request, 'general/carlist.html', {'carlist': car_list,'company':company})
+        return render(request, 'general/carlist.html', {'carlist': car_list, 'company': company})
 
-    def  specific_car(self, request):
+    def specific_car(self, request):
         """
         Specific car's variantlist
         """
-        car_id =request.GET.get('car_id')
+        car_id = request.GET.get('car_id')
         try:
             car = Car.objects.get(id=car_id)
         except Company.DoesNotExist:
             car = None
-        variant_list =Variant.objects.filter(car=car)
-        return render(request, 'general/variantlist.html', {'variantlist':variant_list,'car':car})
+        diesel_variants = Variant.objects.filter(car=car).filter(fuel_id=1)
+        petrol_variants = Variant.objects.filter(car=car).filter(fuel_id=2)
+        return render(request, 'general/variantlist.html',
+                      {'diesel_variants': diesel_variants, 'petrol_variants': petrol_variants, 'car': car})
