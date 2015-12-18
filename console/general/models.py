@@ -52,6 +52,7 @@ class Price(models.Model):
     variant = models.ForeignKey(Variant, related_name='price')
     showroom_price = models.CharField(max_length=100, blank=True, null=True)
     onroad_price = models.CharField(max_length=100, blank=True, null=True)
+    emi = models.CharField(max_length=100, blank=True, null=True)
 
 
 class Steering(models.Model):

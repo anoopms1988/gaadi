@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'console.login',
     'console.general',
     'frontend.home',
+    'mathfilters',
 )
 
 MIDDLEWARE_CLASSES = (

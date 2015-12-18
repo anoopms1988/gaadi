@@ -3,6 +3,7 @@ from django.views.generic import View
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib import messages
 from console.login.models import Company, Car, Variant
+from django.db.models import F,Count
 
 
 class DashboardView(View):

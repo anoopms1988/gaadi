@@ -1,5 +1,6 @@
 {% extends "sitelayout/layout.html" %}
 {% block content %}
+    {% load mathfilters %}
     <div class="row">
         <div class="span12">
             <ul class="breadcrumb">
@@ -40,31 +41,38 @@
             </div>
         </div>
         <h4>Petrol variants</h4>
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Mileage</th>
-                <th>Engine</th>
-                <th>Starting Price</th>
-                <th>Starting Emi</th>
-                <th>On road price</th>
-            </tr>
-            </thead>
-            <tbody>
-             {% for list in petrol_variants %}
-            <tr>
-                <td>{{ list.name }}</td>
-                <td>{% firstof list.mileage.get.mileage_overall '--' %}</td>
-                <td>{% firstof list.engine.get.displacement '--' %}</td>
-                <td>{% firstof list.price.get.showroom_price '--' %}</td>
-                <td></td>
-                <td></td>
-            </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+        {% if petrol_variants %}
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Mileage</th>
+                    <th>Engine</th>
+                    <th>Starting Price</th>
+                    <th>Starting Emi</th>
+                    <th>On road price</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for list in petrol_variants %}
+                    <tr>
+                        <td>{{ list.name }}</td>
+                        <td>{% firstof list.mileage.get.mileage_overall '--' %}</td>
+                        <td>{% firstof list.engine.get.displacement '--' %}</td>
+                        <td>{% firstof list.price.get.showroom_price '--' %}</td>
+                        <td>{% firstof list.price.get.emi '--' %}</td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="alert alert-info">
+                No petrol variants listed
+            </div>
+        {% endif %}
         <h4>Diesel variants</h4>
+        {% if diesel_variants %}
         <table class="table table-bordered">
             <thead>
             <tr>
@@ -78,17 +86,21 @@
             </thead>
             <tbody>
             {% for list in diesel_variants %}
-            <tr>
-                <td>{{ list.name }}</td>
-                <td>{% firstof list.mileage.get.mileage_overall '--' %}</td>
-                <td>{% firstof list.engine.get.displacement '--' %}</td>
-                <td>{% firstof list.price.get.showroom_price '--' %}</td>
-                <td>{% firstof list.price.get.showroom_price '--' %}</td>
-                <td></td>
-            </tr>
+                <tr>
+                    <td>{{ list.name }}</td>
+                    <td>{% firstof list.mileage.get.mileage_overall '--' %}</td>
+                    <td>{% firstof list.engine.get.displacement '--' %}</td>
+                    <td>{% firstof list.price.get.showroom_price '--' %}</td>
+                    <td>{% firstof list.price.get.emi '--' %}</td>
+                    <td></td>
+                </tr>
             {% endfor %}
             </tbody>
         </table>
-
+         {% else %}
+            <div class="alert alert-info">
+                No diesel variants listed
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
