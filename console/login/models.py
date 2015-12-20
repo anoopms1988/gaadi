@@ -69,6 +69,7 @@ class Variant(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
+    cost =models.CharField(max_length=100,blank=True, null=True)
 
 
 class Engine(models.Model):

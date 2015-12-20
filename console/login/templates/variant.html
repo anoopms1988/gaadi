@@ -39,6 +39,10 @@
                                     <label>Fuel type</label>
                                     {{ form.fuel }}{{ form.fuel.errors.as_text }}
                                 </div>
+                                <div class="form-group">
+                                    <label>Cost</label>
+                                    {{ form.cost }}{{ form.cost.errors.as_text }}
+                                </div>
                                 <input class="btn btn-primary" type="submit" value="Submit" name="addcar_submit">
                                 <button class="btn btn-danger" type="reset">Reset</button>
                             </form>

@@ -35,7 +35,7 @@ class CarForm(forms.ModelForm):
 class VariantForm(forms.ModelForm):
     class Meta:
         model = Variant
-        fields = ['name']
+        fields = ['name', 'cost']
 
     company = NameModelChoiceField(error_messages={'required': 'Company is required'}, queryset=Company.objects.all(),
                                    widget=forms.Select(attrs={'class': 'form-control', 'id': 'company'}),
@@ -50,6 +50,9 @@ class VariantForm(forms.ModelForm):
     name = forms.CharField(error_messages={'required': 'Variant name is required'}, required=True, max_length=100,
                            widget=forms.TextInput(
                                attrs={'class': 'form-control', 'placeholder': 'Enter variant name'}))
+    cost = forms.CharField(error_messages={'required': 'Cost is required'}, required=True, max_length=100,
+                           widget=forms.TextInput(
+                               attrs={'class': 'form-control', 'placeholder': 'Enter cost'}))
 
 
 class CompanyForm(forms.ModelForm):
