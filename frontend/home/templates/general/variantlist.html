@@ -73,34 +73,46 @@
         {% endif %}
         <h4>Diesel variants</h4>
         {% if diesel_variants %}
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Mileage</th>
-                <th>Engine</th>
-                <th>Starting Price</th>
-                <th>Starting Emi</th>
-                <th>On road price</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for list in diesel_variants %}
-                <tr>
-                    <td>{{ list.name }}</td>
-                    <td>{% firstof list.mileage.get.mileage_overall '--' %}</td>
-                    <td>{% firstof list.engine.get.displacement '--' %}</td>
-                    <td>{% firstof list.price.get.showroom_price '--' %}</td>
-                    <td>{% firstof list.price.get.emi '--' %}</td>
-                    <td></td>
+            <table class="table table-bordered">
+                <thead>
+                <tr class="editvariant" id="variant_{{ list.id }}">
+                    <th>Name</th>
+                    <th>Mileage</th>
+                    <th>Engine</th>
+                    <th>Starting Price</th>
+                    <th>Starting Emi</th>
+                    <th>On road price</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-         {% else %}
+                </thead>
+                <tbody>
+                {% for list in diesel_variants %}
+                    <tr class="editvariant" id="variant_{{ list.id }}">
+                        <td>{{ list.name }}</td>
+                        <td>{% firstof list.mileage.get.mileage_overall '--' %}</td>
+                        <td>{% firstof list.engine.get.displacement '--' %}</td>
+                        <td>{% firstof list.price.get.showroom_price '--' %}</td>
+                        <td>{% firstof list.price.get.emi '--' %}</td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
             <div class="alert alert-info">
                 No diesel variants listed
             </div>
         {% endif %}
     </div>
+{% endblock %}
+{% block script %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.editvariant').click(function () {
+                var id = $(this).attr('id');
+                var splitElements = id.split("_");
+                var variantId = splitElements[1];
+                window.location.href='/variant?variant_id='+variantId;
+            });
+        });
+    </script>
 {% endblock %}

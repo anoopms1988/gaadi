@@ -3,7 +3,7 @@ from django.views.generic import View
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib import messages
 from console.login.models import Company, Car, Variant
-from django.db.models import F,Count
+from django.db.models import F, Count
 
 
 class DashboardView(View):
@@ -40,3 +40,14 @@ class DashboardView(View):
         petrol_variants = Variant.objects.filter(car=car).filter(fuel_id=2)
         return render(request, 'general/variantlist.html',
                       {'diesel_variants': diesel_variants, 'petrol_variants': petrol_variants, 'car': car})
+
+    def specific_variant(self, request):
+        """
+        Specific variant's details
+        """
+        variant_id = request.GET.get('variant_id')
+        try:
+            variant = Variant.objects.get(id=variant_id)
+        except Variant.DoesNotExist:
+            variant = None
+        return render(request, 'general/variantdetails.html', {'variant': variant})
