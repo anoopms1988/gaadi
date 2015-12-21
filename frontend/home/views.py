@@ -3,6 +3,7 @@ from django.views.generic import View
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib import messages
 from console.login.models import Company, Car, Variant
+from console.general.models import InteriorFeatures, ExteriorFeatures, SafetyFeatures
 from django.db.models import F, Count
 
 
@@ -50,4 +51,18 @@ class DashboardView(View):
             variant = Variant.objects.get(id=variant_id)
         except Variant.DoesNotExist:
             variant = None
-        return render(request, 'general/variantdetails.html', {'variant': variant})
+        try:
+            interiorfeatures = InteriorFeatures.objects.get(variant=variant)
+        except InteriorFeatures.DoesNotExist:
+            interiorfeatures = None
+        try:
+            exteriorfeatures = ExteriorFeatures.objects.get(variant=variant)
+        except ExteriorFeatures.DoesNotExist:
+            exteriorfeatures = None
+        try:
+            safetyfeatures = SafetyFeatures.objects.get(variant=variant)
+        except SafetyFeatures.DoesNotExist:
+            safetyfeatures = None
+        return render(request, 'general/variantdetails.html',
+                      {'variant': variant, 'interiorfeatures ': interiorfeatures,
+                       'exteriorfeatures': exteriorfeatures, 'safetyfeatures': safetyfeatures})

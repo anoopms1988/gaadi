@@ -148,92 +148,97 @@ class InteriorfeaturesForm(forms.ModelForm):
     power_steering = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                             choices=((False, 'No'), (True, 'Yes')),
                                             widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                            label='Power steering')
+                                            label='Power steering', required=False)
 
     power_windows = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                            choices=((False, 'No'), (True, 'Yes')),
                                            widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                           label='Power windows')
+                                           label='Power windows', required=False)
 
     anti_pinch = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                         choices=((False, 'No'), (True, 'Yes')),
-                                        widget=forms.RadioSelect(renderer=HorizontalRadioRenderer), label='Anti Pinch')
+                                        widget=forms.RadioSelect(renderer=HorizontalRadioRenderer), label='Anti Pinch',
+                                        required=False)
     air_con = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                      choices=((False, 'No'), (True, 'Yes')),
                                      widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                     label='Air conditioner')
+                                     label='Air conditioner', required=False)
     audio_system = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                           choices=((False, 'No'), (True, 'Yes')),
                                           widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                          label='Audio System')
+                                          label='Audio System', required=False)
     electric_mirrors = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                               choices=((False, 'No'), (True, 'Yes')),
                                               widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                              label='Electric Mirrors')
+                                              label='Electric Mirrors', required=False)
     deffoger = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                       choices=((False, 'No'), (True, 'Yes')),
-                                      widget=forms.RadioSelect(renderer=HorizontalRadioRenderer), label='Deffoger')
+                                      widget=forms.RadioSelect(renderer=HorizontalRadioRenderer), label='Deffoger',
+                                      required=False)
     leather_seats = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                            choices=((False, 'No'), (True, 'Yes')),
                                            widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                           label='Leather seats')
+                                           label='Leather seats', required=False)
     reversing_camera = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                               choices=((False, 'No'), (True, 'Yes')),
                                               widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                              label='Reversing camera')
+                                              label='Reversing camera', required=False)
     bluetooth_connectivity = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                                     choices=((False, 'No'), (True, 'Yes')),
                                                     widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                                    label='Bluetooth connectivity')
+                                                    label='Bluetooth connectivity', required=False)
     cruise_control = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                             choices=((False, 'No'), (True, 'Yes')),
                                             widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                            label='Cruise control')
+                                            label='Cruise control', required=False)
     remote_boot_release = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                                  choices=((False, 'No'), (True, 'Yes')),
                                                  widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                                 label='Remote boot release')
+                                                 label='Remote boot release', required=False)
     chilled_glovebox = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                               choices=((False, 'No'), (True, 'Yes')),
                                               widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                              label='Chilled glovebox')
+                                              label='Chilled glovebox', required=False)
     rear_ac_vents = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                            choices=((False, 'No'), (True, 'Yes')),
                                            widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                           label='Rear ac vents')
+                                           label='Rear ac vents', required=False)
     keyless_start_stop_button = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                                        choices=((False, 'No'), (True, 'Yes')),
                                                        widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                                       label='Keyless start stop button')
+                                                       label='Keyless start stop button', required=False)
     electric_foldable_mirrors = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                                        choices=((False, 'No'), (True, 'Yes')),
                                                        widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                                       label='Electric foldable mirrors')
+                                                       label='Electric foldable mirrors', required=False)
     tachometer = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                         choices=((False, 'No'), (True, 'Yes')),
-                                        widget=forms.RadioSelect(renderer=HorizontalRadioRenderer), label='Tachometer')
+                                        widget=forms.RadioSelect(renderer=HorizontalRadioRenderer), label='Tachometer',
+                                        required=False)
     arm_rest = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                       choices=((False, 'No'), (True, 'Yes')),
-                                      widget=forms.RadioSelect(renderer=HorizontalRadioRenderer), label='Arm rest')
+                                      widget=forms.RadioSelect(renderer=HorizontalRadioRenderer), label='Arm rest',
+                                      required=False)
     steering_controls = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                                choices=((False, 'No'), (True, 'Yes')),
                                                widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                               label='Steering controls')
+                                               label='Steering controls', required=False)
     driver_info_display = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                                  choices=((False, 'No'), (True, 'Yes')),
                                                  widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                                 label='Driver info display')
+                                                 label='Driver info display', required=False)
     foot_rest = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                        choices=((False, 'No'), (True, 'Yes')),
-                                       widget=forms.RadioSelect(renderer=HorizontalRadioRenderer), label='Foot rest')
+                                       widget=forms.RadioSelect(renderer=HorizontalRadioRenderer), label='Foot rest',
+                                       required=False)
     driver_seat_height_adjust = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                                        choices=((False, 'No'), (True, 'Yes')),
                                                        widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                                       label='Driver seat height adjust')
+                                                       label='Driver seat height adjust', required=False)
     power_seats = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                          choices=((False, 'No'), (True, 'Yes')),
                                          widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                         label='Power seats')
+                                         label='Power seats', required=False)
 
 
 class ExteriorfeaturesForm(forms.ModelForm):
@@ -247,59 +252,59 @@ class ExteriorfeaturesForm(forms.ModelForm):
     keyless_entry = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                            choices=((False, 'No'), (True, 'Yes')),
                                            widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                           label='Keyless entry')
+                                           label='Keyless entry', required=False)
 
     rear_wiper = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                         choices=((False, 'No'), (True, 'Yes')),
                                         widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                        label='Rear wiper')
+                                        label='Rear wiper', required=False)
 
     rain_sensing_wipers = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                                  choices=((False, 'No'), (True, 'Yes')),
                                                  widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                                 label='Rain sensing wipers')
+                                                 label='Rain sensing wipers', required=False)
     alloy_wheels = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                           choices=((False, 'No'), (True, 'Yes')),
                                           widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                          label='Alloy wheels')
+                                          label='Alloy wheels', required=False)
     roof_rails = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                         choices=((False, 'No'), (True, 'Yes')),
                                         widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                        label='Roof rails')
+                                        label='Roof rails', required=False)
     projector_lamps = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                              choices=((False, 'No'), (True, 'Yes')),
                                              widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                             label='Projector lamps')
+                                             label='Projector lamps', required=False)
     fog_lights = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                         choices=((False, 'No'), (True, 'Yes')),
                                         widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                        label='Fog lights')
+                                        label='Fog lights', required=False)
 
     moon_roof = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                        choices=((False, 'No'), (True, 'Yes')),
                                        widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                       label='Moon roof')
+                                       label='Moon roof', required=False)
 
     auto_headlamps = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                             choices=((False, 'No'), (True, 'Yes')),
                                             widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                            label='Auto headlamps')
+                                            label='Auto headlamps', required=False)
     steel_rims = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                         choices=((False, 'No'), (True, 'Yes')),
                                         widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                        label='Steel rims')
+                                        label='Steel rims', required=False)
     rear_spoiler = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                           choices=((False, 'No'), (True, 'Yes')),
                                           widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                          label='Rear spoiler')
+                                          label='Rear spoiler', required=False)
     chrome_grille = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                            choices=((False, 'No'), (True, 'Yes')),
                                            widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                           label='Chrome grille')
+                                           label='Chrome grille', required=False)
     daytime_running_lamps = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                                    choices=((False, 'No'), (True, 'Yes')),
                                                    widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                                   label='Daytime running lamps')
+                                                   label='Daytime running lamps', required=False)
 
 
 class SafetyfeaturesForm(forms.ModelForm):
@@ -312,71 +317,72 @@ class SafetyfeaturesForm(forms.ModelForm):
     abs = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                  choices=((False, 'No'), (True, 'Yes')),
                                  widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                 label='Abs')
+                                 label='Abs', required=False)
     airbags = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                      choices=((False, 'No'), (True, 'Yes')),
                                      widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                     label='Airbags')
+                                     label='Airbags', required=False)
     immobilizer = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                          choices=((False, 'No'), (True, 'Yes')),
                                          widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                         label='Immobilizer')
+                                         label='Immobilizer', required=False)
     hill_control = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                           choices=((False, 'No'), (True, 'Yes')),
                                           widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                          label='Hill control')
+                                          label='Hill control', required=False)
     central_locking = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                              choices=((False, 'No'), (True, 'Yes')),
                                              widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                             label='Central locking')
+                                             label='Central locking', required=False)
     ebd = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                  choices=((False, 'No'), (True, 'Yes')),
                                  widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                 label='Ebd')
+                                 label='Ebd', required=False)
     child_safety_lock = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                                choices=((False, 'No'), (True, 'Yes')),
                                                widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                               label='Child safety lock')
+                                               label='Child safety lock', required=False)
     traction_control = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                               choices=((False, 'No'), (True, 'Yes')),
                                               widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                              label='Traction control')
+                                              label='Traction control', required=False)
     hill_descent = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                           choices=((False, 'No'), (True, 'Yes')),
                                           widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                          label='Hill descent')
+                                          label='Hill descent', required=False)
     esp = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                  choices=((False, 'No'), (True, 'Yes')),
                                  widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                 label='Esp')
+                                 label='Esp', required=False)
     wheel_drive = forms.TypedChoiceField(coerce=lambda x: x == 'True',
                                          choices=((False, 'No'), (True, 'Yes')),
                                          widget=forms.RadioSelect(renderer=HorizontalRadioRenderer),
-                                         label='Wheel drive')
+                                         label='Wheel drive', required=False)
 
 
 class UserForm(forms.ModelForm):
     """
     Foem class to deal with user model
     """
+
     class Meta:
         model = User
-        fields = [ 'first_name', 'last_name','gender',  'city', 'mobile']
+        fields = ['first_name', 'last_name', 'gender', 'city', 'mobile']
 
     first_name = forms.CharField(error_messages={'required': 'First Name is required'}, required=True,
-                                     label='First Name',
-                                     max_length=100,
-                                     widget=forms.TextInput(
-                                         attrs={'class':'form-control','placeholder': 'First Name'}))
-    last_name = forms.CharField(label='Last Name', max_length=100,required=False,
-                                    widget=forms.TextInput(attrs={'class':'form-control','placeholder': 'Last Name'}))
+                                 label='First Name',
+                                 max_length=100,
+                                 widget=forms.TextInput(
+                                     attrs={'class': 'form-control', 'placeholder': 'First Name'}))
+    last_name = forms.CharField(label='Last Name', max_length=100, required=False,
+                                widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'}))
 
     gender = forms.CharField(label='Gender', max_length=100,
-                                 widget=forms.TextInput(attrs={'class':'form-control','placeholder': 'Gender'}))
+                             widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Gender'}))
 
     city = forms.CharField(label='City ', max_length=100, error_messages={'required': 'City is required'},
-                               required=True,
-                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'City'}))
+                           required=True,
+                           widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'City'}))
     mobile = forms.CharField(label='Mobile', max_length=100, error_messages={'required': 'Mobile is required'},
-                                 required=True,
-                                 widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Mobile'}))
+                             required=True,
+                             widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Mobile'}))
