@@ -78,10 +78,17 @@
                                 <tr class="techSpecRow">
                                     <th colspan="2">Exterior Features</th>
                                 </tr>
-                                <tr class="techSpecRow">
-                                    <td class="techSpecTD1">Brand:</td>
-                                    <td class="techSpecTD2">Fujifilm</td>
-                                </tr>
+                                {% for key, value in exteriorfeatures_dict.items %}
+                                    <tr class="techSpecRow">
+
+                                        <td class="techSpecTD1">
+                                            {% get_verbose_field_name exteriorfeatures key %}
+                                        </td>
+                                        <td class="techSpecTD2">
+                                            {{  value|yesno:"<span class='badge badge-success'>&#10003;</span>,<span class='badge badge-important'>&#x2716;</span>"|safe }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
                             <table class="table table-bordered">
@@ -89,10 +96,17 @@
                                 <tr class="techSpecRow">
                                     <th colspan="2">Safety Features</th>
                                 </tr>
-                                <tr class="techSpecRow">
-                                    <td class="techSpecTD1">Brand:</td>
-                                    <td class="techSpecTD2"><span class="badge badge-success">$</span></td>
-                                </tr>
+                                {% for key, value in safetyfeatures_dict.items %}
+                                    <tr class="techSpecRow">
+
+                                        <td class="techSpecTD1">
+                                            {% get_verbose_field_name safetyfeatures key %}
+                                        </td>
+                                        <td class="techSpecTD2">
+                                            {{  value|yesno:"<span class='badge badge-success'>&#10003;</span>,<span class='badge badge-important'>&#x2716;</span>"|safe }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
 

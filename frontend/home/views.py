@@ -54,17 +54,25 @@ class DashboardView(View):
             variant = None
         try:
             interiorfeatures = InteriorFeatures.objects.get(variant=variant)
+            interiorfeatures_dict = model_to_dict(interiorfeatures, fields=[], exclude=["id", "variant"])
         except InteriorFeatures.DoesNotExist:
             interiorfeatures = None
+            interiorfeatures_dict = None
         try:
             exteriorfeatures = ExteriorFeatures.objects.get(variant=variant)
+            exteriorfeatures_dict = model_to_dict(exteriorfeatures, fields=[], exclude=["id", "variant"])
         except ExteriorFeatures.DoesNotExist:
             exteriorfeatures = None
+            exteriorfeatures_dict = None
         try:
             safetyfeatures = SafetyFeatures.objects.get(variant=variant)
+            safetyfeatures_dict = model_to_dict(safetyfeatures, fields=[], exclude=["id", "variant"])
         except SafetyFeatures.DoesNotExist:
             safetyfeatures = None
-        #return HttpResponse(interiorfeatures._meta.get_field_by_name('power_steering')[0].verbose_name.title())
+            safetyfeatures_dict = None
+        # return HttpResponse(interiorfeatures._meta.get_field_by_name('power_steering')[0].verbose_name.title())
         return render(request, 'general/variantdetails.html',
-                      {'variant': variant, 'interiorfeatures_dict':model_to_dict(interiorfeatures,fields=[],exclude=["id","variant"]),
-                       'exteriorfeatures': exteriorfeatures, 'safetyfeatures': safetyfeatures,'interiorfeatures':interiorfeatures})
+                      {'variant': variant, 'interiorfeatures_dict': interiorfeatures_dict,
+                       'exteriorfeatures_dict': exteriorfeatures_dict,'safetyfeatures_dict':safetyfeatures_dict ,
+                       'exteriorfeatures': exteriorfeatures, 'safetyfeatures': safetyfeatures,
+                       'interiorfeatures': interiorfeatures})
