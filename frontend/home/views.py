@@ -5,6 +5,7 @@ from django.contrib import messages
 from console.login.models import Company, Car, Variant
 from console.general.models import InteriorFeatures, ExteriorFeatures, SafetyFeatures
 from django.db.models import F, Count
+from django.forms.models import model_to_dict
 
 
 class DashboardView(View):
@@ -63,6 +64,7 @@ class DashboardView(View):
             safetyfeatures = SafetyFeatures.objects.get(variant=variant)
         except SafetyFeatures.DoesNotExist:
             safetyfeatures = None
+        #return HttpResponse(interiorfeatures._meta.get_field_by_name('power_steering')[0].verbose_name.title())
         return render(request, 'general/variantdetails.html',
-                      {'variant': variant, 'interiorfeatures ': interiorfeatures,
-                       'exteriorfeatures': exteriorfeatures, 'safetyfeatures': safetyfeatures})
+                      {'variant': variant, 'interiorfeatures_dict':model_to_dict(interiorfeatures,fields=[],exclude=["id","variant"]),
+                       'exteriorfeatures': exteriorfeatures, 'safetyfeatures': safetyfeatures,'interiorfeatures':interiorfeatures})

@@ -10,6 +10,7 @@ from .forms import DimensionForm, EngineForm, BrakeForm, CapacityForm, MileageFo
 
 
 class SpecificationView(View):
+
     def get(self, request, *args, **kwargs):
         variant_id = request.GET.get('id')
         variant = Variant.objects.get(id=variant_id)
@@ -104,6 +105,7 @@ class SpecificationView(View):
 
 
 class EngineView(View):
+
     def post(self, request, *args, **kwargs):
         form = EngineForm(request.POST)
         variant_id = request.POST.get('variant')
@@ -138,6 +140,7 @@ class EngineView(View):
 
 
 class BrakeView(View):
+
     def post(self, request, *args, **kwargs):
         form = BrakeForm(request.POST)
         variant_id = request.POST.get('variant_id')
@@ -172,6 +175,7 @@ class BrakeView(View):
 
 
 class CapacityView(View):
+
     def post(self, request, *args, **kwargs):
         form = CapacityForm(request.POST)
         variant_id = request.POST.get('variant_id')
@@ -206,6 +210,7 @@ class CapacityView(View):
 
 
 class MileageView(View):
+
     def post(self, request, *args, **kwargs):
         form = MileageForm(request.POST)
         variant_id = request.POST.get('variant_id')
@@ -240,6 +245,7 @@ class MileageView(View):
 
 
 class PriceView(View):
+
     def specific_price(self, request):
         variant_id = request.POST.get('id')
         variant = Variant.objects.get(id=variant_id)
@@ -280,6 +286,7 @@ class PriceView(View):
 
 
 class SteeringView(View):
+
     def post(self, request, *args, **kwargs):
         form = SteeringForm(request.POST)
         variant_id = request.POST.get('variant_id')
@@ -317,6 +324,7 @@ class SteeringView(View):
 
 
 class WheelView(View):
+
     def post(self, request, *args, **kwargs):
         form = WheelForm(request.POST)
         variant_id = request.POST.get('variant_id')
@@ -354,13 +362,16 @@ class WheelView(View):
 
 
 class InteriorFeaturesView(View):
+
     def post(self, request, *args, **kwargs):
         try:
             variant_id = request.POST.get('variant_id')
             variant = Variant.objects.get(id=variant_id)
             try:
-                interiorfeatures = InteriorFeatures.objects.get(variant=variant)
-                form = InteriorfeaturesForm(request.POST, instance=interiorfeatures)
+                interiorfeatures = InteriorFeatures.objects.get(
+                    variant=variant)
+                form = InteriorfeaturesForm(
+                    request.POST, instance=interiorfeatures)
             except InteriorFeatures.DoesNotExist:
                 interiorfeatures = None
                 form = InteriorfeaturesForm(request.POST)
@@ -378,13 +389,16 @@ class InteriorFeaturesView(View):
 
 
 class ExteriorFeaturesView(View):
+
     def post(self, request, *args, **kwargs):
         try:
             variant_id = request.POST.get('variant_id')
             variant = Variant.objects.get(id=variant_id)
             try:
-                exteriorfeatures = ExteriorFeatures.objects.get(variant=variant)
-                form = ExteriorfeaturesForm(request.POST, instance=exteriorfeatures)
+                exteriorfeatures = ExteriorFeatures.objects.get(
+                    variant=variant)
+                form = ExteriorfeaturesForm(
+                    request.POST, instance=exteriorfeatures)
             except ExteriorFeatures.DoesNotExist:
                 exteriorfeatures = None
                 form = ExteriorfeaturesForm(request.POST)
@@ -401,15 +415,17 @@ class ExteriorFeaturesView(View):
 
 
 class SafetyFeaturesView(View):
+
     def post(self, request, *args, **kwargs):
         try:
             variant_id = request.POST.get('variant_id')
             variant = Variant.objects.get(id=variant_id)
             try:
                 safetyfeatures = SafetyFeatures.objects.get(variant=variant)
-                form = SafetyfeaturesForm(request.POST, instance=safetyfeatures)
+                form = SafetyfeaturesForm(
+                    request.POST, instance=safetyfeatures)
             except SafetyFeatures.DoesNotExist:
-                safetyfeatures =None
+                safetyfeatures = None
                 form = SafetyfeaturesForm(request.POST)
             if form.is_valid():
                 safety = form.save(commit=False)
@@ -421,3 +437,5 @@ class SafetyFeaturesView(View):
         except Exception as ex:
             print(ex)
         return HttpResponseRedirect('/general/?id={0}'.format(variant_id))
+
+    

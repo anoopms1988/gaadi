@@ -17,11 +17,13 @@ def generate_carlogo(self, filename):
 
 
 class Company(models.Model):
+
     class Meta:
         db_table = 'companies'
 
     name = models.CharField(max_length=100)
-    logo = models.FileField(verbose_name='Upload Logo', upload_to=generate_filename, blank=True, null=True)
+    logo = models.FileField(verbose_name='Upload Logo',
+                            upload_to=generate_filename, blank=True, null=True)
     description = models.TextField()
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
@@ -29,6 +31,7 @@ class Company(models.Model):
 
 
 class CarType(models.Model):
+
     class Meta:
         db_table = 'cartypes'
 
@@ -38,11 +41,13 @@ class CarType(models.Model):
 
 
 class Car(models.Model):
+
     class Meta:
         db_table = 'cars'
 
     name = models.CharField(max_length=100, blank=False)
-    logo = models.FileField(verbose_name='Upload image', upload_to=generate_carlogo, blank=True, null=True)
+    logo = models.FileField(verbose_name='Upload image',
+                            upload_to=generate_carlogo, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
@@ -53,6 +58,7 @@ class Car(models.Model):
 
 
 class Fuel(models.Model):
+
     class Meta:
         db_table = 'fueltype'
 
@@ -60,6 +66,7 @@ class Fuel(models.Model):
 
 
 class Variant(models.Model):
+
     class Meta:
         db_table = 'variants'
 
@@ -69,10 +76,11 @@ class Variant(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
-    cost =models.CharField(max_length=100,blank=True, null=True)
+    cost = models.CharField(max_length=100, blank=True, null=True)
 
 
 class Engine(models.Model):
+
     class Meta:
         db_table = 'engines'
 
@@ -89,6 +97,7 @@ class Engine(models.Model):
 
 
 class Dealer(models.Model):
+
     class Meta:
         db_table = 'dealers'
 
@@ -107,6 +116,7 @@ class Dealer(models.Model):
 
 
 class Assistance(models.Model):
+
     class Meta:
         db_table = 'road_assistance'
 

@@ -59,11 +59,17 @@
                                 <tr class="techSpecRow">
                                     <th colspan="2">Interior Features</th>
                                 </tr>
-                                 {% for list in interiorfeatures  %}
-                                <tr class="techSpecRow">
-                                    <td class="techSpecTD1"></td>
-                                    <td class="techSpecTD2">Fujifilm</td>
-                                </tr>
+                                {% load verbose_names %}
+                                {% for key, value in interiorfeatures_dict.items %}
+                                    <tr class="techSpecRow">
+
+                                        <td class="techSpecTD1">
+                                            {% get_verbose_field_name interiorfeatures key %}
+                                        </td>
+                                        <td class="techSpecTD2">
+                                            {{  value|yesno:"<span class='badge badge-success'>&#10003;</span>,<span class='badge badge-important'>&#x2716;</span>"|safe }}
+                                        </td>
+                                    </tr>
                                 {% endfor %}
                                 </tbody>
                             </table>
@@ -85,7 +91,7 @@
                                 </tr>
                                 <tr class="techSpecRow">
                                     <td class="techSpecTD1">Brand:</td>
-                                    <td class="techSpecTD2">Fujifilm</td>
+                                    <td class="techSpecTD2"><span class="badge badge-success">$</span></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -93,7 +99,7 @@
                         </div>
                         <div id="price" class="tab-pane fade">
                         </div>
-                         <div id="specifications" class="tab-pane fade">
+                        <div id="specifications" class="tab-pane fade">
                         </div>
                         <div id="reviews" class="tab-pane fade">
                         </div>

@@ -2,6 +2,9 @@ from django.db import models
 from console.login.models import Variant
 
 
+def get_verbose_name(self):
+    return self._meta.verbose_name
+
 class Dimensions(models.Model):
     class Meta:
         db_table = 'dimensions'
