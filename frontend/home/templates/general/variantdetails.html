@@ -67,7 +67,15 @@
                                             {% get_verbose_field_name interiorfeatures key %}
                                         </td>
                                         <td class="techSpecTD2">
-                                            {{  value|yesno:"<span class='badge badge-success'>&#10003;</span>,<span class='badge badge-important'>&#x2716;</span>"|safe }}
+                                            {{ value|yesno:"<span class='badge badge-success'>&#10003;</span>,<span class='badge badge-important'>&#x2716;</span>"|safe }}
+                                        </td>
+                                    </tr>
+                                {% empty %}
+                                    <tr class="techSpecRow">
+                                        <td class="techSpecTD1">
+                                            No interior features to display
+                                        </td>
+                                        <td class="techSpecTD2">
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -85,7 +93,15 @@
                                             {% get_verbose_field_name exteriorfeatures key %}
                                         </td>
                                         <td class="techSpecTD2">
-                                            {{  value|yesno:"<span class='badge badge-success'>&#10003;</span>,<span class='badge badge-important'>&#x2716;</span>"|safe }}
+                                            {{ value|yesno:"<span class='badge badge-success'>&#10003;</span>,<span class='badge badge-important'>&#x2716;</span>"|safe }}
+                                        </td>
+                                    </tr>
+                                {% empty %}
+                                    <tr class="techSpecRow">
+                                        <td class="techSpecTD1">
+                                            No exterior features to display
+                                        </td>
+                                        <td class="techSpecTD2">
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -103,13 +119,55 @@
                                             {% get_verbose_field_name safetyfeatures key %}
                                         </td>
                                         <td class="techSpecTD2">
-                                            {{  value|yesno:"<span class='badge badge-success'>&#10003;</span>,<span class='badge badge-important'>&#x2716;</span>"|safe }}
+                                            {{ value|yesno:"<span class='badge badge-success'>&#10003;</span>,<span class='badge badge-important'>&#x2716;</span>"|safe }}
+                                        </td>
+                                    </tr>
+                                {% empty %}
+                                    <tr class="techSpecRow">
+                                        <td class="techSpecTD1">
+                                            No safety features to display
+                                        </td>
+                                        <td class="techSpecTD2">
                                         </td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
                             </table>
-
+                            <h4>{{ variant.car.name }} other variants</h4>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr id="variant_" class="editvariant">
+                                    <th>Name</th>
+                                    <th>Mileage</th>
+                                    <th>Engine</th>
+                                    <th>Starting Price</th>
+                                    <th>Starting Emi</th>
+                                    <th>On road price</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for list in petrol_variants %}
+                                    <tr>
+                                        <td>{{ list.name }}</td>
+                                        <td>{% firstof list.mileage.get.mileage_overall '--' %}</td>
+                                        <td>{% firstof list.engine.get.displacement '--' %}</td>
+                                        <td>{% firstof list.price.get.showroom_price '--' %}</td>
+                                        <td>{% firstof list.price.get.emi '--' %}</td>
+                                        <td></td>
+                                    </tr>
+                                {% endfor %}
+                                {% for list in diesel_variants %}
+                                    <tr class="editvariant" id="variant_{{ list.id }}">
+                                        <td>{{ list.name }}</td>
+                                        <td>{% firstof list.mileage.get.mileage_overall '--' %}</td>
+                                        <td>{% firstof list.engine.get.displacement '--' %}</td>
+                                        <td>{% firstof list.price.get.showroom_price '--' %}</td>
+                                        <td>{% firstof list.price.get.emi '--' %}</td>
+                                        <td></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
                         </div>
                         <div id="price" class="tab-pane fade">
                         </div>
@@ -134,4 +192,14 @@
 
 {% endblock %}
 {% block script %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.editvariant').click(function () {
+                var id = $(this).attr('id');
+                var splitElements = id.split("_");
+                var variantId = splitElements[1];
+                window.location.href = '/variant?variant_id=' + variantId;
+            });
+        });
+    </script>
 {% endblock %}

@@ -50,8 +50,14 @@ class DashboardView(View):
         variant_id = request.GET.get('variant_id')
         try:
             variant = Variant.objects.get(id=variant_id)
+            car_id  =variant.car.id
+            car = Car.objects.get(id=car_id)
+            diesel_variants = Variant.objects.filter(car=car).filter(fuel_id=1).exclude(id=variant_id)
+            petrol_variants = Variant.objects.filter(car=car).filter(fuel_id=2).exclude(id=variant_id)
         except Variant.DoesNotExist:
             variant = None
+            diesel_variants = None
+            petrol_variants = None
         try:
             interiorfeatures = InteriorFeatures.objects.get(variant=variant)
             interiorfeatures_dict = model_to_dict(interiorfeatures, fields=[], exclude=["id", "variant"])
@@ -75,4 +81,4 @@ class DashboardView(View):
                       {'variant': variant, 'interiorfeatures_dict': interiorfeatures_dict,
                        'exteriorfeatures_dict': exteriorfeatures_dict,'safetyfeatures_dict':safetyfeatures_dict ,
                        'exteriorfeatures': exteriorfeatures, 'safetyfeatures': safetyfeatures,
-                       'interiorfeatures': interiorfeatures})
+                       'interiorfeatures': interiorfeatures,'diesel_variants':diesel_variants,'petrol_variants':petrol_variants})
