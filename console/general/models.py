@@ -9,7 +9,7 @@ class Dimensions(models.Model):
     class Meta:
         db_table = 'dimensions'
 
-    variant = models.ForeignKey(Variant)
+    variant = models.ForeignKey(Variant, related_name='dimensions')
     length = models.CharField(max_length=100, blank=False)
     width = models.CharField(max_length=100, blank=False)
     height = models.CharField(max_length=100, blank=False)
