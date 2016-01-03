@@ -44,7 +44,7 @@
                     <ul class="nav nav-tabs" id="productDetail">
                         <li class="active"><a data-toggle="tab" href="#details">Full Details</a></li>
                         <li class=""><a data-toggle="tab" href="#price">Price</a></li>
-                        <li class=""><a data-toggle="tab" href="#specifications">Specifications</a></li>
+                        <li class=""><a data-toggle="tab" href="#specifications">Specification</a></li>
                         <li class=""><a data-toggle="tab" href="#reviews">Reviews</a></li>
                         <li class=""><a data-toggle="tab" href="#pictures">Pictures</a></li>
                         <li class=""><a data-toggle="tab" href="#dealers">Dealers</a></li>
@@ -227,10 +227,28 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            <h5>
+                                <span class="label label-info" id="myTabs">View detailed specifications</span>
+                            </h5>
                         </div>
                         <div id="price" class="tab-pane fade">
                         </div>
                         <div id="specifications" class="tab-pane fade">
+                            <ul class="nav nav-tabs" id="productDetail">
+                                <li class="active"><a data-toggle="tab" href="#technical_specifications">Technical
+                                    specifications</a></li>
+                                <li class=""><a data-toggle="tab" href="#features">Features</a></li>
+                                <li class=""><a data-toggle="tab" href="#colors">Colors</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="technical_specifications" class="tab-pane fade active in">
+                                    {% include 'partials/variants/technical_specifications.html' %}
+                                </div>
+                                <div id="features" class="tab-pane fade">
+                                </div>
+                                <div id="colors" class="tab-pane fade">
+                                </div>
+                            </div>
                         </div>
                         <div id="reviews" class="tab-pane fade">
                         </div>
@@ -258,6 +276,9 @@
                 var splitElements = id.split("_");
                 var variantId = splitElements[1];
                 window.location.href = '/variant?variant_id=' + variantId;
+            });
+            $('#myTabs').click(function () {
+                $('a[href="#specifications"]').tab('show');
             });
         });
     </script>

@@ -1,0 +1,174 @@
+<table class="table table-striped table-bordered table-condensed">
+    <thead>
+    <tr>
+        <th></th>
+        <th colspan="3">Dimensions</th>
+    </tr>
+    <tr>
+        <th>#</th>
+        <th>Length</th>
+        <th>Width</th>
+        <th>Height</th>
+        <th>Wheelbase</th>
+        <th>Bootspace</th>
+        <th>kerbweight</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>#</td>
+        <td>{% firstof variant.dimensions.get.length '--' %}</td>
+        <td>{% firstof variant.dimensions.get.width '--' %}</td>
+        <td>{% firstof variant.dimensions.get.height '--' %}</td>
+        <td>{% firstof variant.dimensions.get.wheelbase '--' %}</td>
+        <td>{% firstof variant.dimensions.get.bootspace '--' %}</td>
+        <td>{% firstof variant.dimensions.get.kerbweight '--' %}</td>
+    </tr>
+    </tbody>
+</table>
+<table class="table table-striped table-bordered table-condensed">
+    <thead>
+    <tr>
+        <th></th>
+        <th colspan="3">Engine</th>
+    </tr>
+    <tr>
+        <th>#</th>
+        <th>Torque</th>
+        <th>Dispalcement</th>
+        <th>Power</th>
+        <th>Cylinders</th>
+        <th>Valves per cylinder</th>
+        <th>Valve mechanism</th>
+        <th>Cyclinder configuration</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>#</td>
+        <td>{% firstof variant.engine.get.torque '--' %}</td>
+        <td>{% firstof variant.engine.get.displacement '--' %}</td>
+        <td>{% firstof variant.engine.get.power '--' %}</td>
+        <td>{% firstof variant.engine.get.cylinders '--' %}</td>
+        <td>{% firstof variant.engine.get.valvespercylinder '--' %}</td>
+        <td>{% firstof variant.engine.get.valvemechanism '--' %}</td>
+        <td>{% firstof variant.engine.get.cylinderconfiguration '--' %}</td>
+    </tr>
+    </tbody>
+</table>
+<table class="table table-striped table-bordered table-condensed">
+    <thead>
+    <tr>
+        <th></th>
+        <th colspan="3">Brake</th>
+    </tr>
+    <tr>
+        <th>#</th>
+        <th>Rear brakes</th>
+        <th>Front brakes</th>
+    </thead>
+    <tbody>
+    <tr>
+        <td>#</td>
+        <td>{% firstof variant.brake.get.rear_brakes '--' %}</td>
+        <td>{% firstof variant.brake.get.front_brakes '--' %}</td>
+    </tr>
+    </tbody>
+</table>
+<table class="table table-striped table-bordered table-condensed">
+    <thead>
+    <tr>
+        <th></th>
+        <th colspan="3">Capacity</th>
+    </tr>
+    <tr>
+        <th>#</th>
+        <th>Seating capacity</th>
+        <th>Tank capacity</th>
+    </thead>
+    <tbody>
+    <tr>
+        <td>#</td>
+        <td>{% firstof variant.capacity.get.seating_capacity '--' %}</td>
+        <td>{% firstof variant.capacity.get.tank_capacity '--' %}</td>
+    </tr>
+    </tbody>
+</table>
+<table class="table table-striped table-bordered table-condensed">
+    <thead>
+    <tr>
+        <th></th>
+        <th colspan="3">Mileage</th>
+    </tr>
+    <tr>
+        <th>#</th>
+        <th>Mileage highway</th>
+        <th>Mileage city</th>
+        <th>Mileage overall</th>
+    </thead>
+    <tbody>
+    <tr>
+        <td>#</td>
+        <td>{% firstof variant.mileage.get.mileage_highway '--' %}</td>
+        <td>{% firstof variant.mileage.get.mileage_city '--' %}</td>
+        <td>{% firstof variant.mileage.get.mileage_overall '--' %}</td>
+    </tr>
+    </tbody>
+</table>
+<table class="table table-striped table-bordered table-condensed">
+    <thead>
+    <tr>
+        <th></th>
+        <th colspan="3">Price details</th>
+    </tr>
+    <tr>
+        <th>#</th>
+        <th>Showroom price</th>
+        <th>Onroad price</th>
+    </thead>
+    <tbody>
+    <tr>
+        <td>#</td>
+        <td>{% firstof variant.price.get.showroom_price '--' %}</td>
+        <td>{% firstof variant.mileage.get.onroad_price '--' %}</td>
+    </tr>
+    </tbody>
+</table>
+<table class="table table-striped table-bordered table-condensed">
+    <thead>
+    <tr>
+        <th></th>
+        <th colspan="3">Steering</th>
+    </tr>
+    <tr>
+        <th>#</th>
+        <th>Turning radius</th>
+        <th>Steering type </th>
+    </thead>
+    <tbody>
+    <tr>
+        <td>#</td>
+        <td>{% firstof variant.steering.get.turning_radius '--' %}</td>
+        <td>{% firstof variant.steering.get.steering_type '--' %}</td>
+    </tr>
+    </tbody>
+</table>
+<table class="table table-striped table-bordered table-condensed">
+    <thead>
+    <tr>
+        <th></th>
+        <th colspan="3">Wheel</th>
+    </tr>
+    <tr>
+        <th>#</th>
+        <th>Wheelsize</th>
+        <th>Wheeltype</th>
+    </thead>
+    <tbody>
+    <tr>
+        <td>#</td>
+        <td>{% firstof variant.wheel.get.wheelsize '--' %}</td>
+        <td>{% firstof variant.wheel.get.wheeltype '--' %}</td>
+    </tr>
+    </tbody>
+</table>

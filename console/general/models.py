@@ -24,7 +24,7 @@ class Brake(models.Model):
     class Meta:
         db_table = 'brakes'
 
-    variant = models.ForeignKey(Variant)
+    variant = models.ForeignKey(Variant, related_name='brake')
     rear_brakes = models.CharField(max_length=100, blank=False)
     front_brakes = models.CharField(max_length=100, blank=False)
 
@@ -33,7 +33,7 @@ class Capacity(models.Model):
     class Meta:
         db_table = 'capacity'
 
-    variant = models.ForeignKey(Variant)
+    variant = models.ForeignKey(Variant, related_name='capacity')
     seating_capacity = models.PositiveIntegerField(null=True)
     tank_capacity = models.CharField(max_length=100, blank=True, null=True)
 
@@ -62,7 +62,7 @@ class Steering(models.Model):
     class Meta:
         db_table = 'steering'
 
-    variant = models.ForeignKey(Variant)
+    variant = models.ForeignKey(Variant, related_name='steering')
     turning_radius = models.CharField(max_length=100, blank=True, null=True)
     steering_type = models.CharField(max_length=100, blank=True, null=True)
 
@@ -71,7 +71,7 @@ class Wheel(models.Model):
     class Meta:
         db_table = 'wheel'
 
-    variant = models.ForeignKey(Variant)
+    variant = models.ForeignKey(Variant, related_name='wheel')
     wheelsize = models.CharField(max_length=100, blank=True, null=True)
     wheeltype = models.CharField(max_length=100, blank=True, null=True)
 
